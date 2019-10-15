@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть» [![Build status][travis-image]][travis-url]
 
 * Студент: [Ольга Ушакова](https://up.htmlacademy.ru/react/2/user/809831).
-* Наставник: `Неизвестно`.
+* Наставник: [Влад Слепкан](https://up.htmlacademy.ru/react/2/user/383197).
 
 ---
 
