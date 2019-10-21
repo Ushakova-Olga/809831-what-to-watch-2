@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const MainScreen = (props) => {
 
-  const {names} = props;
+  const {names, clickHandler} = props;
   return <>
       <section className="movie-card">
         <div className="movie-card__bg">
@@ -36,7 +36,7 @@ const MainScreen = (props) => {
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">The Grand Budapest Hotel</h2>
+              <h2 className="movie-card__title" onClick={clickHandler}>The Grand Budapest Hotel</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">Drama</span>
                 <span className="movie-card__year">2014</span>
@@ -127,6 +127,7 @@ const MainScreen = (props) => {
 
 MainScreen.propTypes = {
   names: PropTypes.array.isRequired,
+  clickHandler: PropTypes.func,
 };
 
 export default MainScreen;
