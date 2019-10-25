@@ -1,11 +1,11 @@
 import React from "react";
 import renderer from 'react-test-renderer';
 import SmallCard from '../small-card/small-card';
+import films from "../../mocks/films.js";
 
 it(`Small card correctly renders`, () => {
-  const testObject = {name: `Fantastic Beasts`, img: `bohemian-rhapsody.jpg`};
   const tree = renderer
-    .create(<SmallCard information={testObject} />)
+    .create(<SmallCard information={films[0]} />)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
