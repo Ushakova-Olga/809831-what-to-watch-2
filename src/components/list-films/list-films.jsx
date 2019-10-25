@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import SmallCard from "../../components/small-card/small-card.jsx";
 
 class ListFilms extends React.PureComponent {
-  const {films} = props;
 
   constructor(props) {
     super(props);
@@ -15,16 +15,18 @@ class ListFilms extends React.PureComponent {
   render() {
     const {films, clickHandler} = this.props;
     const {filmIndex} = this.state;
-
-    return
-      <div className="catalog__movies-list">
+    return <div className="catalog__movies-list">
         {films.map((it, i, arr) => <SmallCard key={it.name + i} information={it} clickHandler={clickHandler} />)}
-      </div>
+      </div>;
   }
 };
 
 ListFilms.propTypes = {
-  name: PropTypes.string.isRequired,
+  films: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      img: PropTypes.string.isRequired,
+    }).isRequired).isRequired,
   clickHandler: PropTypes.func,
 };
 

@@ -21,4 +21,4 @@ const films = [
   },
 ];
 
-export default questions;
+export default films;

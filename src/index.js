@@ -1,15 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import MainScreen from "./components/main-screen/main-screen.jsx";
+//import MainScreen from "./components/main-screen/main-screen.jsx";
+import App from "./components/app/app.jsx";
+import films from "./mocks/films.js";
 
-const init = () => {
-  const settings = {
-    names: [`Fantastic Beasts`, `Bohemian Rhapsody`, `Macbeth`, `Aviator`],
-  };
+/*const init = () => {
 
   ReactDOM.render(
       <MainScreen
-        names={settings.names}
+        films={films}
+      />,
+      document.querySelector(`#root`)
+  );
+};*/
+
+const init = () => {
+
+  ReactDOM.render(
+      <App
+        films={films}
       />,
       document.querySelector(`#root`)
   );

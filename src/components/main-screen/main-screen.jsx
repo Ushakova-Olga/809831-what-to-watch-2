@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const MainScreen = (props) => {
 
-  const {names, clickHandler} = props;
+  const {films, clickHandler} = props;
   return <>
       <section className="movie-card">
         <div className="movie-card__bg">
@@ -98,10 +98,7 @@ const MainScreen = (props) => {
             </li>
           </ul>
 
-          <div className="catalog__movies-list">
-            {names.map((it, i) => <ListFilms key={it + i} name={it} />)}
-
-          </div>
+          <ListFilms films={films} clickHandler={clickHandler} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
@@ -126,7 +123,11 @@ const MainScreen = (props) => {
 };
 
 MainScreen.propTypes = {
-  names: PropTypes.array.isRequired,
+  films: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      img: PropTypes.string.isRequired,
+    }).isRequired).isRequired,
   clickHandler: PropTypes.func,
 };
 
