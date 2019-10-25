@@ -124,10 +124,10 @@ const MainScreen = (props) => {
 
 MainScreen.propTypes = {
   films: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      img: PropTypes.string.isRequired,
-    }).isRequired).isRequired,
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        img: PropTypes.string.isRequired,
+      }).isRequired).isRequired,
   clickHandler: PropTypes.func,
 };
 

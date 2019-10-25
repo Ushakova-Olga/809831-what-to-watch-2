@@ -14,19 +14,19 @@ class ListFilms extends React.PureComponent {
 
   render() {
     const {films, clickHandler} = this.props;
-    const {filmIndex} = this.state;
+
     return <div className="catalog__movies-list">
-        {films.map((it, i, arr) => <SmallCard key={it.name + i} information={it} clickHandler={clickHandler} />)}
-      </div>;
+      {films.map((it, i) => <SmallCard key={it.name + i} information={it} clickHandler={clickHandler} />)}
+    </div>;
   }
-};
+}
 
 ListFilms.propTypes = {
   films: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      img: PropTypes.string.isRequired,
-    }).isRequired).isRequired,
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        img: PropTypes.string.isRequired,
+      }).isRequired).isRequired,
   clickHandler: PropTypes.func,
 };
 
