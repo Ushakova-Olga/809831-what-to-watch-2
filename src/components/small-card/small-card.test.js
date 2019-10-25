@@ -1,12 +1,11 @@
 import React from "react";
 import renderer from 'react-test-renderer';
-import ListFilms from '../list-films/list-films';
+import SmallCard from '../small-card/small-card';
 import films from "../../mocks/films.js";
 
-it(`List films correctly renders`, () => {
-
+it(`Small card correctly renders`, () => {
   const tree = renderer
-    .create(<ListFilms films={films} />)
-  .toJSON();
+    .create(<SmallCard information={films[0]} />)
+    .toJSON();
   expect(tree).toMatchSnapshot();
 });
