@@ -1,19 +1,26 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-const ListFilms = (props) => {
+class ListFilms extends React.PureComponent {
+  const {films} = props;
 
-  const {name, clickHandler} = props;
-  return <>
-    <article className="small-movie-card catalog__movies-card">
-      <div className="small-movie-card__image">
-        <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt={name} width="280" height="175" />
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      filmIndex: -1,
+    };
+  }
+
+  render() {
+    const {films, clickHandler} = this.props;
+    const {filmIndex} = this.state;
+
+    return
+      <div className="catalog__movies-list">
+        {films.map((it, i, arr) => <SmallCard key={it.name + i} information={it} clickHandler={clickHandler} />)}
       </div>
-      <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href="movie-page.html" onClick={clickHandler}>{name}</a>
-      </h3>
-    </article>
-  </>;
+  }
 };
 
 ListFilms.propTypes = {
