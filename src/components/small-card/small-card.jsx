@@ -7,7 +7,9 @@ const SmallCard = (props) => {
   const {name, img} = information;
 
   return <>
-    <article className="small-movie-card catalog__movies-card">
+    <article className="small-movie-card catalog__movies-card" onClick={() => {
+      window.location.href = `/details`;
+    }}>
       <div className="small-movie-card__image">
         <img src={`img/${img}`} alt={name} width="280" height="175" />
       </div>
