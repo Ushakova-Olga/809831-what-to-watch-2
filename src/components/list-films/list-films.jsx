@@ -16,7 +16,7 @@ class ListFilms extends React.PureComponent {
     const {films, clickHandler} = this.props;
 
     return <div className="catalog__movies-list">
-      {films.map((it, i) => <SmallCard key={it.name + i} information={it} clickHandler={clickHandler} />)}
+      {films.map((it, i) => <SmallCard key={it.name + i} information={{name: it.name, img: it.img, id: i}} clickHandler={clickHandler} />)}
     </div>;
   }
 }

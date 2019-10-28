@@ -259,6 +259,7 @@ Array [
       >
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -284,6 +285,7 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -309,6 +311,7 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -334,6 +337,7 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -359,6 +363,7 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -379,6 +384,32 @@ Array [
               onMouseOver={[Function]}
             >
               We need to talk about Kevin
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+          >
+            <img
+              alt="The Grand Budapest Hotel"
+              height="175"
+              src="img/the-grand-budapest-hotel-poster.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+              onMouseOver={[Function]}
+            >
+              The Grand Budapest Hotel
             </a>
           </h3>
         </article>
