@@ -6,6 +6,7 @@ const films = [
     year: 2014,
     posterlarge: `the-grand-budapest-hotel-poster.jpg`,
     cover: `bg-the-grand-budapest-hotel.jpg`,
+    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
     name: `Fantastic Beasts`,
@@ -14,6 +15,7 @@ const films = [
     year: 2014,
     posterlarge: `the-grand-budapest-hotel-poster.jpg`,
     cover: `bg-the-grand-budapest-hotel.jpg`,
+    src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   },
   {
     name: `Macbeth`,
@@ -22,6 +24,7 @@ const films = [
     year: 2014,
     posterlarge: `the-grand-budapest-hotel-poster.jpg`,
     cover: `bg-the-grand-budapest-hotel.jpg`,
+    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
     name: `Aviator`,
@@ -30,6 +33,7 @@ const films = [
     year: 2014,
     posterlarge: `the-grand-budapest-hotel-poster.jpg`,
     cover: `bg-the-grand-budapest-hotel.jpg`,
+    src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   },
   {
     name: `We need to talk about Kevin`,
@@ -38,6 +42,7 @@ const films = [
     year: 2014,
     posterlarge: `the-grand-budapest-hotel-poster.jpg`,
     cover: `bg-the-grand-budapest-hotel.jpg`,
+    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   },
   {
     name: `The Grand Budapest Hotel`,
@@ -46,6 +51,7 @@ const films = [
     year: 2014,
     posterlarge: `the-grand-budapest-hotel-poster.jpg`,
     cover: `bg-the-grand-budapest-hotel.jpg`,
+    src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   },
 ];
 

@@ -11,11 +11,6 @@ it(`List films correctly pressed header`, () => {
   const componentListFilms = mount(<ListFilms films={films}
     clickHandler={clickHandler} />);
 
-  componentListFilms.find(`a`).at(0).simulate(`mouseover`);
-  componentListFilms.find(`a`).at(1).simulate(`mouseover`);
-  componentListFilms.find(`a`).at(2).simulate(`mouseover`);
-  componentListFilms.find(`a`).at(3).simulate(`mouseover`);
-  componentListFilms.find(`a`).at(4).simulate(`mouseover`);
-
-  expect(clickHandler).toHaveBeenCalledTimes(5);
+  componentListFilms.find(`.small-movie-card`).at(0).simulate(`click`);
+  expect(clickHandler).toHaveBeenCalledTimes(1);
 });

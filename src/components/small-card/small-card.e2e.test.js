@@ -1,19 +1,22 @@
 import React from 'react';
-import Enzyme, {mount} from 'enzyme';
+import Enzyme, {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import SmallCard from '../small-card/small-card';
 import films from "../../mocks/films.js";
 
 Enzyme.configure({adapter: new Adapter()});
 
-it(`Small card correctly pressed header`, () => {
+it(`Small card correctly mouse enter and leave`, () => {
   const clickHandler = jest.fn();
-  const componentListFilms = mount(<SmallCard information={films[0]}
-    clickHandler={clickHandler} />);
+  jest.useFakeTimers();
+  const componentSmallCard = shallow(<SmallCard information={films[0]}
+    onCardMouseEnter={clickHandler}
+    onCardMouseLeave={clickHandler}
+    id={0} />);
 
-  const filmHeader = componentListFilms.find(`a`);
-  filmHeader.simulate(`mouseover`);
-
-  expect(clickHandler).toHaveBeenCalledTimes(1);
-  expect(clickHandler).toHaveBeenCalledWith(films[0]);
+  componentSmallCard.simulate(`mouseenter`);
+  jest.runAllTimers();
+  expect(componentSmallCard.state(`isPlaying`)).toBe(true);
+  componentSmallCard.simulate(`mouseleave`);
+  expect(componentSmallCard.state(`isPlaying`)).toBe(false);
 });
