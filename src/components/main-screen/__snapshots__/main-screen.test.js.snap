@@ -260,16 +260,23 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Fantastic Beasts: The Crimes of Grindelwald"
-              height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-              width="280"
-            />
+            <video
+              height="100%"
+              muted={true}
+              poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              width="100%"
+            >
+              <source
+                src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+                type="video/mp4"
+              />
+            </video>
           </div>
           <h3
             className="small-movie-card__title"
@@ -277,7 +284,6 @@ Array [
             <a
               className="small-movie-card__link"
               href="movie-page.html"
-              onMouseOver={[Function]}
             >
               Fantastic Beasts: The Crimes of Grindelwald
             </a>
@@ -286,16 +292,23 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Fantastic Beasts"
-              height="175"
-              src="img/bohemian-rhapsody.jpg"
-              width="280"
-            />
+            <video
+              height="100%"
+              muted={true}
+              poster="img/bohemian-rhapsody.jpg"
+              width="100%"
+            >
+              <source
+                src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+                type="video/webm"
+              />
+            </video>
           </div>
           <h3
             className="small-movie-card__title"
@@ -303,7 +316,6 @@ Array [
             <a
               className="small-movie-card__link"
               href="movie-page.html"
-              onMouseOver={[Function]}
             >
               Fantastic Beasts
             </a>
@@ -312,16 +324,23 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Macbeth"
-              height="175"
-              src="img/macbeth.jpg"
-              width="280"
-            />
+            <video
+              height="100%"
+              muted={true}
+              poster="img/macbeth.jpg"
+              width="100%"
+            >
+              <source
+                src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+                type="video/mp4"
+              />
+            </video>
           </div>
           <h3
             className="small-movie-card__title"
@@ -329,7 +348,6 @@ Array [
             <a
               className="small-movie-card__link"
               href="movie-page.html"
-              onMouseOver={[Function]}
             >
               Macbeth
             </a>
@@ -338,16 +356,23 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Aviator"
-              height="175"
-              src="img/aviator.jpg"
-              width="280"
-            />
+            <video
+              height="100%"
+              muted={true}
+              poster="img/aviator.jpg"
+              width="100%"
+            >
+              <source
+                src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+                type="video/webm"
+              />
+            </video>
           </div>
           <h3
             className="small-movie-card__title"
@@ -355,7 +380,6 @@ Array [
             <a
               className="small-movie-card__link"
               href="movie-page.html"
-              onMouseOver={[Function]}
             >
               Aviator
             </a>
@@ -364,16 +388,23 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="We need to talk about Kevin"
-              height="175"
-              src="img/we-need-to-talk-about-kevin.jpg"
-              width="280"
-            />
+            <video
+              height="100%"
+              muted={true}
+              poster="img/we-need-to-talk-about-kevin.jpg"
+              width="100%"
+            >
+              <source
+                src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+                type="video/mp4"
+              />
+            </video>
           </div>
           <h3
             className="small-movie-card__title"
@@ -381,7 +412,6 @@ Array [
             <a
               className="small-movie-card__link"
               href="movie-page.html"
-              onMouseOver={[Function]}
             >
               We need to talk about Kevin
             </a>
@@ -390,16 +420,23 @@ Array [
         <article
           className="small-movie-card catalog__movies-card"
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
         >
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="The Grand Budapest Hotel"
-              height="175"
-              src="img/the-grand-budapest-hotel-poster.jpg"
-              width="280"
-            />
+            <video
+              height="100%"
+              muted={true}
+              poster="img/the-grand-budapest-hotel-poster.jpg"
+              width="100%"
+            >
+              <source
+                src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+                type="video/webm"
+              />
+            </video>
           </div>
           <h3
             className="small-movie-card__title"
@@ -407,7 +444,6 @@ Array [
             <a
               className="small-movie-card__link"
               href="movie-page.html"
-              onMouseOver={[Function]}
             >
               The Grand Budapest Hotel
             </a>

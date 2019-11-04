@@ -14,9 +14,20 @@ class ListFilms extends React.PureComponent {
 
   render() {
     const {films, clickHandler} = this.props;
-
     return <div className="catalog__movies-list">
-      {films.map((it, i) => <SmallCard key={it.name + i} information={{name: it.name, img: it.img, id: i}} clickHandler={clickHandler} />)}
+      {films.map((it, i) => <SmallCard
+        key={it.name + i}
+        id={i}
+        information={{name: it.name, img: it.img, src: it.src}}
+        clickHandler={clickHandler}
+        isPlaying={false}
+        onCardMouseEnter={() => {
+          this.setState({filmIndex: i});
+        }}
+        onCardMouseLeave={() => {
+          this.setState({filmIndex: -1});
+        }}
+      />)}
     </div>;
   }
 }
