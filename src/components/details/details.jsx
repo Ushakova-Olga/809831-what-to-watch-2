@@ -1,8 +1,10 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import Tabs from "../tabs/tabs.jsx";
+import ListFilms from "../../components/list-films/list-films.jsx";
 
 const Details = (props) => {
-  const {information} = props;
+  const {information, films, clickHandler} = props;
 
   const {
     name,
@@ -71,51 +73,8 @@ const Details = (props) => {
               <img src={`img/${posterlarge}`} alt={name} width="218" height="327" />
             </div>
 
-            <div className="movie-card__desc">
-              <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Overview</a>
-                  </li>
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <a href="#" className="movie-nav__link">Details</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
+            <Tabs information={information} />
 
-              <div className="movie-card__text movie-card__row">
-                <div className="movie-card__text-col">
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Director</strong>
-                    <span className="movie-card__details-value">Wes Andreson</span>
-                  </p>
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Starring</strong>
-                    <span className="movie-card__details-value">
-                      Bill Murray,
-                    </span>
-                  </p>
-                </div>
-
-                <div className="movie-card__text-col">
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Run Time</strong>
-                    <span className="movie-card__details-value">1h 39m</span>
-                  </p>
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Genre</strong>
-                    <span className="movie-card__details-value">{genre}</span>
-                  </p>
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Released</strong>
-                    <span className="movie-card__details-value">{year}</span>
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -125,41 +84,7 @@ const Details = (props) => {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__movies-list">
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Bohemian Rhapsody</a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Macbeth</a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Aviator</a>
-              </h3>
-            </article>
+            <ListFilms films={films.filter((it) => it.genre === genre)} clickHandler={clickHandler} />
           </div>
         </section>
 
@@ -188,7 +113,27 @@ Details.propTypes = {
     year: PropTypes.number.isRequired,
     posterlarge: PropTypes.string.isRequired,
     cover: PropTypes.string.isRequired,
+    src: PropTypes.string.isRequired,
+    rating: PropTypes.string.isRequired,
+    ratingCount: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    actors: PropTypes.array.isRequired,
   }).isRequired,
+  films: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        img: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        year: PropTypes.number.isRequired,
+        posterlarge: PropTypes.string.isRequired,
+        cover: PropTypes.string.isRequired,
+        src: PropTypes.string.isRequired,
+        rating: PropTypes.string.isRequired,
+        ratingCount: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        actors: PropTypes.array.isRequired,
+      }).isRequired).isRequired,
+  clickHandler: PropTypes.func,
 };
 
 export default Details;

@@ -9,7 +9,7 @@ const getPageScreen = (props) => {
     case `/`:
       return <MainScreen films={films} clickHandler={() => {}} />;
     case `/details`:
-      return <Details information={films[5]} />;
+      return <Details information={films[5]} films={films} clickHandler={() => {}} />;
   }
   return <MainScreen films={films} clickHandler={() => {}} />;
 };
@@ -23,6 +23,15 @@ getPageScreen.propTypes = {
       PropTypes.shape({
         name: PropTypes.string.isRequired,
         img: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        year: PropTypes.number.isRequired,
+        posterlarge: PropTypes.string.isRequired,
+        cover: PropTypes.string.isRequired,
+        src: PropTypes.string.isRequired,
+        rating: PropTypes.string.isRequired,
+        ratingCount: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        actors: PropTypes.array.isRequired,
       }).isRequired).isRequired,
 };
 
