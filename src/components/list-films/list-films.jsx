@@ -18,7 +18,7 @@ class ListFilms extends React.PureComponent {
       {films.map((it, i) => <SmallCard
         key={it.name + i}
         id={i}
-        information={{name: it.name, img: it.img, genre: it.genre, year: it.year, posterlarge: it.posterlarge, cover: it.cover, src: it.src, rating: it.rating, ratingCount: it.ratingCount, description: it.deskription, actors: it.actors}}
+        information={{name: it.name, img: it.img, genre: it.genre, year: it.year, posterlarge: it.posterlarge, cover: it.cover, src: it.src, rating: it.rating, ratingCount: it.ratingCount, description: it.description, actors: it.actors}}
         clickHandler={clickHandler}
         isPlaying={false}
         onCardMouseEnter={() => {

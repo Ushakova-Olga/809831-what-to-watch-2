@@ -9,7 +9,7 @@ const getPageScreen = (props) => {
     case `/`:
       return <MainScreen films={films} clickHandler={() => {}} />;
     case `/details`:
-      return <Details information={films[5]} />;
+      return <Details information={films[5]} films={films} clickHandler={() => {}} />;
   }
   return <MainScreen films={films} clickHandler={() => {}} />;
 };

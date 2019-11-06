@@ -18,7 +18,7 @@ const films = [
   {
     name: `Fantastic Beasts`,
     img: `bohemian-rhapsody.jpg`,
-    genre: `Drama`,
+    genre: `Comedy`,
     year: 2014,
     posterlarge: `the-grand-budapest-hotel-poster.jpg`,
     cover: `bg-the-grand-budapest-hotel.jpg`,
@@ -34,7 +34,7 @@ const films = [
   {
     name: `Macbeth`,
     img: `macbeth.jpg`,
-    genre: `Drama`,
+    genre: `Tragedy`,
     year: 2014,
     posterlarge: `the-grand-budapest-hotel-poster.jpg`,
     cover: `bg-the-grand-budapest-hotel.jpg`,
@@ -66,7 +66,7 @@ const films = [
   {
     name: `We need to talk about Kevin`,
     img: `we-need-to-talk-about-kevin.jpg`,
-    genre: `Drama`,
+    genre: `Comedy`,
     year: 2014,
     posterlarge: `the-grand-budapest-hotel-poster.jpg`,
     cover: `bg-the-grand-budapest-hotel.jpg`,
