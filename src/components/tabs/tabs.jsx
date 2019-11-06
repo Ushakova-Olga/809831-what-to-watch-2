@@ -18,26 +18,42 @@ class Tabs extends React.PureComponent {
         <nav className="movie-nav movie-card__nav">
           <ul className="movie-nav__list">
 
-            <li class = {`movie-nav__item ${this.state.currentTab === 0 ? movie-nav__item--active:``}`}>
-              <a href="#" class="movie-nav__link">Overview</a>
+            <li className = {`movie-nav__item ${this.state.currentTab === 0 ? `movie-nav__item--active`:``}`}>
+              <a href="#" className="movie-nav__link" onClick={(evt) => {
+                  evt.preventDefault();
+                  if (this.state.activeTab !== 0) {
+                    this.setState({currentTab: 0});
+                  }
+                }}>Overview</a>
             </li>
-            <li class = {`movie-nav__item ${this.state.currentTab === 1 ? movie-nav__item--active:``}`}>
-              <a href="#" class="movie-nav__link">Details</a>
+            <li className = {`movie-nav__item ${this.state.currentTab === 1 ? `movie-nav__item--active`:``}`}>
+              <a href="#" className="movie-nav__link" onClick={(evt) => {
+                  evt.preventDefault();
+                  if (this.state.activeTab !== 1) {
+                    this.setState({currentTab: 1});
+                  }
+                }}>Details</a>
             </li>
-            <li class = {`movie-nav__item ${this.state.currentTab === 2 ? movie-nav__item--active:``}`}>
-              <a href="#" class="movie-nav__link">Reviews</a>
+            <li className = {`movie-nav__item ${this.state.currentTab === 2 ? `movie-nav__item--active`:``}`}>
+              <a href="#" className="movie-nav__link" onClick={(evt) => {
+                  evt.preventDefault();
+                  if (this.state.activeTab !== 2) {
+                    this.setState({currentTab: 2});
+                  }
+                }}>Reviews</a>
             </li>
           </ul>
         </nav>
 
-        {renderOverview(currentTab, indexTab: index, information)}
-        {renderDetails(currentTab, indexTab: index, information)}
-        {renderReviews(currentTab, indexTab: index, information)}
+        {this.renderOverview(currentTab, 0)}
+        {this.renderDetails(currentTab, 1)}
+        {this.renderReviews(currentTab, 2)}
       </section>
     );
   }
 
-  renderOverview({currentTab, indexTab, information}) {
+  renderOverview(currentTab, indexTab) {
+    const {information} = this.props;
     if (currentTab === indexTab) {
       return <article>
         <div className="movie-rating">
@@ -65,7 +81,8 @@ class Tabs extends React.PureComponent {
     return null;
   }
 
-  renderDetails({currentTab, indexTab, information}) {
+  renderDetails(currentTab, indexTab) {
+    const {information} = this.props;
     if (currentTab === indexTab) {
       return <article className="movie-card__text movie-card__row">
         <div className="movie-card__text-col">
@@ -103,7 +120,8 @@ class Tabs extends React.PureComponent {
     return null;
   }
 
-  renderReviews({currentTab, indexTab}) {
+  renderReviews(currentTab, indexTab) {
+    const {information} = this.props;
     if (currentTab === indexTab) {
       return <article className="movie-card__reviews movie-card__row">
         <div className="movie-card__reviews-col">
@@ -231,33 +249,16 @@ Tabs.propTypes = {
   information: PropTypes.shape({
     name: PropTypes.string.isRequired,
     img: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    posterlarge: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired,
     src: PropTypes.string.isRequired,
-    rating,
-    ratingCount,
-    description,
-    actors,
-    genre,
-    year,
+    rating: PropTypes.string.isRequired,
+    ratingCount: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    actors: PropTypes.array.isRequired,
   }).isRequired,
-/*  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
-
-  film: PropTypes.instanceOf(Film).isRequired,*/
 };
-
-
-/*SmallCard.propTypes = {
-  information: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
-  }).isRequired,
-  clickHandler: PropTypes.func,
-  onCardMouseEnter: PropTypes.func,
-  onCardMouseLeave: PropTypes.func,
-  id: PropTypes.number.isRequired,
-};*/
 
 export default Tabs;

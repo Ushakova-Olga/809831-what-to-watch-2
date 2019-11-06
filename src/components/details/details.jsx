@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import Tabs from "../tabs/tabs.jsx";
 
 const Details = (props) => {
   const {information} = props;
@@ -11,6 +12,12 @@ const Details = (props) => {
     year,
     posterlarge,
     cover,
+    src,
+    rating,
+    ratingCount,
+    director,
+    actors,
+    duration,
   } = information;
 
   return <>
@@ -71,51 +78,8 @@ const Details = (props) => {
               <img src={`img/${posterlarge}`} alt={name} width="218" height="327" />
             </div>
 
-            <div className="movie-card__desc">
-              <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Overview</a>
-                  </li>
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <a href="#" className="movie-nav__link">Details</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
+            <Tabs information={information} />
 
-              <div className="movie-card__text movie-card__row">
-                <div className="movie-card__text-col">
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Director</strong>
-                    <span className="movie-card__details-value">Wes Andreson</span>
-                  </p>
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Starring</strong>
-                    <span className="movie-card__details-value">
-                      Bill Murray,
-                    </span>
-                  </p>
-                </div>
-
-                <div className="movie-card__text-col">
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Run Time</strong>
-                    <span className="movie-card__details-value">1h 39m</span>
-                  </p>
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Genre</strong>
-                    <span className="movie-card__details-value">{genre}</span>
-                  </p>
-                  <p className="movie-card__details-item">
-                    <strong className="movie-card__details-name">Released</strong>
-                    <span className="movie-card__details-value">{year}</span>
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
