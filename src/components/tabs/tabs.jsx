@@ -10,7 +10,6 @@ class Tabs extends React.PureComponent {
   }
 
   render() {
-    const {information} = this.props;
     const {currentTab} = this.state;
 
     return (
@@ -18,29 +17,29 @@ class Tabs extends React.PureComponent {
         <nav className="movie-nav movie-card__nav">
           <ul className="movie-nav__list">
 
-            <li className = {`movie-nav__item ${this.state.currentTab === 0 ? `movie-nav__item--active`:``}`}>
+            <li className = {`movie-nav__item ${this.state.currentTab === 0 ? `movie-nav__item--active` : ``}`}>
               <a href="#" className="movie-nav__link" onClick={(evt) => {
-                  evt.preventDefault();
-                  if (this.state.activeTab !== 0) {
-                    this.setState({currentTab: 0});
-                  }
-                }}>Overview</a>
+                evt.preventDefault();
+                if (this.state.activeTab !== 0) {
+                  this.setState({currentTab: 0});
+                }
+              }}>Overview</a>
             </li>
-            <li className = {`movie-nav__item ${this.state.currentTab === 1 ? `movie-nav__item--active`:``}`}>
+            <li className = {`movie-nav__item ${this.state.currentTab === 1 ? `movie-nav__item--active` : ``}`}>
               <a href="#" className="movie-nav__link" onClick={(evt) => {
-                  evt.preventDefault();
-                  if (this.state.activeTab !== 1) {
-                    this.setState({currentTab: 1});
-                  }
-                }}>Details</a>
+                evt.preventDefault();
+                if (this.state.activeTab !== 1) {
+                  this.setState({currentTab: 1});
+                }
+              }}>Details</a>
             </li>
-            <li className = {`movie-nav__item ${this.state.currentTab === 2 ? `movie-nav__item--active`:``}`}>
+            <li className = {`movie-nav__item ${this.state.currentTab === 2 ? `movie-nav__item--active` : ``}`}>
               <a href="#" className="movie-nav__link" onClick={(evt) => {
-                  evt.preventDefault();
-                  if (this.state.activeTab !== 2) {
-                    this.setState({currentTab: 2});
-                  }
-                }}>Reviews</a>
+                evt.preventDefault();
+                if (this.state.activeTab !== 2) {
+                  this.setState({currentTab: 2});
+                }
+              }}>Reviews</a>
             </li>
           </ul>
         </nav>
@@ -121,7 +120,6 @@ class Tabs extends React.PureComponent {
   }
 
   renderReviews(currentTab, indexTab) {
-    const {information} = this.props;
     if (currentTab === indexTab) {
       return <article className="movie-card__reviews movie-card__row">
         <div className="movie-card__reviews-col">
@@ -258,6 +256,8 @@ Tabs.propTypes = {
     ratingCount: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     actors: PropTypes.array.isRequired,
+    director: PropTypes.string.isRequired,
+    duration: PropTypes.number.isRequired,
   }).isRequired,
 };
 

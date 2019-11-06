@@ -13,13 +13,6 @@ const Details = (props) => {
     year,
     posterlarge,
     cover,
-    src,
-    rating,
-    ratingCount,
-    director,
-    actors,
-    duration,
-    description,
   } = information;
 
   return <>
@@ -120,7 +113,27 @@ Details.propTypes = {
     year: PropTypes.number.isRequired,
     posterlarge: PropTypes.string.isRequired,
     cover: PropTypes.string.isRequired,
+    src: PropTypes.string.isRequired,
+    rating: PropTypes.string.isRequired,
+    ratingCount: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    actors: PropTypes.array.isRequired,
   }).isRequired,
+  films: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        img: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        year: PropTypes.number.isRequired,
+        posterlarge: PropTypes.string.isRequired,
+        cover: PropTypes.string.isRequired,
+        src: PropTypes.string.isRequired,
+        rating: PropTypes.string.isRequired,
+        ratingCount: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        actors: PropTypes.array.isRequired,
+      }).isRequired).isRequired,
+  clickHandler: PropTypes.func,
 };
 
 export default Details;

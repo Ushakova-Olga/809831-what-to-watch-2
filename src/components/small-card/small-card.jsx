@@ -23,7 +23,7 @@ class SmallCard extends React.PureComponent {
   render() {
     const {information, clickHandler, onCardMouseLeave, id} = this.props;
     const {isPlaying} = this.state;
-    const {name, img, genre, year, posterlarge, cover, src, rating, ratingCount, description, actors} = information;
+    const {name, img, src} = information;
 
     return <article className="small-movie-card catalog__movies-card"
       onClick={() => {
@@ -59,15 +59,7 @@ SmallCard.propTypes = {
   information: PropTypes.shape({
     name: PropTypes.string.isRequired,
     img: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    posterlarge: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
     src: PropTypes.string.isRequired,
-    rating: PropTypes.string.isRequired,
-    ratingCount: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    actors: PropTypes.array.isRequired,
   }).isRequired,
   clickHandler: PropTypes.func,
   onCardMouseEnter: PropTypes.func,
