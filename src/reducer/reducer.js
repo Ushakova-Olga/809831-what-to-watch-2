@@ -22,7 +22,6 @@ const ActionCreator = {
 
   // получение списка фильмов в соответствии с выбранным жанром
   getFilmsListOnGenre: (genre) => {
-
     return {
       type: `FILMS_FILTER`,
       payload: getFilms(genre)
