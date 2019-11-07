@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer";
 
 const getPageScreen = (props) => {
-  const {genre, films, clickFilterHandler} = props;
+  const {films, clickFilterHandler} = props;
   switch (location.pathname) {
     case `/`:
       return <MainScreen films={films} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} />;
@@ -35,12 +35,12 @@ getPageScreen.propTypes = {
         description: PropTypes.string.isRequired,
         actors: PropTypes.array.isRequired,
       }).isRequired).isRequired,
+  clickFilterHandler: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
   films: state.films
 });
-
 
 const mapDispatchToProps = (dispatch) => ({
   clickFilterHandler: (genre) => {
@@ -49,6 +49,5 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-//export default App;
 export {App};
 export default connect(mapStateToProps, mapDispatchToProps)(App);

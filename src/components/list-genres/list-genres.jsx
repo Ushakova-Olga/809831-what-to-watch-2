@@ -65,6 +65,7 @@ ListGenres.propTypes = {
         description: PropTypes.string.isRequired,
         actors: PropTypes.array.isRequired,
       }).isRequired).isRequired,
+  clickFilterHandler: PropTypes.func,
 };
 
 export default ListGenres;

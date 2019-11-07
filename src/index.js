@@ -5,10 +5,8 @@ import {Provider} from "react-redux";
 import {reducer} from "./reducer/reducer";
 
 import App from "./components/app/app.jsx";
-//import films from "./mocks/films.js";
 
-
-const init = (filmsList) => {
+const init = () => {
   const store = createStore(reducer);
   ReactDOM.render(
       <Provider store={store}>

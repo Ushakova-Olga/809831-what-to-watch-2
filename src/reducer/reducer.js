@@ -1,16 +1,16 @@
-import films from "../mocks/films";
+import FILMS from "../mocks/films";
 
 const initialState = {
   genre: `All genres`,
-  films: films
+  films: FILMS
 };
 
 const getFilms = (genre) => {
   if (genre.toLowerCase() === `all genres`) {
-    return films;
+    return FILMS;
   }
 
-  return films.filter((it) => it.genre.toLowerCase() === genre.toLowerCase());
+  return FILMS.filter((it) => it.genre.toLowerCase() === genre.toLowerCase());
 };
 
 const ActionCreator = {
