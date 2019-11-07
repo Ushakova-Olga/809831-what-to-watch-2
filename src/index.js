@@ -5,7 +5,7 @@ import {Provider} from "react-redux";
 import {reducer} from "./reducer/reducer";
 
 import App from "./components/app/app.jsx";
-import films from "./mocks/films.js";
+//import films from "./mocks/films.js";
 
 
 const init = (filmsList) => {
@@ -13,11 +13,10 @@ const init = (filmsList) => {
   ReactDOM.render(
       <Provider store={store}>
         <App
-          films={filmsList}
         />
       </Provider>,
       document.querySelector(`#root`)
   );
 };
 
-init(films);
+init();

@@ -1,33 +1,52 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import films from "../../mocks/films";
 
-export default class ListGenres extends React.PureComponent {
+class ListGenres extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       currentFilter: `All genres`
     };
+    this.onFilterClick = this.onFilterClick.bind(this);
   }
 
-  render(){
-    return <ul>
-      {this.getListGenres().map((it, i) => <li>
-        it.genre
-        </li>
-      }
-    </ul>;
+  render() {
+    return (
+      <ul className="catalog__genres-list">
+        {this.getListGenres().map((it) => {
+          return (
+            <li
+              className={ this.state.currentFilter.toLowerCase() === it.toLowerCase() ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`}
+              key={it}>
+              <a href="#" className="catalog__genres-link" onClick={this.onFilterClick}>{it}</a>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  }
+
+  onFilterClick(evt) {
+    const {clickFilterHandler} = this.props;
+    evt.preventDefault();
+
+    clickFilterHandler(evt.target.textContent.toLowerCase());
+    this.setState({
+      currentFilter: evt.target.textContent.toLowerCase()
+    });
   }
 
   getListGenres() {
-    const {films} = this.props;
-    const list = {};
+    const list = [];
     list.push(`All genres`);
     films.forEach((it) => {
       list.push(it.genre);
     });
-    console.log(list);
-    return list;
+
+    const set = new Set(list);
+    return [...set];
   }
 }
 

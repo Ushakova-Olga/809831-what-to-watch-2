@@ -5,6 +5,14 @@ const initialState = {
   films: films
 };
 
+const getFilms = (genre) => {
+  if (genre.toLowerCase() === `all genres`) {
+    return films;
+  }
+
+  return films.filter((it) => it.genre.toLowerCase() === genre.toLowerCase());
+};
+
 const ActionCreator = {
   // изменение фильтра по жанрам
   setNewFilmsGenre: (genre) => ({
@@ -14,14 +22,10 @@ const ActionCreator = {
 
   // получение списка фильмов в соответствии с выбранным жанром
   getFilmsListOnGenre: (genre) => {
+
     return {
       type: `FILMS_FILTER`,
-      payload: (genre) => {
-        if (genre === `All genres`) {
-          return films;
-        }
-        return films.filter((it) => it.genre === genre);
-      }
+      payload: getFilms(genre)
     };
   }
 };
