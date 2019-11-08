@@ -5,12 +5,12 @@ const initialState = {
   films: FILMS
 };
 
-const getFilms = (genre) => {
+const getFilms = (genre, filmsList) => {
   if (genre.toLowerCase() === `all genres`) {
-    return FILMS;
+    return filmsList;
   }
 
-  return FILMS.filter((it) => it.genre.toLowerCase() === genre.toLowerCase());
+  return filmsList.filter((it) => it.genre.toLowerCase() === genre.toLowerCase());
 };
 
 const ActionCreator = {
@@ -24,7 +24,7 @@ const ActionCreator = {
   getFilmsListOnGenre: (genre) => {
     return {
       type: `FILMS_FILTER`,
-      payload: getFilms(genre)
+      payload: getFilms(genre, FILMS)
     };
   }
 };
