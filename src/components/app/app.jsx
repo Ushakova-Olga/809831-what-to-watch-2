@@ -2,12 +2,14 @@ import React from "react";
 import PropTypes from 'prop-types';
 import MainScreen from "../../components/main-screen/main-screen.jsx";
 import Details from "../../components/details/details.jsx";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../reducer/reducer";
 
 const getPageScreen = (props) => {
-  const {films} = props;
+  const {films, clickFilterHandler} = props;
   switch (location.pathname) {
     case `/`:
-      return <MainScreen films={films} clickHandler={() => {}} />;
+      return <MainScreen films={films} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} />;
     case `/details`:
       return <Details information={films[5]} films={films} clickHandler={() => {}} />;
   }
@@ -33,6 +35,19 @@ getPageScreen.propTypes = {
         description: PropTypes.string.isRequired,
         actors: PropTypes.array.isRequired,
       }).isRequired).isRequired,
+  clickFilterHandler: PropTypes.func,
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  films: state.films
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  clickFilterHandler: (genre) => {
+    dispatch(ActionCreator.setNewFilmsGenre(genre));
+    dispatch(ActionCreator.getFilmsListOnGenre(genre));
+  }
+});
+
+export {App};
+export default connect(mapStateToProps, mapDispatchToProps)(App);

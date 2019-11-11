@@ -1,9 +1,10 @@
 import React from "react";
 import ListFilms from "../../components/list-films/list-films.jsx";
+import ListGenres from "../../components/list-genres/list-genres.jsx";
 import PropTypes from 'prop-types';
 
 const MainScreen = (props) => {
-  const {films, clickHandler} = props;
+  const {films, clickHandler, clickFilterHandler} = props;
 
   return <>
       <section className="movie-card">
@@ -65,38 +66,7 @@ const MainScreen = (props) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
+          <ListGenres films={films} clickFilterHandler={clickFilterHandler} />
 
           <ListFilms films={films} clickHandler={clickHandler} />
 
@@ -138,6 +108,7 @@ MainScreen.propTypes = {
         actors: PropTypes.array.isRequired,
       }).isRequired).isRequired,
   clickHandler: PropTypes.func,
+  clickFilterHandler: PropTypes.func,
 };
 
 export default MainScreen;
