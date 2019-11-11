@@ -16,9 +16,10 @@ class ListGenres extends React.PureComponent {
     return (
       <ul className="catalog__genres-list">
         {this.getListGenres().map((it) => {
+          const nameClass = this.state.currentFilter.toLowerCase() === it.toLowerCase() ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`;
           return (
             <li
-              className={ this.state.currentFilter.toLowerCase() === it.toLowerCase() ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`}
+              className={nameClass}
               key={it}>
               <a href="#" className="catalog__genres-link" onClick={this.onFilterClick}>{it}</a>
             </li>
