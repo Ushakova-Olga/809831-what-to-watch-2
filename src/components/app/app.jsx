@@ -9,11 +9,11 @@ const getPageScreen = (props) => {
   const {films, clickFilterHandler, countFilms} = props;
   switch (location.pathname) {
     case `/`:
-      return <MainScreen films={films} countFilms={countFilms} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} />;
+      return <MainScreen films={films} countFilms={countFilms} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} />;
     case `/details`:
       return <Details information={films[5]} films={films} countFilms={countFilms} clickHandler={() => {}} />;
   }
-  return <MainScreen films={films} countFilms={countFilms} clickHandler={() => {}} />;
+  return <MainScreen films={films} countFilms={countFilms} clickHandler={() => {}} clickHandlerMore={clickMoreButton} />;
 };
 
 const App = (props) => {

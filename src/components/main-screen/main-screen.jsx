@@ -1,10 +1,11 @@
 import React from "react";
 import ListFilms from "../../components/list-films/list-films.jsx";
 import ListGenres from "../../components/list-genres/list-genres.jsx";
+import ShoewMore from "../../components/show-more/show-more.jsx";
 import PropTypes from 'prop-types';
 
 const MainScreen = (props) => {
-  const {films, clickHandler, clickFilterHandler} = props;
+  const {films, clickHandler, clickFilterHandler, clickHandlerMore} = props;
 
   return <>
       <section className="movie-card">
@@ -70,9 +71,7 @@ const MainScreen = (props) => {
 
           <ListFilms films={films} countFilms={countFilms} clickHandler={clickHandler} />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <ShowMore clickHandlerMore={clickHandlerMore} />
         </section>
 
         <footer className="page-footer">
