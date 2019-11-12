@@ -5,24 +5,11 @@ import VideoPlayer from "../../components/video-player/video-player.jsx";
 class SmallCard extends React.PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      isPlaying: false,
-    };
-
     this.timerId = null;
-    this._cardMouseEnterHandler = this._cardMouseEnterHandler.bind(this);
-  }
-
-  _cardMouseEnterHandler() {
-    this.setState({isPlaying: !this.state.isPlaying});
-    this.props.onCardMouseEnter();
-    // this.props.clickHandler();
   }
 
   render() {
-    const {information, clickHandler, onCardMouseLeave, id} = this.props;
-    const {isPlaying} = this.state;
+    const {information, clickHandler, onMouseEnter, onMouseLeave, isActive, id} = this.props;
     const {name, img, src} = information;
 
     return <article className="small-movie-card catalog__movies-card"
@@ -31,19 +18,18 @@ class SmallCard extends React.PureComponent {
         clickHandler();
       }}
       onMouseEnter={() => {
-        this.timerId = setTimeout(this._cardMouseEnterHandler, 1000);
+        this.timerId = setTimeout(onMouseEnter, 1000);
       }}
       onMouseLeave={() => {
         clearTimeout(this.timerId);
-        onCardMouseLeave();
-        this.setState({isPlaying: !this.state.isPlaying});
+        onMouseLeave();
       }}
     >
       <div className="small-movie-card__image">
         <VideoPlayer
           src={src}
           img={`img/${img}`}
-          isPlaying={isPlaying}
+          isPlaying={isActive}
           clickHandler={clickHandler}
           key={`v${id}`}>
         </VideoPlayer>

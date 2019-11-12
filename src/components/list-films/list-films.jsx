@@ -1,15 +1,18 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import SmallCard from "../../components/small-card/small-card.jsx";
+import withActiveItem from '../../hoc/with-active-item/with-active-item.jsx';
+
+const SmallCardWrapped = withActiveItem(SmallCard);
 
 class ListFilms extends React.PureComponent {
 
   constructor(props) {
     super(props);
 
-    this.state = {
+/*    this.state = {
       filmIndex: -1,
-    };
+    };*/
   }
 
   render() {
@@ -17,18 +20,19 @@ class ListFilms extends React.PureComponent {
     const reducerFilms = films.slice(0, countFilms);
 
     return <div className="catalog__movies-list">
-      {reducerFilms.map((it, i) => <SmallCard
+      {reducerFilms.map((it, i) => <SmallCardWrapped
+
         key={it.name + i}
         id={i}
         information={{name: it.name, img: it.img, genre: it.genre, year: it.year, posterlarge: it.posterlarge, cover: it.cover, src: it.src, rating: it.rating, ratingCount: it.ratingCount, description: it.description, actors: it.actors}}
         clickHandler={clickHandler}
         isPlaying={false}
-        onCardMouseEnter={() => {
+        /*onCardMouseEnter={() => {
           this.setState({filmIndex: i});
         }}
         onCardMouseLeave={() => {
           this.setState({filmIndex: -1});
-        }}
+        }}*/
       />)}
     </div>;
   }

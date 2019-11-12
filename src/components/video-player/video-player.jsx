@@ -5,15 +5,10 @@ class VideoPlayer extends React.PureComponent {
   constructor(props) {
     super(props);
     this._videoRef = React.createRef();
-
-    this.state = {
-      isPlaying: props.isPlaying,
-    };
   }
 
   render() {
-    // const {isPlaying} = this.state;
-    const {src, img} = this.props;
+    const {src, img, isPlaying} = this.props;
     const format = src.match(/\w+$/);
 
     return (
@@ -37,16 +32,6 @@ class VideoPlayer extends React.PureComponent {
 
     if (video) {
       video.src = src;
-
-      video.onplay = () => {
-        this.setState({
-          isPlaying: true,
-        });
-      };
-
-      video.onpause = () => this.setState({
-        isPlaying: false,
-      });
     }
   }
 
@@ -64,8 +49,6 @@ class VideoPlayer extends React.PureComponent {
 
   componentWillUnmount() {
     const video = this._videoRef.current;
-    video.onplay = null;
-    video.onpause = null;
     video.src = ``;
   }
 }
