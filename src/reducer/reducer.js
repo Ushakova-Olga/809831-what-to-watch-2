@@ -51,7 +51,7 @@ const reducer = (state = initialState, action) => {
       });
     case `ADD_COUNT_FILMS`:
       return Object.assign({}, state, {
-        films: state.filmsCount + action.payload
+        filmsCount: state.filmsCount + action.payload
       });
   }
   return state;

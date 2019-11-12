@@ -1,11 +1,11 @@
 import React from "react";
 import ListFilms from "../../components/list-films/list-films.jsx";
 import ListGenres from "../../components/list-genres/list-genres.jsx";
-import ShoewMore from "../../components/show-more/show-more.jsx";
+import ShowMore from "../../components/show-more/show-more.jsx";
 import PropTypes from 'prop-types';
 
 const MainScreen = (props) => {
-  const {films, clickHandler, clickFilterHandler, clickHandlerMore} = props;
+  const {films, clickHandler, clickFilterHandler, clickHandlerMore, countFilms} = props;
 
   return <>
       <section className="movie-card">

@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-export const ShowMore = (props) => {
+const ShowMore = (props) => {
   const {clickHandlerMore} = props;
+  console.log(clickHandlerMore);
 
   return (
     <div className="catalog__more">
@@ -19,3 +20,5 @@ export const ShowMore = (props) => {
 ShowMore.propTypes = {
   clickHandlerMore: PropTypes.func.isRequired
 };
+
+export default ShowMore;

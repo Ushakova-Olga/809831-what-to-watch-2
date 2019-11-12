@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer";
 
 const getPageScreen = (props) => {
-  const {films, clickFilterHandler, countFilms} = props;
+  const {films, clickFilterHandler, countFilms, clickMoreButton} = props;
   switch (location.pathname) {
     case `/`:
       return <MainScreen films={films} countFilms={countFilms} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} />;
