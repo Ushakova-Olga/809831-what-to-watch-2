@@ -13,9 +13,10 @@ class ListFilms extends React.PureComponent {
   }
 
   render() {
-    const {films, clickHandler} = this.props;
+    const {films, clickHandler, countFilms} = this.props;
+    const reducerFilms = films.slice(0, countFilms);
     return <div className="catalog__movies-list">
-      {films.map((it, i) => <SmallCard
+      {reducerFilms.map((it, i) => <SmallCard
         key={it.name + i}
         id={i}
         information={{name: it.name, img: it.img, genre: it.genre, year: it.year, posterlarge: it.posterlarge, cover: it.cover, src: it.src, rating: it.rating, ratingCount: it.ratingCount, description: it.description, actors: it.actors}}

@@ -68,7 +68,7 @@ const MainScreen = (props) => {
 
           <ListGenres films={films} clickFilterHandler={clickFilterHandler} />
 
-          <ListFilms films={films} clickHandler={clickHandler} />
+          <ListFilms films={films} countFilms={countFilms} clickHandler={clickHandler} />
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>

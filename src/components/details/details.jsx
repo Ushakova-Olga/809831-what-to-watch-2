@@ -84,7 +84,7 @@ const Details = (props) => {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__movies-list">
-            <ListFilms films={films.filter((it) => it.genre === genre)} clickHandler={clickHandler} />
+            <ListFilms films={films.filter((it) => it.genre === genre)} countFilms={8} clickHandler={clickHandler} />
           </div>
         </section>
 
