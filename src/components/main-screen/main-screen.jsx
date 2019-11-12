@@ -1,10 +1,11 @@
 import React from "react";
 import ListFilms from "../../components/list-films/list-films.jsx";
 import ListGenres from "../../components/list-genres/list-genres.jsx";
+import ShowMore from "../../components/show-more/show-more.jsx";
 import PropTypes from 'prop-types';
 
 const MainScreen = (props) => {
-  const {films, clickHandler, clickFilterHandler} = props;
+  const {films, clickHandler, clickFilterHandler, clickHandlerMore, countFilms} = props;
 
   return <>
       <section className="movie-card">
@@ -68,11 +69,9 @@ const MainScreen = (props) => {
 
           <ListGenres films={films} clickFilterHandler={clickFilterHandler} />
 
-          <ListFilms films={films} clickHandler={clickHandler} />
+          <ListFilms films={films} countFilms={countFilms} clickHandler={clickHandler} />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <ShowMore clickHandlerMore={clickHandlerMore} />
         </section>
 
         <footer className="page-footer">
@@ -109,6 +108,8 @@ MainScreen.propTypes = {
       }).isRequired).isRequired,
   clickHandler: PropTypes.func,
   clickFilterHandler: PropTypes.func,
+  countFilms: PropTypes.number.isRequired,
+  clickHandlerMore: PropTypes.func.isRequired,
 };
 
 export default MainScreen;

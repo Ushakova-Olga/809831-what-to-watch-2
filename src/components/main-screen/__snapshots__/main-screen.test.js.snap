@@ -393,12 +393,77 @@ Array [
             </a>
           </h3>
         </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+          >
+            <video
+              height="100%"
+              muted={true}
+              poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              width="100%"
+            >
+              <source
+                src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+            >
+              Fantastic Beasts: The Crimes of Grindelwald
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+          >
+            <video
+              height="100%"
+              muted={true}
+              poster="img/bohemian-rhapsody.jpg"
+              width="100%"
+            >
+              <source
+                src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+                type="video/webm"
+              />
+            </video>
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+            >
+              Fantastic Beasts
+            </a>
+          </h3>
+        </article>
       </div>
       <div
         className="catalog__more"
       >
         <button
           className="catalog__button"
+          onClick={[Function]}
           type="button"
         >
           Show more

@@ -7,7 +7,10 @@ it(`Main screen correctly renders`, () => {
 
   const tree = renderer
     .create(<MainScreen
-      films={films} />)
+      films={films}
+      countFilms={8}
+      clickHandlerMore={() => {}}
+    />)
   .toJSON();
   expect(tree).toMatchSnapshot();
 });

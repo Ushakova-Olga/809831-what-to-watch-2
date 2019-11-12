@@ -6,14 +6,14 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer";
 
 const getPageScreen = (props) => {
-  const {films, clickFilterHandler} = props;
+  const {films, clickFilterHandler, countFilms, clickMoreButton} = props;
   switch (location.pathname) {
     case `/`:
-      return <MainScreen films={films} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} />;
+      return <MainScreen films={films} countFilms={countFilms} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} />;
     case `/details`:
-      return <Details information={films[5]} films={films} clickHandler={() => {}} />;
+      return <Details information={films[5]} films={films} countFilms={countFilms} clickHandler={() => {}} />;
   }
-  return <MainScreen films={films} clickHandler={() => {}} />;
+  return <MainScreen films={films} countFilms={countFilms} clickHandler={() => {}} clickHandlerMore={clickMoreButton} />;
 };
 
 const App = (props) => {
@@ -36,16 +36,22 @@ getPageScreen.propTypes = {
         actors: PropTypes.array.isRequired,
       }).isRequired).isRequired,
   clickFilterHandler: PropTypes.func,
+  countFilms: PropTypes.number.isRequired,
+  clickMoreButton: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  films: state.films
+  films: state.films,
+  countFilms: state.filmsCount,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   clickFilterHandler: (genre) => {
     dispatch(ActionCreator.setNewFilmsGenre(genre));
     dispatch(ActionCreator.getFilmsListOnGenre(genre));
+  },
+  clickMoreButton: () => {
+    dispatch(ActionCreator.addCountFilms());
   }
 });
 

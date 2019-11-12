@@ -1,8 +1,11 @@
 import FILMS from "../mocks/films";
+const FILMS_COUNT = 8;
+const FILMS_COUNT_ADD = 20;
 
 const initialState = {
   genre: `All genres`,
-  films: FILMS
+  films: FILMS,
+  filmsCount: FILMS_COUNT
 };
 
 const getFilms = (genre, filmsList) => {
@@ -26,7 +29,13 @@ const ActionCreator = {
       type: `FILMS_FILTER`,
       payload: getFilms(genre, FILMS)
     };
-  }
+  },
+
+  // количество фильмов для просмотра увеличить на 20
+  addCountFilms: () => ({
+    type: `ADD_COUNT_FILMS`,
+    payload: FILMS_COUNT_ADD,
+  })
 };
 
 
@@ -39,6 +48,10 @@ const reducer = (state = initialState, action) => {
     case `FILMS_FILTER`:
       return Object.assign({}, state, {
         films: action.payload
+      });
+    case `ADD_COUNT_FILMS`:
+      return Object.assign({}, state, {
+        filmsCount: state.filmsCount + action.payload
       });
   }
   return state;

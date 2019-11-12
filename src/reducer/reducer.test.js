@@ -49,6 +49,6 @@ it(`Action creator correctly set genre`, () => {
 it(`Action creator correctly filter films`, () => {
   expect(ActionCreator.getFilmsListOnGenre(`tragedy`)).toEqual({
     type: `FILMS_FILTER`,
-    payload: [FILMS[2]]
+    payload: [FILMS[2], FILMS[8]]
   });
 });
