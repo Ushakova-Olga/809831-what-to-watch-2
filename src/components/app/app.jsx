@@ -36,6 +36,8 @@ getPageScreen.propTypes = {
         actors: PropTypes.array.isRequired,
       }).isRequired).isRequired,
   clickFilterHandler: PropTypes.func,
+  countFilms: PropTypes.number.isRequired,
+  clickMoreButton: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

@@ -33,9 +33,9 @@ const ActionCreator = {
 
   // количество фильмов для просмотра увеличить на 20
   addCountFilms: () => ({
-  type: `ADD_COUNT_FILMS`,
-  payload: FILMS_COUNT_ADD,
-})
+    type: `ADD_COUNT_FILMS`,
+    payload: FILMS_COUNT_ADD,
+  })
 };
 
 

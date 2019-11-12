@@ -14,9 +14,7 @@ class ListFilms extends React.PureComponent {
 
   render() {
     const {films, clickHandler, countFilms} = this.props;
-    console.log(films);
     const reducerFilms = films.slice(0, countFilms);
-    console.log(reducerFilms);
 
     return <div className="catalog__movies-list">
       {reducerFilms.map((it, i) => <SmallCard
@@ -52,6 +50,7 @@ ListFilms.propTypes = {
         actors: PropTypes.array.isRequired,
       }).isRequired).isRequired,
   clickHandler: PropTypes.func,
+  countFilms: PropTypes.number.isRequired,
 };
 
 export default ListFilms;

@@ -108,6 +108,8 @@ MainScreen.propTypes = {
       }).isRequired).isRequired,
   clickHandler: PropTypes.func,
   clickFilterHandler: PropTypes.func,
+  countFilms: PropTypes.number.isRequired,
+  clickHandlerMore: PropTypes.func.isRequired,
 };
 
 export default MainScreen;

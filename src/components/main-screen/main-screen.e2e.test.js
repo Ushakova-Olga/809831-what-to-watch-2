@@ -9,7 +9,10 @@ Enzyme.configure({adapter: new Adapter()});
 it(`Main screen correctly pressed header`, () => {
   const clickHandler = jest.fn();
   const componentMainScreen = shallow(<MainScreen films={films}
-    clickHandler={clickHandler} />);
+    clickHandler={clickHandler}
+    countFilms={8}
+    clickHandlerMore={() => {}}
+  />);
 
   const mainHeader = componentMainScreen.find(`h2.movie-card__title`);
   mainHeader.simulate(`click`);

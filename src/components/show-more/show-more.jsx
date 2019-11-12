@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 const ShowMore = (props) => {
   const {clickHandlerMore} = props;
-  console.log(clickHandlerMore);
 
   return (
     <div className="catalog__more">
