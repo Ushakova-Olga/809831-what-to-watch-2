@@ -8,7 +8,10 @@ Enzyme.configure({adapter: new Adapter()});
 
 it(`Linc clicked`, () => {
   const clickFilterHandler = jest.fn();
-  const componentListLinksGenre = shallow(<ListGenres films={films} clickFilterHandler={clickFilterHandler} />);
+  const componentListLinksGenre = shallow(<ListGenres
+    films={films}
+    clickFilterHandler={clickFilterHandler}
+    currentGenre={`All genres`} />);
 
   componentListLinksGenre.find(`.catalog__genres-link`).at(0).simulate(`click`, {
     preventDefault: () => {},

@@ -10,6 +10,7 @@ it(`Main screen correctly renders`, () => {
       films={films}
       countFilms={8}
       clickHandlerMore={() => {}}
+      currentGenre={`All genres`}
     />)
   .toJSON();
   expect(tree).toMatchSnapshot();

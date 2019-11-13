@@ -8,7 +8,7 @@ class VideoPlayer extends React.PureComponent {
   }
 
   render() {
-    const {src, img, isPlaying} = this.props;
+    const {src, img} = this.props;
     const format = src.match(/\w+$/);
 
     return (

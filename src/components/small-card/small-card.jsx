@@ -48,8 +48,9 @@ SmallCard.propTypes = {
     src: PropTypes.string.isRequired,
   }).isRequired,
   clickHandler: PropTypes.func,
-  onCardMouseEnter: PropTypes.func,
-  onCardMouseLeave: PropTypes.func,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
+  isActive: PropTypes.bool.isRequired,
   id: PropTypes.number.isRequired,
 };
 

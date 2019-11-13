@@ -38,6 +38,7 @@ getPageScreen.propTypes = {
   clickFilterHandler: PropTypes.func,
   countFilms: PropTypes.number.isRequired,
   clickMoreButton: PropTypes.func.isRequired,
+  currentGenre: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
