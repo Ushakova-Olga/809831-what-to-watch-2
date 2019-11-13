@@ -7,21 +7,23 @@ class VideoPlayerLarge extends React.PureComponent {
   }
 
   render() {
-    const {src, img} = this.props;
+    const {information, onPlayButtonClick, videoRef} = this.props;
+    const {src, img, name, genre, year, posterlarge, cover} = information;
+
     const format = src.match(/\w+$/);
 
     return (
-      <div class="player">
-        <video src={src} className="player__video" poster={img} type={`video/${format}` ref={this._videoRef}>
+      <div className="player">
+        <video src={src} className="player__video" poster={img} type={`video/${format}`} ref={videoRef}>
         </video>
 
-        <button type="button" class="player__exit">Exit</button>
+        <button type="button" className="player__exit">Exit</button>
 
         <div className="player__controls">
           <div className="player__controls-row">
             <div className="player__time">
               <progress className="player__progress" value="30" max="100"></progress>
-              <div className="player__toggler" style="left: 30%;">Toggler</div>
+              <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
             </div>
             <div className="player__time-value">1:30:29</div>
           </div>
@@ -76,8 +78,8 @@ class VideoPlayerLarge extends React.PureComponent {
 
 VideoPlayerLarge.propTypes = {
   isPlaying: PropTypes.bool.isRequired,
-  src: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
+//  src: PropTypes.string.isRequired,
+//  img: PropTypes.string.isRequired,
 };
 
 export default VideoPlayerLarge;

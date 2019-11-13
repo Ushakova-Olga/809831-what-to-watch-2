@@ -1,12 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types
-import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";
+import React, {createRef, PureComponent} from "react";
+import PropTypes from "prop-types";
 
-const withVideoPlayerLarge = (WrappedComponent) => {
+const withVideoPlayerLarge = (Component) => {
   class WithVideoPlayerLarge extends React.PureComponent {
     constructor(props) {
       super(props);
-      this._videoRef = createRef();
+
+      this._videoRef = React.createRef();
 
       this.state = {
         isLoading: true,
@@ -18,7 +18,8 @@ const withVideoPlayerLarge = (WrappedComponent) => {
     }
 
     componentDidMount() {
-      const {src} = this.props;
+      const {information} = this.props;
+      const {src, img, name, genre, year, posterlarge, cover} = information;
       const video = this._videoRef.current;
 
       video.src = src;
@@ -62,22 +63,28 @@ const withVideoPlayerLarge = (WrappedComponent) => {
     }*/
 
     render() {
+      const {information, onPlayButtonClick} = this.props;
+      const {src, img, name, genre, year, posterlarge, cover} = information;
+
       return (
         <Component
           {...this.props}
+          videoRef={this._videoRef}
         />
       );
     }
   }
 
+
+
   WithVideoPlayerLarge.propTypes = {
-    poster: PropTypes.string.isRequired,
+//    img: PropTypes.string.isRequired,
     isPlaying: PropTypes.bool.isRequired,
     onPlayButtonClick: PropTypes.func.isRequired,
-    src: PropTypes.string.isRequired,
+//    src: PropTypes.string.isRequired,
   };
 
-  return WithTrailerPreview;
+  return WithVideoPlayerLarge;
 };
 
 export default withVideoPlayerLarge;
