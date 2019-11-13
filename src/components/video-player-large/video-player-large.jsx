@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 class VideoPlayerLarge extends React.PureComponent {
   constructor(props) {
     super(props);
-    this._videoRef = React.createRef();
   }
 
   render() {
@@ -48,16 +47,16 @@ class VideoPlayerLarge extends React.PureComponent {
     );
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
     const {src} = this.props;
     const video = this._videoRef.current;
 
     if (video) {
       video.src = src;
     }
-  }
+  }*/
 
-  componentDidUpdate() {
+  /*componentDidUpdate() {
     const video = this._videoRef.current;
     if (video) {
       if (this.props.isPlaying) {
@@ -67,12 +66,12 @@ class VideoPlayerLarge extends React.PureComponent {
         video.load();
       }
     }
-  }
+  }*/
 
-  componentWillUnmount() {
+/*  componentWillUnmount() {
     const video = this._videoRef.current;
     video.src = ``;
-  }
+  }*/
 }
 
 VideoPlayerLarge.propTypes = {

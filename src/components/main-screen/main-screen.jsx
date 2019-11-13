@@ -4,6 +4,11 @@ import ListGenres from "../../components/list-genres/list-genres.jsx";
 import ShowMore from "../../components/show-more/show-more.jsx";
 import PropTypes from 'prop-types';
 
+import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";
+import withVideoPlayerLarge from "../with-video-player-large/with-video-player-large";
+
+const VideoPlayerLargeWrapped = withAudio(VideoPlayerLarge);
+
 const MainScreen = (props) => {
   const {films, clickHandler, clickFilterHandler, clickHandlerMore, countFilms, currentGenre} = props;
 
