@@ -6,14 +6,14 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer";
 
 const getPageScreen = (props) => {
-  const {films, clickFilterHandler, countFilms, clickMoreButton} = props;
+  const {films, clickFilterHandler, countFilms, clickMoreButton, currentGenre} = props;
   switch (location.pathname) {
     case `/`:
-      return <MainScreen films={films} countFilms={countFilms} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} />;
+      return <MainScreen films={films} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} />;
     case `/details`:
       return <Details information={films[5]} films={films} countFilms={countFilms} clickHandler={() => {}} />;
   }
-  return <MainScreen films={films} countFilms={countFilms} clickHandler={() => {}} clickHandlerMore={clickMoreButton} />;
+  return <MainScreen films={films} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickHandlerMore={clickMoreButton} />;
 };
 
 const App = (props) => {
@@ -38,9 +38,11 @@ getPageScreen.propTypes = {
   clickFilterHandler: PropTypes.func,
   countFilms: PropTypes.number.isRequired,
   clickMoreButton: PropTypes.func.isRequired,
+  currentGenre: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  currentGenre: state.genre,
   films: state.films,
   countFilms: state.filmsCount,
 });

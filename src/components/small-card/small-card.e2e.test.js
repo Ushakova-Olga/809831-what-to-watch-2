@@ -7,16 +7,19 @@ import films from "../../mocks/films.js";
 Enzyme.configure({adapter: new Adapter()});
 
 it(`Small card correctly mouse enter and leave`, () => {
-  const clickHandler = jest.fn();
+  const clickHandlerEnter = jest.fn();
+  const clickHandlerLeave = jest.fn();
   jest.useFakeTimers();
   const componentSmallCard = shallow(<SmallCard information={films[0]}
-    onCardMouseEnter={clickHandler}
-    onCardMouseLeave={clickHandler}
-    id={0} />);
+    onMouseEnter={clickHandlerEnter}
+    onMouseLeave={clickHandlerLeave}
+    id={0}
+    isActive={false} />);
 
   componentSmallCard.simulate(`mouseenter`);
   jest.runAllTimers();
-  expect(componentSmallCard.state(`isPlaying`)).toBe(true);
+  expect(clickHandlerEnter).toBeCalledTimes(1);
+
   componentSmallCard.simulate(`mouseleave`);
-  expect(componentSmallCard.state(`isPlaying`)).toBe(false);
+  expect(clickHandlerLeave).toBeCalledTimes(1);
 });

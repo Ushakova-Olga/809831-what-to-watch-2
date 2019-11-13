@@ -8,7 +8,9 @@ Enzyme.configure({adapter: new Adapter()});
 
 it(`List films correctly pressed header`, () => {
   const clickHandler = jest.fn();
-  const componentListFilms = mount(<ListFilms films={films}
+  const componentListFilms = mount(<ListFilms
+    films={films}
+    countFilms={8}
     clickHandler={clickHandler} />);
 
   componentListFilms.find(`.small-movie-card`).at(0).simulate(`click`);

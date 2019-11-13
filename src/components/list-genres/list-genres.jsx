@@ -5,10 +5,6 @@ import films from "../../mocks/films";
 class ListGenres extends React.PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      currentFilter: `All genres`
-    };
     this.onFilterClick = this.onFilterClick.bind(this);
   }
 
@@ -16,7 +12,7 @@ class ListGenres extends React.PureComponent {
     return (
       <ul className="catalog__genres-list">
         {this.getListGenres().map((it) => {
-          const nameClass = this.state.currentFilter.toLowerCase() === it.toLowerCase() ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`;
+          const nameClass = this.props.currentGenre.toLowerCase() === it.toLowerCase() ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`;
           return (
             <li
               className={nameClass}
@@ -32,11 +28,7 @@ class ListGenres extends React.PureComponent {
   onFilterClick(evt) {
     const {clickFilterHandler} = this.props;
     evt.preventDefault();
-
     clickFilterHandler(evt.target.textContent.toLowerCase());
-    this.setState({
-      currentFilter: evt.target.textContent.toLowerCase()
-    });
   }
 
   getListGenres() {
@@ -67,6 +59,7 @@ ListGenres.propTypes = {
         actors: PropTypes.array.isRequired,
       }).isRequired).isRequired,
   clickFilterHandler: PropTypes.func,
+  currentGenre: PropTypes.string.isRequired,
 };
 
 export default ListGenres;
