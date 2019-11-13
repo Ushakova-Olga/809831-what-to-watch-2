@@ -9,10 +9,6 @@ class ListFilms extends React.PureComponent {
 
   constructor(props) {
     super(props);
-
-/*    this.state = {
-      filmIndex: -1,
-    };*/
   }
 
   render() {
@@ -27,12 +23,6 @@ class ListFilms extends React.PureComponent {
         information={{name: it.name, img: it.img, genre: it.genre, year: it.year, posterlarge: it.posterlarge, cover: it.cover, src: it.src, rating: it.rating, ratingCount: it.ratingCount, description: it.description, actors: it.actors}}
         clickHandler={clickHandler}
         isPlaying={false}
-        /*onCardMouseEnter={() => {
-          this.setState({filmIndex: i});
-        }}
-        onCardMouseLeave={() => {
-          this.setState({filmIndex: -1});
-        }}*/
       />)}
     </div>;
   }

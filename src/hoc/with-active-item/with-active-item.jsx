@@ -6,7 +6,7 @@ const withActiveItem = (Component) => {
       super(props);
 
       this.state = {
-        isActive: false
+        isActive: false,
       };
 
       this.overMouseHandler = this.overMouseHandler.bind(this);
@@ -15,7 +15,7 @@ const withActiveItem = (Component) => {
 
     overMouseHandler() {
       this.setState({
-        isActive: true
+        isActive: true,
       });
     }
 
@@ -29,6 +29,7 @@ const withActiveItem = (Component) => {
       return <Component
         {...this.props}
         isActive={this.state.isActive}
+        activeItem={this.state.activeItem}
         onMouseEnter={this.overMouseHandler}
         onMouseLeave={this.leaveMouseHandler}
       />;

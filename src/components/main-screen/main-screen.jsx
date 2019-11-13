@@ -5,7 +5,7 @@ import ShowMore from "../../components/show-more/show-more.jsx";
 import PropTypes from 'prop-types';
 
 const MainScreen = (props) => {
-  const {films, clickHandler, clickFilterHandler, clickHandlerMore, countFilms} = props;
+  const {films, clickHandler, clickFilterHandler, clickHandlerMore, countFilms, currentGenre} = props;
 
   return <>
       <section className="movie-card">
@@ -67,7 +67,7 @@ const MainScreen = (props) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ListGenres films={films} clickFilterHandler={clickFilterHandler} />
+          <ListGenres films={films} clickFilterHandler={clickFilterHandler} currentGenre={currentGenre} />
 
           <ListFilms films={films} countFilms={countFilms} clickHandler={clickHandler} />
 
