@@ -7,14 +7,23 @@ class VideoPlayerLarge extends React.PureComponent {
   }
 
   render() {
-    const {information, onPlayButtonClick, videoRef} = this.props;
-    const {src, img, name, genre, year, posterlarge, cover} = information;
+    const {
+      information,
+      videoRef,
+      isPlaying,
+      progress,
+      duration,
+      onPlayButtonClick,
+      onFullScreenButtonClick,
+    } = this.props;
+
+    const {src, img} = information;
 
     const format = src.match(/\w+$/);
 
     return (
       <div className="player">
-        <video src={src} className="player__video" poster={img} type={`video/${format}`} ref={videoRef}>
+        <video src={src} className="player__video" poster={`img/${img}`} type={`video/${format}`} ref={videoRef} >
         </video>
 
         <button type="button" className="player__exit">Exit</button>
@@ -22,22 +31,36 @@ class VideoPlayerLarge extends React.PureComponent {
         <div className="player__controls">
           <div className="player__controls-row">
             <div className="player__time">
-              <progress className="player__progress" value="30" max="100"></progress>
-              <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
+              <progress className="player__progress" value={duration ? Math.round((progress / duration) * 100) : 0} max="100"></progress>
+              <div className="player__toggler" style={{left: `${duration ? Math.round((progress / duration) * 100) : 0}%`}}>Toggler</div>
             </div>
-            <div className="player__time-value">1:30:29</div>
+            <div className="player__time-value">{duration ? this._timeToString(progress) : `00:00:00`}</div>
           </div>
 
           <div className="player__controls-row">
-            <button type="button" className="player__play">
-              <svg viewBox="0 0 19 19" width="19" height="19">
-                <use xlinkHref="#play-s"></use>
-              </svg>
-              <span>Play</span>
-            </button>
+            {isPlaying ? (
+              <button
+                type="button"
+                className="player__play"
+                onClick={onPlayButtonClick}
+              >
+                <svg viewBox="0 0 19 19" width="19" height="19">
+                  <use xlinkHref="#pause"></use>
+                </svg>
+                <span>Pause</span>
+              </button>
+            ) : (
+              <button type="button" className="player__play" onClick={onPlayButtonClick}>
+                <svg viewBox="0 0 19 19" width="19" height="19">
+                  <use xlinkHref="#play-s"></use>
+                </svg>
+                <span>Play</span>
+              </button>
+            )}
+
             <div className="player__name">Transpotting</div>
 
-            <button type="button" className="player__full-screen">
+            <button type="button" className="player__full-screen" onClick={onFullScreenButtonClick}>
               <svg viewBox="0 0 27 27" width="27" height="27">
                 <use xlinkHref="#full-screen"></use>
               </svg>
@@ -49,37 +72,51 @@ class VideoPlayerLarge extends React.PureComponent {
     );
   }
 
-  /*componentDidMount() {
-    const {src} = this.props;
-    const video = this._videoRef.current;
+  _timeToString(seconds) {
+    seconds = Math.round(seconds);
+    let hours = 0;
+    let minutes = 0;
 
-    if (video) {
-      video.src = src;
-    }
-  }*/
+    hours = Math.floor(seconds / 3600);
+    seconds = seconds % 3600;
+    minutes = Math.floor(seconds / 60);
+    seconds = seconds % 60;
 
-  /*componentDidUpdate() {
-    const video = this._videoRef.current;
-    if (video) {
-      if (this.props.isPlaying) {
-        video.play();
-      } else {
-        video.pause();
-        video.load();
-      }
-    }
-  }*/
-
-/*  componentWillUnmount() {
-    const video = this._videoRef.current;
-    video.src = ``;
-  }*/
+    const time = `${String(hours).padStart(2, `0`)}:${String(minutes).padStart(2, `0`)}:${String(seconds).padStart(2, `0`)}`;
+    return time;
+  }
 }
 
 VideoPlayerLarge.propTypes = {
+  information: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    img: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    posterlarge: PropTypes.string.isRequired,
+    cover: PropTypes.string.isRequired,
+    src: PropTypes.string.isRequired,
+    rating: PropTypes.string.isRequired,
+    ratingCount: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    actors: PropTypes.array.isRequired,
+    director: PropTypes.string.isRequired,
+    duration: PropTypes.number.isRequired,
+  }).isRequired,
+
+  isLoading: PropTypes.bool.isRequired,
   isPlaying: PropTypes.bool.isRequired,
-//  src: PropTypes.string.isRequired,
-//  img: PropTypes.string.isRequired,
+  isFullscreen: PropTypes.bool.isRequired,
+  duration: PropTypes.number,
+  progress: PropTypes.number,
+
+  onPlayButtonClick: PropTypes.func,
+  onFullScreenButtonClick: PropTypes.func,
+
+  videoRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({current: PropTypes.instanceOf(Element)}),
+  ]),
 };
 
 export default VideoPlayerLarge;

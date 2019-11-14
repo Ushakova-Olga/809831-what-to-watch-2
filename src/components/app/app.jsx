@@ -18,7 +18,7 @@ const getPageScreen = (props) => {
     case `/details`:
       return <Details information={films[5]} films={films} countFilms={countFilms} clickHandler={() => {}} />;
     case `/film`:
-      return <VideoPlayerLargeWrapped information={films[0]} isPlaying={true} onPlayButtonClick={() => {}} clickHandler={() => {}} />;
+      return <VideoPlayerLargeWrapped information={films[0]} />;
   }
   return <MainScreen films={films} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickHandlerMore={clickMoreButton} />;
 };
