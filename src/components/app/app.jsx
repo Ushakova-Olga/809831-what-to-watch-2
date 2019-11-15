@@ -5,6 +5,11 @@ import Details from "../../components/details/details.jsx";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/reducer";
 
+import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";
+import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-player-large.jsx';
+
+const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
+
 const getPageScreen = (props) => {
   const {films, clickFilterHandler, countFilms, clickMoreButton, currentGenre} = props;
   switch (location.pathname) {
@@ -12,6 +17,8 @@ const getPageScreen = (props) => {
       return <MainScreen films={films} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} />;
     case `/details`:
       return <Details information={films[5]} films={films} countFilms={countFilms} clickHandler={() => {}} />;
+    case `/film`:
+      return <VideoPlayerLargeWrapped information={films[0]} />;
   }
   return <MainScreen films={films} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickHandlerMore={clickMoreButton} />;
 };

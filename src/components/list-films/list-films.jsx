@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import SmallCard from "../../components/small-card/small-card.jsx";
-import withActiveItem from '../../hoc/with-active-item/with-active-item.jsx';
+import withActiveItem from '../../hocs/with-active-item/with-active-item.jsx';
 
 const SmallCardWrapped = withActiveItem(SmallCard);
 
