@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import films from "../../mocks/films";
 
 class ListGenres extends React.PureComponent {
   constructor(props) {

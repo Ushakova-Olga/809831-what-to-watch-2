@@ -80,12 +80,6 @@ const withVideoPlayerLarge = (Component) => {
 
     _onFullScreenButtonClick() {
       this.setState({isFullscreen: !this.state.isFullscreen});
-      // const video = this._videoRef.current;
-      /* if (this.state.isFullscreen) {
-        video.requestFullscreen();
-      } else {
-        video.cancelFullScreen();
-      }*/
     }
 
     render() {

@@ -1,6 +1,4 @@
 import {ActionCreator, reducer} from "./reducer";
-import FILMS from "../mocks/films";
-
 
 it(`Reducer correctly set a genre`, () => {
   expect(
