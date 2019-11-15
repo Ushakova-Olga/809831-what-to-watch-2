@@ -34,7 +34,7 @@ class VideoPlayerLarge extends React.PureComponent {
               <progress className="player__progress" value={duration ? Math.round((progress / duration) * 100) : 0} max="100"></progress>
               <div className="player__toggler" style={{left: `${duration ? Math.round((progress / duration) * 100) : 0}%`}}>Toggler</div>
             </div>
-            <div className="player__time-value">{(duration-progress > 0) ? this._timeToString(duration - progress) : `00:00:00`}</div>
+            <div className="player__time-value">{(duration - progress > 0) ? this._timeToString(duration - progress) : `00:00:00`}</div>
           </div>
 
           <div className="player__controls-row">
