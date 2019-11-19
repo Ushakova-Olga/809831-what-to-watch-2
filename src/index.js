@@ -7,8 +7,12 @@ import {reducer} from "./reducer/reducer";
 import App from "./components/app/app.jsx";
 
 import thunk from "redux-thunk";
-import api from "../api";
+import configureAPI from "../api";
 import {applyMiddleware} from "redux";
+
+// configreAPI - функция из модуля api.js,
+// созданная в третьем шаге.
+const api = configureAPI((...args) => store.dispatch(...args));
 
 const init = () => {
   const store = createStore(
