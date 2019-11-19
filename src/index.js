@@ -6,6 +6,10 @@ import {reducer} from "./reducer/reducer";
 
 import App from "./components/app/app.jsx";
 
+import thunk from "redux-thunk";
+import api from "../api";
+import {applyMiddleware} from "redux";
+
 const init = () => {
   const store = createStore(
       reducer,
