@@ -14,10 +14,15 @@ import {applyMiddleware} from "redux";
 // созданная в третьем шаге.
 const api = configureAPI((...args) => store.dispatch(...args));
 
+
+
 const init = () => {
   const store = createStore(
       reducer,
-      window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+      compose(
+          applyMiddleware(thunk.withExtraArgument(api)),
+          window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+      )
   );
 
   ReactDOM.render(
