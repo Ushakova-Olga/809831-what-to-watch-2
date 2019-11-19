@@ -28,7 +28,7 @@ class SmallCard extends React.PureComponent {
       <div className="small-movie-card__image">
         <VideoPlayer
           src={src}
-          img={`img/${img}`}
+          img={img}
           isPlaying={isActive}
           clickHandler={clickHandler}
           key={`v${id}`}>

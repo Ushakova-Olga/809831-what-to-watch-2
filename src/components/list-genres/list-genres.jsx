@@ -31,9 +31,10 @@ class ListGenres extends React.PureComponent {
   }
 
   getListGenres() {
+    const {filmsInitial} = this.props;
     const list = [];
     list.push(`All genres`);
-    films.forEach((it) => {
+    filmsInitial.forEach((it) => {
       list.push(it.genre);
     });
 
@@ -43,7 +44,7 @@ class ListGenres extends React.PureComponent {
 }
 
 ListGenres.propTypes = {
-  films: PropTypes.arrayOf(
+  filmsInitial: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
         img: PropTypes.string.isRequired,
