@@ -8,7 +8,9 @@ Enzyme.configure({adapter: new Adapter()});
 
 it(`Main screen correctly pressed header`, () => {
   const clickHandler = jest.fn();
-  const componentMainScreen = shallow(<MainScreen films={films}
+  const componentMainScreen = shallow(<MainScreen
+    films={films}
+    filmsInitial={films}
     clickHandler={clickHandler}
     countFilms={8}
     clickHandlerMore={() => {}}

@@ -1,6 +1,5 @@
 const FILMS_COUNT = 8;
 const FILMS_COUNT_ADD = 20;
-//let filmsInitial = [];
 
 const initialState = {
   genre: `All genres`,
@@ -9,9 +8,21 @@ const initialState = {
   filmsInitial: [],
 };
 
+const convertKey = (key) => {
+  const arr = key.split(`_`).map((word, ind) => ind === 0 ? word : word[0].toUpperCase() + word.slice(1));
+  return arr.join(``);
+};
+
 const convertItem = (obj) => {
-  let newObj={};
-  newObj = {
+  let newObj = {};
+
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      newObj[convertKey(key)] = obj[key];
+    }
+  }
+
+  /* newObj = {
     img: obj.preview_image,
     name: obj.name,
     genre: obj.genre,
@@ -19,17 +30,17 @@ const convertItem = (obj) => {
     posterlarge: obj.poster_image,
     cover: obj.background_image,
     src: obj.preview_video_link,
-    rating: obj.scores_count.toString(),
-    ratingCount: obj.scores_count.toString(),
+    rating: obj.scores_count,
+    ratingCount: obj.scores_count,
     description: obj.description,
     actors: obj.starring,
-  };
+  };*/
 
   return newObj;
 };
 
 const getFilms = (genre, filmsList) => {
-  if (genre.toLowerCase() === `all genres`) {
+  if (genre === `All genres`) {
     return filmsList;
   }
 
@@ -67,12 +78,8 @@ const LoadFromServer = {
   loadFilms: () => (dispatch, _, api) => {
     return api.get(`films`)
       .then((response) => {
-        //console.log(response.data);
-        //const preparedData = response.data.map((item) => normalizeKeys(item));
         const convertedData = response.data.map((item) => convertItem(item));
         dispatch(ActionCreator.loadFilms(convertedData));
-        //filmsInitial=convertedData;
-        //dispatch(ActionCreator.loadFilms(response.data));//(preparedData));
       });
   }
 };

@@ -52,7 +52,7 @@ exports[`Tabs component renders correctly 1`] = `
       <div
         className="movie-rating__score"
       >
-        8,9
+        8.9
       </div>
       <p
         className="movie-rating__meta"

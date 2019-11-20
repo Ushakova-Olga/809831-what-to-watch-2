@@ -6,6 +6,7 @@ import films from "../../mocks/films.js";
 it(`List genres correctly renders`, () => {
   const tree = renderer.create(<ListGenres
     films={films}
+    filmsInitial={films}
     clickFilterHandler={jest.fn()}
     currentGenre={`All genres`}
   />);

@@ -11,9 +11,9 @@ import configureAPI from "./api";
 import {applyMiddleware} from "redux";
 import {compose} from 'recompose';
 
-const api = configureAPI((...args) => store.dispatch(...args));
-
 const init = () => {
+  const api = configureAPI((...args) => store.dispatch(...args));
+
   const store = createStore(
       reducer,
       compose(
