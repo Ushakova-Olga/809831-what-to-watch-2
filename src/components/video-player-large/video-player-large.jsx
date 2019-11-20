@@ -12,18 +12,18 @@ class VideoPlayerLarge extends React.PureComponent {
       videoRef,
       isPlaying,
       progress,
-      duration,
+      runTime,
       onPlayButtonClick,
       onFullScreenButtonClick,
     } = this.props;
 
-    const {src, img} = information;
+    const {previewVideoLink, previewImage} = information;
 
     const format = src.match(/\w+$/);
 
     return (
       <div className="player">
-        <video src={src} className="player__video" poster={`img/${img}`} type={`video/${format}`} ref={videoRef} >
+        <video src={previewVideoLink} className="player__video" poster={`previewImage`} type={`video/${format}`} ref={videoRef} >
         </video>
 
         <button type="button" className="player__exit">Exit</button>
@@ -31,10 +31,10 @@ class VideoPlayerLarge extends React.PureComponent {
         <div className="player__controls">
           <div className="player__controls-row">
             <div className="player__time">
-              <progress className="player__progress" value={duration ? Math.round((progress / duration) * 100) : 0} max="100"></progress>
-              <div className="player__toggler" style={{left: `${duration ? Math.round((progress / duration) * 100) : 0}%`}}>Toggler</div>
+              <progress className="player__progress" value={runTime ? Math.round((progress / runTime) * 100) : 0} max="100"></progress>
+              <div className="player__toggler" style={{left: `${runTime ? Math.round((progress / runTime) * 100) : 0}%`}}>Toggler</div>
             </div>
-            <div className="player__time-value">{(duration - progress > 0) ? this._timeToString(duration - progress) : `00:00:00`}</div>
+            <div className="player__time-value">{(runTime - progress > 0) ? this._timeToString(runTime - progress) : `00:00:00`}</div>
           </div>
 
           <div className="player__controls-row">
@@ -94,24 +94,27 @@ class VideoPlayerLarge extends React.PureComponent {
 VideoPlayerLarge.propTypes = {
   information: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
+    previewImage: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    posterlarge: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
-    rating: PropTypes.string.isRequired,
-    ratingCount: PropTypes.string.isRequired,
+    released: PropTypes.number.isRequired,
+    posterImage: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    previewVideoLink: PropTypes.string.isRequired,
+    scoresCount: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
-    actors: PropTypes.array.isRequired,
+    starring: PropTypes.array.isRequired,
     director: PropTypes.string.isRequired,
-    duration: PropTypes.number.isRequired,
+    runTime: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    videoLink: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    id: PropTypes.number.isRequired
   }).isRequired,
 
   isLoading: PropTypes.bool.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   isFullscreen: PropTypes.bool.isRequired,
-  duration: PropTypes.number,
+  runTime: PropTypes.number,
   progress: PropTypes.number,
 
   onPlayButtonClick: PropTypes.func,

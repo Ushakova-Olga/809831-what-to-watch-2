@@ -21,19 +21,26 @@ const convertItem = (obj) => {
       newObj[convertKey(key)] = obj[key];
     }
   }
-
+  console.log(newObj);
   /* newObj = {
-    img: obj.preview_image,
+    img: obj.previewImage,
     name: obj.name,
     genre: obj.genre,
     year: obj.released,
     posterlarge: obj.poster_image,
     cover: obj.background_image,
-    src: obj.preview_video_link,
+    src: obj.previewVideoLink,
     rating: obj.scores_count,
     ratingCount: obj.scores_count,
     description: obj.description,
     actors: obj.starring,
+    description
+    director
+    runTime
+    rating
+    videoLink
+    isFavorite
+    id
   };*/
 
   return newObj;

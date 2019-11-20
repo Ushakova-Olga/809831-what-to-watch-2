@@ -8,18 +8,18 @@ class VideoPlayer extends React.PureComponent {
   }
 
   render() {
-    const {src, img} = this.props;
-    const format = src.match(/\w+$/);
+    const {previewVideoLink, previewImage} = this.props;
+    const format = previewVideoLink.match(/\w+$/);
 
     return (
       <video
         muted
-        poster={img}
+        poster={previewImage}
         width="100%"
         height="100%"
         ref={this._videoRef}>
         <source
-          src={src}
+          src={previewVideoLink}
           type={`video/${format}`}
         ></source>
       </video>
@@ -27,11 +27,11 @@ class VideoPlayer extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {src} = this.props;
+    const {previewVideoLink} = this.props;
     const video = this._videoRef.current;
 
     if (video) {
-      video.src = src;
+      video.src = previewVideoLink;
     }
   }
 
@@ -55,8 +55,8 @@ class VideoPlayer extends React.PureComponent {
 
 VideoPlayer.propTypes = {
   isPlaying: PropTypes.bool.isRequired,
-  src: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
+  previewVideoLink: PropTypes.string.isRequired,
+  previewImage: PropTypes.string.isRequired,
 };
 
 export default VideoPlayer;

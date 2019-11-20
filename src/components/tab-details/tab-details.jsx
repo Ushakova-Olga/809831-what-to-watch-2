@@ -19,7 +19,7 @@ class TabDetails extends React.PureComponent {
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Starring</strong>
             <span className="movie-card__details-value" style={{whiteSpace: `pre`}}>
-              {information.actors.join(`,\n`)}
+              {information.starring.join(`,\n`)}
             </span>
           </p>
         </div>
@@ -28,7 +28,7 @@ class TabDetails extends React.PureComponent {
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Run Time</strong>
             <span className="movie-card__details-value">
-              {information.duration}
+              {information.runTime}
             </span>
           </p>
           <p className="movie-card__details-item">
@@ -37,7 +37,7 @@ class TabDetails extends React.PureComponent {
           </p>
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Released</strong>
-            <span className="movie-card__details-value">{information.year}</span>
+            <span className="movie-card__details-value">{information.released}</span>
           </p>
         </div>
       </article>;
@@ -51,18 +51,21 @@ TabDetails.propTypes = {
   indexTab: PropTypes.number.isRequired,
   information: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
+    previewImage: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    posterlarge: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
-    rating: PropTypes.string.isRequired,
-    ratingCount: PropTypes.string.isRequired,
+    released: PropTypes.number.isRequired,
+    posterImage: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    previewVideoLink: PropTypes.string.isRequired,
+    scoresCount: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
-    actors: PropTypes.array.isRequired,
+    starring: PropTypes.array.isRequired,
     director: PropTypes.string.isRequired,
-    duration: PropTypes.number.isRequired,
+    runTime: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    videoLink: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    id: PropTypes.number.isRequired
   }).isRequired,
 };
 

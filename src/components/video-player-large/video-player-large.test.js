@@ -14,7 +14,7 @@ it(`VideoPlayerLarge renders correctly`, () => {
           isLoading={false}
           isFullscreen={false}
           progress={0}
-          duration={0}
+          runTime={0}
           onPlayButtonClick={() => {}}
           onFullScreenButtonClick={() => {}}
         />
