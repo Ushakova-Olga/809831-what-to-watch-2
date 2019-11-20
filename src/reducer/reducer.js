@@ -21,7 +21,7 @@ const convertItem = (obj) => {
       newObj[convertKey(key)] = obj[key];
     }
   }
-  console.log(newObj);
+
   /* newObj = {
     img: obj.previewImage,
     name: obj.name,

@@ -17,13 +17,13 @@ class VideoPlayerLarge extends React.PureComponent {
       onFullScreenButtonClick,
     } = this.props;
 
-    const {previewVideoLink, previewImage} = information;
+    const {videoLink, previewImage} = information;
 
-    const format = src.match(/\w+$/);
+    const format = videoLink.match(/\w+$/);
 
     return (
       <div className="player">
-        <video src={previewVideoLink} className="player__video" poster={`previewImage`} type={`video/${format}`} ref={videoRef} >
+        <video src={videoLink} className="player__video" poster={previewImage} type={`video/${format}`} ref={videoRef} >
         </video>
 
         <button type="button" className="player__exit">Exit</button>

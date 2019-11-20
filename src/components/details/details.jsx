@@ -8,7 +8,6 @@ const Details = (props) => {
 
   const {
     name,
-    img,
     genre,
     released,
     posterImage,
