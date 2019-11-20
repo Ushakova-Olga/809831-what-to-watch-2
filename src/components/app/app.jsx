@@ -11,16 +11,17 @@ import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-
 const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
 
 const getPageScreen = (props) => {
-  const {films, clickFilterHandler, countFilms, clickMoreButton, currentGenre} = props;
+  const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre} = props;
+
   switch (location.pathname) {
     case `/`:
-      return <MainScreen films={films} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} />;
+      return <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} />;
     case `/details`:
-      return <Details information={films[5]} films={films} countFilms={countFilms} clickHandler={() => {}} />;
+      return <Details information={films[5]} filmsInitial={filmsInitial} films={films} countFilms={countFilms} clickHandler={() => {}} />;
     case `/film`:
       return <VideoPlayerLargeWrapped information={films[0]} />;
   }
-  return <MainScreen films={films} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickHandlerMore={clickMoreButton} />;
+  return <MainScreen filmsInitial={filmsInitial} films={films} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickHandlerMore={clickMoreButton} />;
 };
 
 const App = (props) => {
@@ -31,16 +32,34 @@ getPageScreen.propTypes = {
   films: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired,
+        previewImage: PropTypes.string.isRequired,
         genre: PropTypes.string.isRequired,
-        year: PropTypes.number.isRequired,
-        posterlarge: PropTypes.string.isRequired,
-        cover: PropTypes.string.isRequired,
-        src: PropTypes.string.isRequired,
-        rating: PropTypes.string.isRequired,
-        ratingCount: PropTypes.string.isRequired,
+        released: PropTypes.number.isRequired,
+        posterImage: PropTypes.string.isRequired,
+        backgroundImage: PropTypes.string.isRequired,
+        previewVideoLink: PropTypes.string.isRequired,
+        scoresCount: PropTypes.number.isRequired,
         description: PropTypes.string.isRequired,
-        actors: PropTypes.array.isRequired,
+        starring: PropTypes.array.isRequired,
+      }).isRequired).isRequired,
+  filmsInitial: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        previewImage: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        released: PropTypes.number.isRequired,
+        posterImage: PropTypes.string.isRequired,
+        backgroundImage: PropTypes.string.isRequired,
+        previewVideoLink: PropTypes.string.isRequired,
+        scoresCount: PropTypes.number.isRequired,
+        description: PropTypes.string.isRequired,
+        starring: PropTypes.array.isRequired,
+        director: PropTypes.string.isRequired,
+        runTime: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        videoLink: PropTypes.string.isRequired,
+        isFavorite: PropTypes.bool.isRequired,
+        id: PropTypes.number.isRequired
       }).isRequired).isRequired,
   clickFilterHandler: PropTypes.func,
   countFilms: PropTypes.number.isRequired,
@@ -52,6 +71,7 @@ const mapStateToProps = (state) => ({
   currentGenre: state.genre,
   films: state.films,
   countFilms: state.filmsCount,
+  filmsInitial: state.filmsInitial,
 });
 
 const mapDispatchToProps = (dispatch) => ({

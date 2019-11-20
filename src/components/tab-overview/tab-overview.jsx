@@ -15,7 +15,7 @@ class TabOverview extends React.PureComponent {
           <div className="movie-rating__score">{information.rating}</div>
           <p className="movie-rating__meta">
             <span className="movie-rating__level">Very good</span>
-            <span className="movie-rating__count">{`${information.ratingCount} ratings`}</span>
+            <span className="movie-rating__count">{`${information.scoresCount} ratings`}</span>
           </p>
         </div>
 
@@ -27,7 +27,7 @@ class TabOverview extends React.PureComponent {
           </p>
 
           <p className="movie-card__starring">
-            <strong>Starring: {information.actors.join(`, `)}</strong>
+            <strong>Starring: {information.starring.join(`, `)}</strong>
           </p>
         </div>
       </article>;
@@ -42,18 +42,21 @@ TabOverview.propTypes = {
   indexTab: PropTypes.number.isRequired,
   information: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
+    previewImage: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    posterlarge: PropTypes.string.isRequired,
-    cover: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
-    rating: PropTypes.string.isRequired,
-    ratingCount: PropTypes.string.isRequired,
+    released: PropTypes.number.isRequired,
+    posterImage: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    previewVideoLink: PropTypes.string.isRequired,
+    scoresCount: PropTypes.number.iRequired,
     description: PropTypes.string.isRequired,
-    actors: PropTypes.array.isRequired,
+    starring: PropTypes.array.isRequired,
     director: PropTypes.string.isRequired,
-    duration: PropTypes.number.isRequired,
+    runTime: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    videoLink: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    id: PropTypes.number.isRequired
   }).isRequired,
 };
 

@@ -214,7 +214,7 @@ Array [
             <video
               height="100%"
               muted={true}
-              poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              poster="fantastic-beasts-the-crimes-of-grindelwald.jpg"
               width="100%"
             >
               <source
@@ -246,7 +246,7 @@ Array [
             <video
               height="100%"
               muted={true}
-              poster="img/bohemian-rhapsody.jpg"
+              poster="bohemian-rhapsody.jpg"
               width="100%"
             >
               <source
@@ -278,7 +278,7 @@ Array [
             <video
               height="100%"
               muted={true}
-              poster="img/macbeth.jpg"
+              poster="macbeth.jpg"
               width="100%"
             >
               <source
@@ -310,7 +310,7 @@ Array [
             <video
               height="100%"
               muted={true}
-              poster="img/aviator.jpg"
+              poster="aviator.jpg"
               width="100%"
             >
               <source
@@ -342,7 +342,7 @@ Array [
             <video
               height="100%"
               muted={true}
-              poster="img/we-need-to-talk-about-kevin.jpg"
+              poster="we-need-to-talk-about-kevin.jpg"
               width="100%"
             >
               <source
@@ -374,7 +374,7 @@ Array [
             <video
               height="100%"
               muted={true}
-              poster="img/the-grand-budapest-hotel-poster.jpg"
+              poster="the-grand-budapest-hotel-poster.jpg"
               width="100%"
             >
               <source
@@ -406,7 +406,7 @@ Array [
             <video
               height="100%"
               muted={true}
-              poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              poster="fantastic-beasts-the-crimes-of-grindelwald.jpg"
               width="100%"
             >
               <source
@@ -438,7 +438,7 @@ Array [
             <video
               height="100%"
               muted={true}
-              poster="img/bohemian-rhapsody.jpg"
+              poster="bohemian-rhapsody.jpg"
               width="100%"
             >
               <source

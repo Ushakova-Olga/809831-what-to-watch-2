@@ -1,13 +1,15 @@
-import {ActionCreator, reducer} from "./reducer";
-import FILMS from "../mocks/films";
-
+import {ActionCreator, reducer, LoadFromServer} from "./reducer";
+import configureAPI from '../api';
+import MockAdapter from 'axios-mock-adapter';
+import FILMS from "../mocks/films.js";
 
 it(`Reducer correctly set a genre`, () => {
   expect(
       reducer(
           {
             genre: `All genres`,
-            films: FILMS
+            films: FILMS,
+            filmsInitial: FILMS
           },
           {
             type: `SET_GENRE`,
@@ -16,7 +18,8 @@ it(`Reducer correctly set a genre`, () => {
       )
   ).toEqual({
     genre: `drama`,
-    films: FILMS
+    films: FILMS,
+    filmsInitial: FILMS
   });
 });
 
@@ -25,16 +28,18 @@ it(`Reducer correctly return filtered films`, () => {
       reducer(
           {
             genre: `All genres`,
-            films: FILMS
+            films: FILMS,
+            filmsInitial: FILMS
           },
           {
             type: `FILMS_FILTER`,
-            payload: FILMS
+            payload: `All genres`
           }
       )
   ).toEqual({
     genre: `All genres`,
-    films: FILMS
+    films: FILMS,
+    filmsInitial: FILMS
   });
 });
 
@@ -49,6 +54,27 @@ it(`Action creator correctly set genre`, () => {
 it(`Action creator correctly filter films`, () => {
   expect(ActionCreator.getFilmsListOnGenre(`tragedy`)).toEqual({
     type: `FILMS_FILTER`,
-    payload: [FILMS[2], FILMS[8]]
+    payload: `tragedy`
   });
+});
+
+it(`Action creator correctly load films`, () => {
+  const dispatch = jest.fn();
+  const load = LoadFromServer.loadFilms();
+
+  const api = configureAPI(dispatch);
+  const apiMock = new MockAdapter(api);
+
+  apiMock
+    .onGet(`films`)
+    .reply(200, [{fake: true}]);
+
+  return load(dispatch, jest.fn(), api)
+    .then(() => {
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: `LOAD_FILMS`,
+        payload: [{fake: true}],
+      });
+    });
 });

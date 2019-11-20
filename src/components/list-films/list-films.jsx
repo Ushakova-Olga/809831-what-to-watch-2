@@ -20,7 +20,23 @@ class ListFilms extends React.PureComponent {
 
         key={it.name + i}
         id={i}
-        information={{name: it.name, img: it.img, genre: it.genre, year: it.year, posterlarge: it.posterlarge, cover: it.cover, src: it.src, rating: it.rating, ratingCount: it.ratingCount, description: it.description, actors: it.actors}}
+        information={{
+          name: it.name,
+          previewImage: it.previewImage,
+          genre: it.genre,
+          released: it.released,
+          posterImage: it.posterImage,
+          backgroundImage: it.backgroundImage,
+          previewVideoLink: it.previewVideoLink,
+          scoresCount: it.scoresCount,
+          description: it.description,
+          director: it.director,
+          runTime: it.runTime,
+          rating: it.rating,
+          videoLink: it.videoLink,
+          isFavorite: it.isFavorite,
+          id: it.id,
+          starring: it.starring}}
         clickHandler={clickHandler}
         isPlaying={false}
       />)}
@@ -32,16 +48,19 @@ ListFilms.propTypes = {
   films: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired,
+        previewImage: PropTypes.string.isRequired,
         genre: PropTypes.string.isRequired,
-        year: PropTypes.number.isRequired,
-        posterlarge: PropTypes.string.isRequired,
-        cover: PropTypes.string.isRequired,
-        src: PropTypes.string.isRequired,
-        rating: PropTypes.string.isRequired,
-        ratingCount: PropTypes.string.isRequired,
+        released: PropTypes.number.isRequired,
+        posterImage: PropTypes.string.isRequired,
+        backgroundImage: PropTypes.string.isRequired,
+        previewVideoLink: PropTypes.string.isRequired,
+        scoresCount: PropTypes.number.isRequired,
         description: PropTypes.string.isRequired,
-        actors: PropTypes.array.isRequired,
+        starring: PropTypes.array.isRequired,
+        director: PropTypes.string.isRequired,
+        runTime: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        videoLink: PropTypes.string.isRequired,
       }).isRequired).isRequired,
   clickHandler: PropTypes.func,
   countFilms: PropTypes.number.isRequired,

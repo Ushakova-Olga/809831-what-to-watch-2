@@ -13,7 +13,7 @@ exports[`Small card correctly renders 1`] = `
     <video
       height="100%"
       muted={true}
-      poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+      poster="fantastic-beasts-the-crimes-of-grindelwald.jpg"
       width="100%"
     >
       <source

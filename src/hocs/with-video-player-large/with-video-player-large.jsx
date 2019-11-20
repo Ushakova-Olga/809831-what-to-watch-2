@@ -13,7 +13,7 @@ const withVideoPlayerLarge = (Component) => {
         isPlaying: false,
         isFullscreen: false,
         progress: null,
-        duration: null,
+        runTime: null,
       };
 
       this._onPlayButtonClick = this._onPlayButtonClick.bind(this);
@@ -22,10 +22,10 @@ const withVideoPlayerLarge = (Component) => {
 
     componentDidMount() {
       const {information} = this.props;
-      const {src} = information;
+      const {previewVideoLink} = information;
       const video = this._videoRef.current;
 
-      video.src = src;
+      video.src = previewVideoLink;
       video.load();
 
       video.onloadeddata = () => this.setState({
@@ -47,7 +47,7 @@ const withVideoPlayerLarge = (Component) => {
 
       video.onloadedmetadata = () =>
         this.setState({
-          duration: video.duration,
+          runTime: video.duration,
           progress: video.currentTime,
         });
     }
@@ -80,16 +80,10 @@ const withVideoPlayerLarge = (Component) => {
 
     _onFullScreenButtonClick() {
       this.setState({isFullscreen: !this.state.isFullscreen});
-      // const video = this._videoRef.current;
-      /* if (this.state.isFullscreen) {
-        video.requestFullscreen();
-      } else {
-        video.cancelFullScreen();
-      }*/
     }
 
     render() {
-      const {isLoading, isPlaying, isFullscreen, progress, duration} = this.state;
+      const {isLoading, isPlaying, isFullscreen, progress, runTime} = this.state;
 
       return (
         <Component
@@ -99,7 +93,7 @@ const withVideoPlayerLarge = (Component) => {
           isPlaying={isPlaying}
           isFullscreen={isFullscreen}
           progress={progress}
-          duration={duration}
+          runTime={runTime}
           onPlayButtonClick={this._onPlayButtonClick}
           onFullScreenButtonClick={this._onFullScreenButtonClick}
         />
@@ -110,16 +104,16 @@ const withVideoPlayerLarge = (Component) => {
   WithVideoPlayerLarge.propTypes = {
     information: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      img: PropTypes.string.isRequired,
+      previewImage: PropTypes.string.isRequired,
       genre: PropTypes.string.isRequired,
-      year: PropTypes.number.isRequired,
-      posterlarge: PropTypes.string.isRequired,
-      cover: PropTypes.string.isRequired,
-      src: PropTypes.string.isRequired,
+      released: PropTypes.number.isRequired,
+      posterImage: PropTypes.string.isRequired,
+      backgroundImage: PropTypes.string.isRequired,
+      previewVideoLink: PropTypes.string.isRequired,
       rating: PropTypes.string.isRequired,
-      ratingCount: PropTypes.string.isRequired,
+      scoresCount: PropTypes.number.isRequired,
       description: PropTypes.string.isRequired,
-      actors: PropTypes.array.isRequired,
+      starring: PropTypes.array.isRequired,
       director: PropTypes.string.isRequired,
       duration: PropTypes.number.isRequired,
     }).isRequired,

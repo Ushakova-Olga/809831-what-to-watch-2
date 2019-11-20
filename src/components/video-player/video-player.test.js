@@ -5,8 +5,8 @@ import VideoPlayer from '../video-player/video-player';
 it(`Video player correctly renders`, () => {
   const tree = renderer
     .create(<VideoPlayer
-      src={``}
-      img={``}
+      previewVideoLink={``}
+      previewImage={``}
       isPlaying={false}
       clickHandler={()=>{}}
       key={``}>

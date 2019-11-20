@@ -10,7 +10,7 @@ class SmallCard extends React.PureComponent {
 
   render() {
     const {information, clickHandler, onMouseEnter, onMouseLeave, isActive, id} = this.props;
-    const {name, img, src} = information;
+    const {name, previewImage, previewVideoLink} = information;
 
     return <article className="small-movie-card catalog__movies-card"
       onClick={() => {
@@ -27,8 +27,8 @@ class SmallCard extends React.PureComponent {
     >
       <div className="small-movie-card__image">
         <VideoPlayer
-          src={src}
-          img={`img/${img}`}
+          previewVideoLink={previewVideoLink}
+          previewImage={previewImage}
           isPlaying={isActive}
           clickHandler={clickHandler}
           key={`v${id}`}>
@@ -44,8 +44,21 @@ class SmallCard extends React.PureComponent {
 SmallCard.propTypes = {
   information: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
-    src: PropTypes.string.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    released: PropTypes.number.isRequired,
+    posterImage: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    previewVideoLink: PropTypes.string.isRequired,
+    scoresCount: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    starring: PropTypes.array.isRequired,
+    director: PropTypes.string.isRequired,
+    runTime: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
+    videoLink: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    id: PropTypes.number.isRequired
   }).isRequired,
   clickHandler: PropTypes.func,
   onMouseEnter: PropTypes.func,

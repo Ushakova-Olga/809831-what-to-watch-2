@@ -10,6 +10,7 @@ it(`List films correctly pressed header`, () => {
   const clickHandler = jest.fn();
   const componentListFilms = mount(<ListFilms
     films={films}
+    filmsInitial={films}
     countFilms={8}
     clickHandler={clickHandler} />);
 
