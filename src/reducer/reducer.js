@@ -61,6 +61,11 @@ const ActionCreator = {
     payload: films,
   }),
 
+  changeIsAuthorizationRequired: (bool) => ({
+    type: `CHANGE_IS_AUTHORIZATION_REQUIRED`,
+    payload: bool,
+  }),
+
   // изменение фильтра по жанрам
   setNewFilmsGenre: (genre) => ({
     type: `SET_GENRE`,
@@ -99,6 +104,9 @@ const reducer = (state = initialState, action) => {
         films: action.payload,
         filmsInitial: action.payload,
       });
+    case `CHANGE_IS_AUTHORIZATION_REQUIRED`: return Object.assign({}, state, {
+      isAuthorizationRequired: action.payload,
+    });
     case `SET_GENRE`:
       return Object.assign({}, state, {
         genre: action.payload
