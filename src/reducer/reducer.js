@@ -6,6 +6,7 @@ const initialState = {
   films: [],
   filmsCount: FILMS_COUNT,
   filmsInitial: [],
+  isAuthorizationRequired: false,
 };
 
 const convertKey = (key) => {
