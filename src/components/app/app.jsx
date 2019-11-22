@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import SignIn from "../../components/sign-in/sign-in.jsx";
 import MainScreen from "../../components/main-screen/main-screen.jsx";
 import Details from "../../components/details/details.jsx";
 import {connect} from "react-redux";
@@ -8,14 +9,15 @@ import {ActionCreator} from "../../reducer/reducer";
 import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";
 import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-player-large.jsx';
 
+
 const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
 
 const getPageScreen = (props) => {
-  const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre} = props;
+  const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre, isAuthorizationRequired} = props;
 
   switch (location.pathname) {
     case `/`:
-      return <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} />;
+      return isAuthorizationRequired ? <SignIn /> : <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} />;
     case `/details`:
       return <Details information={films[5]} filmsInitial={filmsInitial} films={films} countFilms={countFilms} clickHandler={() => {}} />;
     case `/film`:
@@ -72,6 +74,7 @@ const mapStateToProps = (state) => ({
   films: state.films,
   countFilms: state.filmsCount,
   filmsInitial: state.filmsInitial,
+  isAuthorizationRequired: state.isAuthorizationRequired,
 });
 
 const mapDispatchToProps = (dispatch) => ({
