@@ -5,7 +5,7 @@ import ShowMore from "../../components/show-more/show-more.jsx";
 import PropTypes from 'prop-types';
 
 const MainScreen = (props) => {
-  const {films, filmsInitial, clickHandler, clickFilterHandler, clickHandlerMore, countFilms, currentGenre} = props;
+  const {films, filmsInitial, clickHandler, clickFilterHandler, clickHandlerMore, countFilms, currentGenre, isAuthorizationRequired, userData} = props;
 
   return <>
       <section className="movie-card">
@@ -15,6 +15,21 @@ const MainScreen = (props) => {
 
         <h1 className="visually-hidden">WTW</h1>
 
+        {isAuthorizationRequired ?
+        <header class="page-header">
+          <div class="logo">
+            <a class="logo__link">
+              <span class="logo__letter logo__letter--1">W</span>
+              <span class="logo__letter logo__letter--2">T</span>
+              <span class="logo__letter logo__letter--3">W</span>
+            </a>
+          </div>
+
+          <div class="user-block">
+            <a href="sign-in.html" class="user-block__link">Sign in</a>
+          </div>
+        </header>
+        :
         <header className="page-header movie-card__head">
           <div className="logo">
             <a className="logo__link">
@@ -26,10 +41,10 @@ const MainScreen = (props) => {
 
           <div className="user-block">
             <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+              <img src={`https://htmlacademy-react-2.appspot.com${userData.avatar_url}`} alt="User avatar" width="63" height="63" />
             </div>
           </div>
-        </header>
+        </header>}
 
         <div className="movie-card__wrap">
           <div className="movie-card__info">

@@ -13,17 +13,17 @@ import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-
 const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
 
 const getPageScreen = (props) => {
-  const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre, isAuthorizationRequired, submitHandler} = props;
+  const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre, isAuthorizationRequired, submitHandler, userData} = props;
 
   switch (location.pathname) {
     case `/`:
-      return isAuthorizationRequired ? <SignIn submitHandler={submitHandler}/> : <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} />;
+      return isAuthorizationRequired ? <SignIn submitHandler={submitHandler} userData={userData} /> : <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} userData={userData} />;
     case `/details`:
       return <Details information={films[5]} filmsInitial={filmsInitial} films={films} countFilms={countFilms} clickHandler={() => {}} />;
     case `/film`:
       return <VideoPlayerLargeWrapped information={films[0]} />;
   }
-  return <MainScreen filmsInitial={filmsInitial} films={films} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickHandlerMore={clickMoreButton} />;
+  return <MainScreen filmsInitial={filmsInitial} films={films} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickHandlerMore={clickMoreButton} userData={userData} />;
 };
 
 const App = (props) => {
@@ -75,6 +75,7 @@ const mapStateToProps = (state) => ({
   countFilms: state.filmsCount,
   filmsInitial: state.filmsInitial,
   isAuthorizationRequired: state.isAuthorizationRequired,
+  userData: state.userData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -85,7 +86,9 @@ const mapDispatchToProps = (dispatch) => ({
   clickMoreButton: () => {
     dispatch(ActionCreator.addCountFilms());
   },
-  submitHandler: (email, password) => dispatch(LoadFromServer.logIn(email, password)),
+  submitHandler: (email, password) => {
+    dispatch(LoadFromServer.logIn(email, password));
+  },
 });
 
 

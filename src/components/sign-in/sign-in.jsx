@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const SignIn = (props) => {
-  const {submitHandler} = props;
+  const {submitHandler, userData} = props;
+  console.log(userData);
 
   return  <div className="user-page">
         <header className="page-header user-page__head">

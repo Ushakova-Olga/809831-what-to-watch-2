@@ -104,7 +104,6 @@ const LoadFromServer = {
     return api.post(`login`, {email, password})
       .then((response) => {
         if (response.data) {
-          console.log(response.data);
           dispatch(ActionCreator.changeIsAuthorizationRequired(false));
           dispatch(ActionCreator.enterUser(response.data));
         }
@@ -123,9 +122,12 @@ const reducer = (state = initialState, action) => {
     case `CHANGE_IS_AUTHORIZATION_REQUIRED`: return Object.assign({}, state, {
       isAuthorizationRequired: action.payload,
     });
-    case `AUTHORIZE_USER`: return Object.assign({}, state, {
-      userData: action.payload,
+    case `ENTER_USER`:
+      { console.log(action.payload);
+        return Object.assign({}, state, {
+        userData: action.payload,
     });
+  }
     case `SET_GENRE`:
       return Object.assign({}, state, {
         genre: action.payload
