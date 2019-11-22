@@ -105,7 +105,7 @@ const LoadFromServer = {
       .then((response) => {
         if (response.data) {
           dispatch(ActionCreator.changeIsAuthorizationRequired(false));
-          dispatch(ActionCreator.enterUser(response.data));
+          dispatch(ActionCreator.enterUser(convertItem(response.data)));
         }
       })
       .catch((_err) => {});
@@ -119,15 +119,14 @@ const reducer = (state = initialState, action) => {
         films: action.payload,
         filmsInitial: action.payload,
       });
-    case `CHANGE_IS_AUTHORIZATION_REQUIRED`: return Object.assign({}, state, {
-      isAuthorizationRequired: action.payload,
-    });
+    case `CHANGE_IS_AUTHORIZATION_REQUIRED`:
+      return Object.assign({}, state, {
+        isAuthorizationRequired: action.payload,
+      });
     case `ENTER_USER`:
-      { console.log(action.payload);
-        return Object.assign({}, state, {
+      return Object.assign({}, state, {
         userData: action.payload,
-    });
-  }
+      });
     case `SET_GENRE`:
       return Object.assign({}, state, {
         genre: action.payload

@@ -15,6 +15,12 @@ it(`Main screen correctly pressed header`, () => {
     countFilms={8}
     clickHandlerMore={() => {}}
     currentGenre={`All genres`}
+    userData = {{
+      id: 1,
+      name: `Olga`,
+      email: `test`,
+      avatarUrl: `avatar`
+    }}
   />);
 
   const mainHeader = componentMainScreen.find(`h2.movie-card__title`);

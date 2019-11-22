@@ -17,7 +17,7 @@ const getPageScreen = (props) => {
 
   switch (location.pathname) {
     case `/`:
-      return isAuthorizationRequired ? <SignIn submitHandler={submitHandler} userData={userData} /> : <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} userData={userData} />;
+      return isAuthorizationRequired ? <SignIn submitHandler={submitHandler} /> : <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} userData={userData} />;
     case `/details`:
       return <Details information={films[5]} filmsInitial={filmsInitial} films={films} countFilms={countFilms} clickHandler={() => {}} />;
     case `/film`:
@@ -67,6 +67,14 @@ getPageScreen.propTypes = {
   countFilms: PropTypes.number.isRequired,
   clickMoreButton: PropTypes.func.isRequired,
   currentGenre: PropTypes.string.isRequired,
+  isAuthorizationRequired: PropTypes.bool.isRequired,
+  userData: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    email: PropTypes.string,
+    avatarUrl: PropTypes.string,
+  }),
+  submitHandler: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

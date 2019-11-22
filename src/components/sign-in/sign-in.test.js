@@ -1,10 +1,8 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import SignIn from './sign-in';
 
-import {SignIn} from './sign-in';
-
-
-it(`renders correctly`, () => {
+it(`SignIn renders correctly`, () => {
   const tree = renderer.create(
       <SignIn
         isAuthorizationRequired={true}
