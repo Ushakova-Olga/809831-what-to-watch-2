@@ -53,7 +53,7 @@ Array [
           <img
             alt="User avatar"
             height="63"
-            src="img/avatar.jpg"
+            src="https://htmlacademy-react-2.appspot.comavatar"
             width="63"
           />
         </div>

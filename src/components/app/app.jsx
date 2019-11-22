@@ -1,27 +1,29 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import SignIn from "../../components/sign-in/sign-in.jsx";
 import MainScreen from "../../components/main-screen/main-screen.jsx";
 import Details from "../../components/details/details.jsx";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/reducer";
+import {LoadFromServer, ActionCreator} from "../../reducer/reducer";
 
 import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";
 import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-player-large.jsx';
 
+
 const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
 
 const getPageScreen = (props) => {
-  const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre} = props;
+  const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre, isAuthorizationRequired, submitHandler, userData} = props;
 
   switch (location.pathname) {
     case `/`:
-      return <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} />;
+      return isAuthorizationRequired ? <SignIn submitHandler={submitHandler} /> : <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} userData={userData} />;
     case `/details`:
       return <Details information={films[5]} filmsInitial={filmsInitial} films={films} countFilms={countFilms} clickHandler={() => {}} />;
     case `/film`:
       return <VideoPlayerLargeWrapped information={films[0]} />;
   }
-  return <MainScreen filmsInitial={filmsInitial} films={films} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickHandlerMore={clickMoreButton} />;
+  return <MainScreen filmsInitial={filmsInitial} films={films} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickHandlerMore={clickMoreButton} userData={userData} />;
 };
 
 const App = (props) => {
@@ -65,6 +67,14 @@ getPageScreen.propTypes = {
   countFilms: PropTypes.number.isRequired,
   clickMoreButton: PropTypes.func.isRequired,
   currentGenre: PropTypes.string.isRequired,
+  isAuthorizationRequired: PropTypes.bool.isRequired,
+  userData: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    email: PropTypes.string,
+    avatarUrl: PropTypes.string,
+  }),
+  submitHandler: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -72,6 +82,8 @@ const mapStateToProps = (state) => ({
   films: state.films,
   countFilms: state.filmsCount,
   filmsInitial: state.filmsInitial,
+  isAuthorizationRequired: state.isAuthorizationRequired,
+  userData: state.userData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -81,8 +93,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   clickMoreButton: () => {
     dispatch(ActionCreator.addCountFilms());
-  }
+  },
+  submitHandler: (email, password) => {
+    dispatch(LoadFromServer.logIn(email, password));
+  },
 });
+
 
 export {App};
 export default connect(mapStateToProps, mapDispatchToProps)(App);
