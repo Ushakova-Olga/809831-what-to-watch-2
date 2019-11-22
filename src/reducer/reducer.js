@@ -6,7 +6,8 @@ const initialState = {
   films: [],
   filmsCount: FILMS_COUNT,
   filmsInitial: [],
-  isAuthorizationRequired: false,
+  isAuthorizationRequired: true,
+  userData: {},
 };
 
 const convertKey = (key) => {
@@ -65,6 +66,10 @@ const ActionCreator = {
     type: `CHANGE_IS_AUTHORIZATION_REQUIRED`,
     payload: bool,
   }),
+  enterUser: (userData) => ({
+    type: `ENTER_USER`,
+    payload: userData,
+  }),
 
   // изменение фильтра по жанрам
   setNewFilmsGenre: (genre) => ({
@@ -94,7 +99,18 @@ const LoadFromServer = {
         const convertedData = response.data.map((item) => convertItem(item));
         dispatch(ActionCreator.loadFilms(convertedData));
       });
-  }
+  },
+  logIn: (email, password) => (dispatch, _, api) => {
+    return api.post(`login`, {email, password})
+      .then((response) => {
+        if (response.data) {
+          console.log(response.data);
+          dispatch(ActionCreator.changeIsAuthorizationRequired(false));
+          dispatch(ActionCreator.enterUser(response.data));
+        }
+      })
+      .catch((_err) => {});
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -106,6 +122,9 @@ const reducer = (state = initialState, action) => {
       });
     case `CHANGE_IS_AUTHORIZATION_REQUIRED`: return Object.assign({}, state, {
       isAuthorizationRequired: action.payload,
+    });
+    case `AUTHORIZE_USER`: return Object.assign({}, state, {
+      userData: action.payload,
     });
     case `SET_GENRE`:
       return Object.assign({}, state, {

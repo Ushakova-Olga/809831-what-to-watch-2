@@ -4,7 +4,7 @@ import SignIn from "../../components/sign-in/sign-in.jsx";
 import MainScreen from "../../components/main-screen/main-screen.jsx";
 import Details from "../../components/details/details.jsx";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/reducer";
+import {LoadFromServer, ActionCreator} from "../../reducer/reducer";
 
 import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";
 import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-player-large.jsx';
@@ -13,11 +13,11 @@ import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-
 const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
 
 const getPageScreen = (props) => {
-  const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre, isAuthorizationRequired} = props;
+  const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre, isAuthorizationRequired, submitHandler} = props;
 
   switch (location.pathname) {
     case `/`:
-      return isAuthorizationRequired ? <SignIn /> : <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} />;
+      return isAuthorizationRequired ? <SignIn submitHandler={submitHandler}/> : <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} />;
     case `/details`:
       return <Details information={films[5]} filmsInitial={filmsInitial} films={films} countFilms={countFilms} clickHandler={() => {}} />;
     case `/film`:
@@ -84,8 +84,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   clickMoreButton: () => {
     dispatch(ActionCreator.addCountFilms());
-  }
+  },
+  submitHandler: (email, password) => dispatch(LoadFromServer.logIn(email, password)),
 });
+
 
 export {App};
 export default connect(mapStateToProps, mapDispatchToProps)(App);
