@@ -1,4 +1,5 @@
 import axios from "axios";
+import {ActionCreator} from './reducer/reducer';
 
 const configureAPI = () => {
   const api = axios.create({
@@ -6,6 +7,16 @@ const configureAPI = () => {
     timeout: 5000,
     withCredentials: true,
   });
+
+  const onSuccess = (response) => response;
+  const onError = (error) => {
+    if (error.response === 401) {
+      dispatch(ActionCreator.changeIsAuthorizationRequired(true));
+      history.push(`/login`);
+    }
+    return error;
+  };
+  api.interceptors.response.use(onSuccess, onError);
   return api;
 };
 
