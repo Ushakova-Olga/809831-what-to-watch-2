@@ -20,11 +20,11 @@ const getPageScreen = (props) => {
     case `/`:
       return isAuthorizationRequired ? <SignIn submitHandler={submitHandler} isAuthorizationRequired={isAuthorizationRequired} /> : <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} userData={userData} isAuthorizationRequired={isAuthorizationRequired}/>;
     case `/details`:
-      return <Details filmsInitial={filmsInitial} films={films} countFilms={countFilms} clickHandler={() => {}} />;
+      return <Details information={films[0]} films={films} clickHandler={() => {}} isAuthorizationRequired={isAuthorizationRequired} />;
     case `/film`:
       return <VideoPlayerLargeWrapped information={films[0]} />;
     case `/review`:
-      return isAuthorizationRequired ? <SignIn submitHandler={submitHandler} isAuthorizationRequired={isAuthorizationRequired} /> : <AddReview films={films} filmsInitial={filmsInitial} userData={userData} id={films[0].id} isAuthorizationRequired={isAuthorizationRequired} submitHandler={()=> {}} />;
+      return isAuthorizationRequired ? <SignIn submitHandler={submitHandler} isAuthorizationRequired={isAuthorizationRequired} /> : <AddReview films={films} filmsInitial={filmsInitial} userData={userData} id={films[0].id} submitHandler={()=> {}} />;
   }
   return <MainScreen filmsInitial={filmsInitial} films={films} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickHandlerMore={clickMoreButton} userData={userData} />;
 };
@@ -46,6 +46,12 @@ getPageScreen.propTypes = {
         scoresCount: PropTypes.number.isRequired,
         description: PropTypes.string.isRequired,
         starring: PropTypes.array.isRequired,
+        director: PropTypes.string.isRequired,
+        runTime: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        videoLink: PropTypes.string.isRequired,
+        isFavorite: PropTypes.bool.isRequired,
+        id: PropTypes.number.isRequired
       }).isRequired).isRequired,
   filmsInitial: PropTypes.arrayOf(
       PropTypes.shape({
