@@ -28,7 +28,7 @@ const init = () => {
       <Provider store={store}>
         <BrowserRouter>
           <App />
-        </BrowserRouer>
+        </BrowserRouter>
       </Provider>,
       document.querySelector(`#root`)
   );

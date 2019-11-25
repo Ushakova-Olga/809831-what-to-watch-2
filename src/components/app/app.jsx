@@ -6,6 +6,7 @@ import Details from "../../components/details/details.jsx";
 import AddReview from "../../components/add-review/add-review.jsx";
 import {connect} from "react-redux";
 import {LoadFromServer, ActionCreator} from "../../reducer/reducer";
+import {Switch, Route} from 'react-router-dom';
 
 import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";
 import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-player-large.jsx';
@@ -14,6 +15,19 @@ import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-
 const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
 
 const getPageScreen = (props) => {
+  const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre, isAuthorizationRequired, submitHandler, userData} = props;
+  return <Switch>
+    <Route path="/" exact render={() => {
+      return isAuthorizationRequired ? <SignIn submitHandler={submitHandler} isAuthorizationRequired={isAuthorizationRequired} /> : <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} userData={userData} isAuthorizationRequired={isAuthorizationRequired}/>;
+    }}
+    />
+    <Route path="/login" exact render={() => {
+      return <SignIn submitHandler={submitHandler} isAuthorizationRequired={isAuthorizationRequired} />;
+    }}
+    />
+  </Switch>;
+}
+/*const getPageScreen = (props) => {
   const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre, isAuthorizationRequired, submitHandler, userData} = props;
 
   switch (location.pathname) {
@@ -27,7 +41,7 @@ const getPageScreen = (props) => {
       return isAuthorizationRequired ? <SignIn submitHandler={submitHandler} isAuthorizationRequired={isAuthorizationRequired} /> : <AddReview films={films} filmsInitial={filmsInitial} userData={userData} id={films[0].id} submitHandler={()=> {}} />;
   }
   return <MainScreen filmsInitial={filmsInitial} films={films} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickHandlerMore={clickMoreButton} userData={userData} />;
-};
+};*/
 
 const App = (props) => {
   return <React.Fragment>{getPageScreen(props)}</React.Fragment>;
