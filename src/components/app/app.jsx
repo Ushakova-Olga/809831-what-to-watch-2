@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import SignIn from "../../components/sign-in/sign-in.jsx";
 import MainScreen from "../../components/main-screen/main-screen.jsx";
 import Details from "../../components/details/details.jsx";
+import AddReview from "../../components/add-review/add-review.jsx";
 import {connect} from "react-redux";
 import {LoadFromServer, ActionCreator} from "../../reducer/reducer";
 
@@ -17,11 +18,13 @@ const getPageScreen = (props) => {
 
   switch (location.pathname) {
     case `/`:
-      return isAuthorizationRequired ? <SignIn submitHandler={submitHandler} /> : <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} userData={userData} />;
+      return isAuthorizationRequired ? <SignIn submitHandler={submitHandler} isAuthorizationRequired={isAuthorizationRequired} /> : <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} userData={userData} isAuthorizationRequired={isAuthorizationRequired}/>;
     case `/details`:
-      return <Details information={films[5]} filmsInitial={filmsInitial} films={films} countFilms={countFilms} clickHandler={() => {}} />;
+      return <Details filmsInitial={filmsInitial} films={films} countFilms={countFilms} clickHandler={() => {}} />;
     case `/film`:
       return <VideoPlayerLargeWrapped information={films[0]} />;
+    case `/review`:
+      return isAuthorizationRequired ? <SignIn submitHandler={submitHandler} isAuthorizationRequired={isAuthorizationRequired} /> : <AddReview films={films} filmsInitial={filmsInitial} userData={userData} id={films[0].id} isAuthorizationRequired={isAuthorizationRequired} submitHandler={()=> {}} />;
   }
   return <MainScreen filmsInitial={filmsInitial} films={films} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickHandlerMore={clickMoreButton} userData={userData} />;
 };

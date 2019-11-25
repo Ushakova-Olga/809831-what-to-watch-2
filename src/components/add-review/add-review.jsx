@@ -47,23 +47,28 @@ const AddReview = (props) => {
         </div>
 
         <div className="add-review">
-          <form action="#" className="add-review__form">
+          <form action="#" className="add-review__form" onSubmit={(evt) => {
+            evt.preventDefault();
+            const text = evt.target.querySelector(`#review-text`).value;
+            const rating = evt.target.querySelector(`.rating__input:checked`).value;
+            submitHandler(text, rating);
+          }}>
             <div className="rating">
               <div className="rating__stars">
                 <input className="rating__input" id="star-1" type="radio" name="rating" value="1"/>
-                <label className="rating__label" for="star-1">Rating 1</label>
+                <label className="rating__label" htmlFor="star-1">Rating 1</label>
 
                 <input className="rating__input" id="star-2" type="radio" name="rating" value="2" />
-                <label className="rating__label" for="star-2">Rating 2</label>
+                <label className="rating__label" htmlFor="star-2">Rating 2</label>
 
-                <input className="rating__input" id="star-3" type="radio" name="rating" value="3" checked />
-                <label className="rating__label" for="star-3">Rating 3</label>
+                <input className="rating__input" id="star-3" type="radio" name="rating" value="3" defaultChecked />
+                <label className="rating__label" htmlFor="star-3">Rating 3</label>
 
                 <input className="rating__input" id="star-4" type="radio" name="rating" value="4" />
-                <label className="rating__label" for="star-4">Rating 4</label>
+                <label className="rating__label" htmlFor="star-4">Rating 4</label>
 
                 <input className="rating__input" id="star-5" type="radio" name="rating" value="5" />
-                <label className="rating__label" for="star-5">Rating 5</label>
+                <label className="rating__label" htmlFor="star-5">Rating 5</label>
               </div>
             </div>
 
