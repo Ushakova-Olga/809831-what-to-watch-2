@@ -4,7 +4,7 @@ import Tabs from "../tabs/tabs.jsx";
 import ListFilms from "../../components/list-films/list-films.jsx";
 
 const Details = (props) => {
-  const {information, films, clickHandler} = props;
+  const {information, films, clickHandler, isAuthorizationRequired} = props;
 
   const {
     name,
@@ -62,7 +62,7 @@ const Details = (props) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                {isAuthorizationRequired ? `` : <a href="add-review.html" className="btn movie-card__button">Add review</a>}
               </div>
             </div>
           </div>
@@ -145,6 +145,7 @@ Details.propTypes = {
         id: PropTypes.number.isRequired
       }).isRequired).isRequired,
   clickHandler: PropTypes.func,
+  isAuthorizationRequired: PropTypes.bool.func,
 };
 
 export default Details;

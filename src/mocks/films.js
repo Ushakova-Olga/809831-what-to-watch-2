@@ -1,5 +1,6 @@
 const films = [
   {
+    id: 0,
     name: `Fantastic Beasts: The Crimes of Grindelwald`,
     previewImage: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     genre: `Drama`,
@@ -17,6 +18,7 @@ const films = [
     Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
   },
   {
+    id: 1,
     name: `Fantastic Beasts`,
     previewImage: `bohemian-rhapsody.jpg`,
     genre: `Comedy`,
@@ -34,6 +36,7 @@ const films = [
     Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
   },
   {
+    id: 2,
     name: `Macbeth`,
     previewImage: `macbeth.jpg`,
     genre: `Tragedy`,
@@ -51,6 +54,7 @@ const films = [
     Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
   },
   {
+    id: 3,
     name: `Aviator`,
     previewImage: `aviator.jpg`,
     genre: `Drama`,
@@ -68,6 +72,7 @@ const films = [
     Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
   },
   {
+    id: 4,
     name: `We need to talk about Kevin`,
     previewImage: `we-need-to-talk-about-kevin.jpg`,
     genre: `Comedy`,
@@ -85,6 +90,7 @@ const films = [
     Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
   },
   {
+    id: 5,
     name: `The Grand Budapest Hotel`,
     previewImage: `the-grand-budapest-hotel-poster.jpg`,
     genre: `Drama`,
@@ -102,6 +108,7 @@ const films = [
     Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
   },
   {
+    id: 6,
     name: `Fantastic Beasts: The Crimes of Grindelwald`,
     previewImage: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     genre: `Drama`,
@@ -119,6 +126,7 @@ const films = [
     Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
   },
   {
+    id: 7,
     name: `Fantastic Beasts`,
     previewImage: `bohemian-rhapsody.jpg`,
     genre: `Comedy`,
@@ -136,6 +144,7 @@ const films = [
     Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
   },
   {
+    id: 8,
     name: `Macbeth`,
     previewImage: `macbeth.jpg`,
     genre: `Tragedy`,
@@ -153,6 +162,7 @@ const films = [
     Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
   },
   {
+    id: 9,
     name: `Aviator`,
     previewImage: `aviator.jpg`,
     genre: `Drama`,
@@ -170,6 +180,7 @@ const films = [
     Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
   },
   {
+    id: 10,
     name: `We need to talk about Kevin`,
     previewImage: `we-need-to-talk-about-kevin.jpg`,
     genre: `Comedy`,
@@ -187,6 +198,7 @@ const films = [
     Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.`,
   },
   {
+    id: 11,
     name: `The Grand Budapest Hotel`,
     previewImage: `the-grand-budapest-hotel-poster.jpg`,
     genre: `Drama`,
