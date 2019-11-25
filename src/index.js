@@ -26,8 +26,9 @@ const init = () => {
 
   ReactDOM.render(
       <Provider store={store}>
-        <App
-        />
+        <BrowserRouter>
+          <App />
+        </BrowserRouer>
       </Provider>,
       document.querySelector(`#root`)
   );
