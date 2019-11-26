@@ -12,7 +12,7 @@ it(`Main screen correctly pressed header`, () => {
     films={films}
     filmsInitial={films}
     countFilms={8}
-    clickFavoriteHandler={() => {}}
+    clickFavoriteHandler={clickFavoriteHandler}
     activeFilm = {1}
     currentGenre={`All genres`}
     userData = {{
