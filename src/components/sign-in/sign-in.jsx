@@ -56,7 +56,7 @@ const SignIn = (props) => {
         <p>© 2019 What to watch Ltd.</p>
       </div>
     </footer>
-  </div>: <Redirect to="/"></Redirect>;
+  </div> : <Redirect to="/"></Redirect>;
 };
 
 SignIn.propTypes = {

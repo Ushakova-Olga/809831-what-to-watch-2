@@ -2,23 +2,23 @@ import React from "react";
 import PropTypes from 'prop-types';
 import SignIn from "../../components/sign-in/sign-in.jsx";
 import MainScreen from "../../components/main-screen/main-screen.jsx";
-import Details from "../../components/details/details.jsx";
-import AddReview from "../../components/add-review/add-review.jsx";
+// import Details from "../../components/details/details.jsx";
+// import AddReview from "../../components/add-review/add-review.jsx";
 import {connect} from "react-redux";
 import {LoadFromServer, ActionCreator} from "../../reducer/reducer";
 import {Switch, Route} from 'react-router-dom';
 
-import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";
-import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-player-large.jsx';
+// import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";
+// import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-player-large.jsx';
 
 
-const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
+// const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
 
 const getPageScreen = (props) => {
-  const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre, isAuthorizationRequired, submitHandler, userData} = props;
+  const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre, isAuthorizationRequired, submitHandler, userData, activeFilm, changeFavoriteHandler} = props;
   return <Switch>
     <Route path="/" exact render={() => {
-      return <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} userData={userData} isAuthorizationRequired={isAuthorizationRequired}/>;
+      return <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} userData={userData} isAuthorizationRequired={isAuthorizationRequired} activeFilm={activeFilm} clickPlayHandler={() => {}} clickFavoriteHandler={changeFavoriteHandler} />;
     }}
     />
     <Route path="/login" exact render={() => {
@@ -26,8 +26,8 @@ const getPageScreen = (props) => {
     }}
     />
   </Switch>;
-}
-/*const getPageScreen = (props) => {
+};
+/* const getPageScreen = (props) => {
   const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre, isAuthorizationRequired, submitHandler, userData} = props;
 
   switch (location.pathname) {
@@ -98,6 +98,8 @@ getPageScreen.propTypes = {
     avatarUrl: PropTypes.string,
   }),
   submitHandler: PropTypes.func.isRequired,
+  activeFilm: PropTypes.number.isRequired,
+  changeFavoriteHandler: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -107,6 +109,7 @@ const mapStateToProps = (state) => ({
   filmsInitial: state.filmsInitial,
   isAuthorizationRequired: state.isAuthorizationRequired,
   userData: state.userData,
+  activeFilm: state.activeFilm,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -119,6 +122,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   submitHandler: (email, password) => {
     dispatch(LoadFromServer.logIn(email, password));
+  },
+  changeFavoriteHandler: (id, isFavorite) => {
+    dispatch(LoadFromServer.changeFavorite(id, isFavorite));
   },
 });
 

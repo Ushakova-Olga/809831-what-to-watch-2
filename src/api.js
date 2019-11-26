@@ -1,7 +1,7 @@
 import axios from "axios";
 import {ActionCreator} from './reducer/reducer';
 
-const configureAPI = () => {
+const configureAPI = (dispatch) => {
   const api = axios.create({
     baseURL: `https://htmlacademy-react-2.appspot.com/wtw`,
     timeout: 5000,
