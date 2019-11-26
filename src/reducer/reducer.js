@@ -8,11 +8,33 @@ const initialState = {
   filmsInitial: [],
   isAuthorizationRequired: true,
   userData: {},
+  activeFilm: 0,
 };
 
 const convertKey = (key) => {
   const arr = key.split(`_`).map((word, ind) => ind === 0 ? word : word[0].toUpperCase() + word.slice(1));
   return arr.join(``);
+};
+
+const changeFavoriteId = (films, id) => {
+  const result = films.map((it) => {
+    if (it.id === id) {
+      let iit = {};
+      for (const key in it) {
+        if (it.hasOwnProperty(key)) {
+          if (key === `isFavorite`) {
+            iit[key] = !it[key];
+          } else {
+            iit[key] = it[key];
+          }
+        }
+      }
+
+      return iit;
+    }
+    return it;
+  });
+  return result;
 };
 
 const convertItem = (obj) => {
@@ -89,7 +111,19 @@ const ActionCreator = {
   addCountFilms: () => ({
     type: `ADD_COUNT_FILMS`,
     payload: FILMS_COUNT_ADD,
-  })
+  }),
+
+  //
+  changeActiveFilm: (id) => ({
+    type: `CHANGE_ACTIVE_FILM`,
+    payload: id,
+  }),
+
+  //
+  changeFavorite: (id) => ({
+    type: `CHANGE_FAVORITE`,
+    payload: id,
+  }),
 };
 
 const LoadFromServer = {
@@ -110,6 +144,15 @@ const LoadFromServer = {
       })
       .catch((_err) => {});
   },
+  changeFavorite: (id, isFavorite) => (dispatch, _, api) => {
+    return api.post(`favorite/${id}/${isFavorite ? 1 : 0}`)
+      .then((response) => {
+        if (response.data) {
+          dispatch(ActionCreator.changeFavorite(id, isFavorite));
+        }
+      })
+      .catch((_err) => {});
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -118,6 +161,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         films: action.payload,
         filmsInitial: action.payload,
+        activeFilm: action.payload[0] ? 1 : 0,
       });
     case `CHANGE_IS_AUTHORIZATION_REQUIRED`:
       return Object.assign({}, state, {
@@ -139,6 +183,15 @@ const reducer = (state = initialState, action) => {
     case `ADD_COUNT_FILMS`:
       return Object.assign({}, state, {
         filmsCount: state.filmsCount + action.payload
+      });
+    case `CHANGE_ACTIVE_FILM`:
+      return Object.assign({}, state, {
+        activeFilm: action.payload
+      });
+    case `CHANGE_FAVORITE`:
+      return Object.assign({}, state, {
+        films: changeFavoriteId(state.films, action.payload),
+        filmsInitial: changeFavoriteId(state.filmsInitial, action.payload),
       });
   }
   return state;

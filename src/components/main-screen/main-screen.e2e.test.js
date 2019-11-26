@@ -7,13 +7,13 @@ import films from "../../mocks/films.js";
 Enzyme.configure({adapter: new Adapter()});
 
 it(`Main screen correctly pressed header`, () => {
-  const clickHandler = jest.fn();
+  const clickFavoriteHandler = jest.fn();
   const componentMainScreen = shallow(<MainScreen
     films={films}
     filmsInitial={films}
-    clickHandler={clickHandler}
     countFilms={8}
-    clickHandlerMore={() => {}}
+    clickFavoriteHandler={clickFavoriteHandler}
+    activeFilm = {1}
     currentGenre={`All genres`}
     userData = {{
       id: 1,
@@ -23,8 +23,8 @@ it(`Main screen correctly pressed header`, () => {
     }}
   />);
 
-  const mainHeader = componentMainScreen.find(`h2.movie-card__title`);
+  const mainHeader = componentMainScreen.find(`.btn--list`);
   mainHeader.simulate(`click`);
 
-  expect(clickHandler).toHaveBeenCalledTimes(1);
+  expect(clickFavoriteHandler).toHaveBeenCalledTimes(1);
 });

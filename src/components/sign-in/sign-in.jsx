@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Redirect} from 'react-router-dom';
 
 const SignIn = (props) => {
-  const {submitHandler} = props;
+  const {isAuthorizationRequired, submitHandler} = props;
 
-  return <div className="user-page">
+  return isAuthorizationRequired ? <div className="user-page">
     <header className="page-header user-page__head">
       <div className="logo">
         <a href="main.html" className="logo__link">
@@ -55,7 +56,7 @@ const SignIn = (props) => {
         <p>© 2019 What to watch Ltd.</p>
       </div>
     </footer>
-  </div>;
+  </div> : <Redirect to="/"></Redirect>;
 };
 
 SignIn.propTypes = {
