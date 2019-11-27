@@ -9,6 +9,7 @@ const initialState = {
   isAuthorizationRequired: true,
   userData: {},
   activeFilm: 0,
+  favoriteFilms: [],
 };
 
 const convertKey = (key) => {
@@ -83,6 +84,10 @@ const ActionCreator = {
     type: `LOAD_FILMS`,
     payload: films,
   }),
+  loadFavoriteFilms: (favoriteFilms) => ({
+    type: `LOAD_FAVORITE_FILMS`,
+    payload: favoriteFilms,
+  }),
 
   changeIsAuthorizationRequired: (bool) => ({
     type: `CHANGE_IS_AUTHORIZATION_REQUIRED`,
@@ -126,12 +131,20 @@ const ActionCreator = {
   }),
 };
 
-const LoadFromServer = {
+const Operation = {
   loadFilms: () => (dispatch, _, api) => {
     return api.get(`films`)
       .then((response) => {
         const convertedData = response.data.map((item) => convertItem(item));
         dispatch(ActionCreator.loadFilms(convertedData));
+      });
+  },
+  loadFavoriteFilms: () => (dispatch, _, api) => {
+    return api.get(`favorite`)
+      .then((response) => {
+        const convertedData = response.data.map((item) => convertItem(item));
+        //console.log(convertedData);
+        dispatch(ActionCreator.loadFavoriteFilms(convertedData));
       });
   },
   logIn: (email, password) => (dispatch, _, api) => {
@@ -162,6 +175,10 @@ const reducer = (state = initialState, action) => {
         films: action.payload,
         filmsInitial: action.payload,
         activeFilm: action.payload[0] ? 1 : 0,
+      });
+    case `LOAD_FAVORITE_FILMS`:
+      return Object.assign({}, state, {
+        favoriteFilms: action.payload,
       });
     case `CHANGE_IS_AUTHORIZATION_REQUIRED`:
       return Object.assign({}, state, {
@@ -197,4 +214,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer, ActionCreator, LoadFromServer};
+export {reducer, ActionCreator, Operation};

@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {createStore} from "redux";
 import {Provider} from "react-redux";
-import {reducer, LoadFromServer} from "./reducer/reducer";
+import {reducer, Operation} from "./reducer/reducer";
 import {BrowserRouter} from 'react-router-dom';
 
 import App from "./components/app/app.jsx";
@@ -22,7 +22,7 @@ const init = () => {
           window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
       )
   );
-  store.dispatch(LoadFromServer.loadFilms());
+  store.dispatch(Operation.loadFilms());
 
   ReactDOM.render(
       <Provider store={store}>

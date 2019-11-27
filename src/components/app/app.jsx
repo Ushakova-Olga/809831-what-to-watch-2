@@ -6,7 +6,7 @@ import Details from "../../components/details/details.jsx";
 import AddReview from "../../components/add-review/add-review.jsx";
 import FavoriteList from "../../components/favorite-list/favorite-list.jsx";
 import {connect} from "react-redux";
-import {LoadFromServer, ActionCreator} from "../../reducer/reducer";
+import {Operation, ActionCreator} from "../../reducer/reducer";
 import {Switch, Route} from 'react-router-dom';
 
 // import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";
@@ -16,7 +16,21 @@ import {Switch, Route} from 'react-router-dom';
 // const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
 
 const getPageScreen = (props) => {
-  const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre, isAuthorizationRequired, submitHandler, userData, activeFilm, changeFavoriteHandler, changeActiveFilmHandler} = props;
+  const {
+    films,
+    filmsInitial,
+    clickFilterHandler,
+    countFilms,
+    clickMoreButton,
+    currentGenre,
+    isAuthorizationRequired,
+    submitHandler,
+    userData,
+    activeFilm,
+    changeFavoriteHandler,
+    changeActiveFilmHandler,
+    loadFavoriteFilmsHandler,
+    favoriteFilms} = props;
   return <Switch>
     <Route path="/" exact render={() => {
       return <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} userData={userData} isAuthorizationRequired={isAuthorizationRequired} activeFilm={activeFilm} clickPlayHandler={() => {}} clickFavoriteHandler={changeFavoriteHandler} />;
@@ -43,7 +57,10 @@ const getPageScreen = (props) => {
     }}
     />
     <Route path="/favorite" exact render={() => {
-      return <FavoriteList isAuthorizationRequired={isAuthorizationRequired} userData={userData} films={films} countFilms={countFilms} clickHandler={() => {}}/>;
+      if (favoriteFilms.length === 0) {
+        loadFavoriteFilmsHandler();
+      }
+      return <FavoriteList isAuthorizationRequired={isAuthorizationRequired} userData={userData} films={favoriteFilms} countFilms={countFilms} clickHandler={() => {}}/>;
     }}
     />
   </Switch>;
@@ -131,6 +148,7 @@ const mapStateToProps = (state) => ({
   isAuthorizationRequired: state.isAuthorizationRequired,
   userData: state.userData,
   activeFilm: state.activeFilm,
+  favoriteFilms: state.favoriteFilms,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -142,13 +160,16 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.addCountFilms());
   },
   submitHandler: (email, password) => {
-    dispatch(LoadFromServer.logIn(email, password));
+    dispatch(Operation.logIn(email, password));
   },
   changeFavoriteHandler: (id, isFavorite) => {
-    dispatch(LoadFromServer.changeFavorite(id, isFavorite));
+    dispatch(Operation.changeFavorite(id, isFavorite));
   },
   changeActiveFilmHandler: (id) => {
     dispatch(ActionCreator.changeActiveFilm(id));
+  },
+  loadFavoriteFilmsHandler: () => {
+    dispatch(Operation.loadFavoriteFilms());
   },
 });
 

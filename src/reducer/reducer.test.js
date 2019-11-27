@@ -1,4 +1,4 @@
-import {ActionCreator, reducer, LoadFromServer} from "./reducer";
+import {ActionCreator, reducer, Operation} from "./reducer";
 import configureAPI from '../api';
 import MockAdapter from 'axios-mock-adapter';
 import FILMS from "../mocks/films.js";
@@ -60,7 +60,7 @@ it(`Action creator correctly filter films`, () => {
 
 it(`Action creator correctly load films`, () => {
   const dispatch = jest.fn();
-  const load = LoadFromServer.loadFilms();
+  const load = Operation.loadFilms();
 
   const api = configureAPI(dispatch);
   const apiMock = new MockAdapter(api);
