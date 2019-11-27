@@ -43,7 +43,7 @@ const getPageScreen = (props) => {
     }}
     />
     <Route path="/favorite" exact render={() => {
-      return <FavoriteList isAuthorizationRequired={isAuthorizationRequired} userData={userData} />;
+      return <FavoriteList isAuthorizationRequired={isAuthorizationRequired} userData={userData} films={films} countFilms={countFilms} clickHandler={() => {}}/>;
     }}
     />
   </Switch>;
