@@ -4,6 +4,7 @@ import SignIn from "../../components/sign-in/sign-in.jsx";
 import MainScreen from "../../components/main-screen/main-screen.jsx";
 import Details from "../../components/details/details.jsx";
 import AddReview from "../../components/add-review/add-review.jsx";
+import FavoriteList from "../../components/favorite-list/favorite-list.jsx";
 import {connect} from "react-redux";
 import {LoadFromServer, ActionCreator} from "../../reducer/reducer";
 import {Switch, Route} from 'react-router-dom';
@@ -39,6 +40,10 @@ const getPageScreen = (props) => {
         console.log(x);
         console.log(y);
       }} />;
+    }}
+    />
+    <Route path="/favorite" exact render={() => {
+      return <FavoriteList isAuthorizationRequired={isAuthorizationRequired} userData={userData} />;
     }}
     />
   </Switch>;

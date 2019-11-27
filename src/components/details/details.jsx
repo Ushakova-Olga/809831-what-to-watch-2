@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Tabs from "../tabs/tabs.jsx";
 import ListFilms from "../../components/list-films/list-films.jsx";
-import UserHeader from "../../components/user-header/user-header.jsx";
+import UserBlock from "../../components/user-block/user-block.jsx";
 //import {Link} from 'react-router-dom';
 
 const Details = (props) => {
@@ -47,7 +47,17 @@ const Details = (props) => {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <UserHeader isAuthorizationRequired={isAuthorizationRequired} userData={userData} />
+          <header className="page-header">
+            <div className="logo">
+              <a className="logo__link">
+                <span className="logo__letter logo__letter--1">W</span>
+                <span className="logo__letter logo__letter--2">T</span>
+                <span className="logo__letter logo__letter--3">W</span>
+              </a>
+            </div>
+            <UserBlock isAuthorizationRequired={isAuthorizationRequired} userData={userData} />
+          </header>
+
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
