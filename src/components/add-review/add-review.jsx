@@ -6,7 +6,7 @@ const AddReview = (props) => {
 
   const information = films.find((it) => it.id === id);
 
-  return <section className="movie-card movie-card--full">
+  return information ? <section className="movie-card movie-card--full">
     <div className="movie-card__header">
       <div className="movie-card__bg">
         <img src={information.backgroundImage} alt={information.name} />
@@ -80,7 +80,7 @@ const AddReview = (props) => {
         </div>
       </form>
     </div>
-  </section>;
+  </section> : ``;
 };
 
 AddReview.propTypes = {

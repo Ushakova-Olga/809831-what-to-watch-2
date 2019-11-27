@@ -2,9 +2,32 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Tabs from "../tabs/tabs.jsx";
 import ListFilms from "../../components/list-films/list-films.jsx";
+import UserHeader from "../../components/user-header/user-header.jsx";
+//import {Link} from 'react-router-dom';
 
 const Details = (props) => {
-  const {information, films, clickHandler, isAuthorizationRequired} = props;
+  const {activeFilm, films, clickHandler, isAuthorizationRequired, clickFilterHandler, clickFavoriteHandler, userData} = props;
+
+  const result = films.filter((it) => it.id === activeFilm);
+  let information = {};
+  information = result.length > 0 ? result[0] : {
+    id: 0,
+    name: ``,
+    previewImage: ``,
+    genre: ``,
+    released: 0,
+    posterImage: ``,
+    backgroundImage: ``,
+    previewVideoLink: ``,
+    videoLink: ``,
+    rating: 0,
+    scoresCount: 0,
+    director: ``,
+    starring: [],
+    runTime: 0,
+    description: ``,
+    isFavorite: false,
+  };
 
   const {
     name,
@@ -14,7 +37,8 @@ const Details = (props) => {
     backgroundImage,
   } = information;
 
-  return <>
+
+    return <>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
@@ -23,21 +47,7 @@ const Details = (props) => {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header movie-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </div>
-          </header>
+          <UserHeader isAuthorizationRequired={isAuthorizationRequired} userData={userData} />
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
@@ -56,12 +66,25 @@ const Details = (props) => {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                {
+                  information.isFavorite ?
+                    <button className="btn btn--list movie-card__button" type="button" onClick={() => {
+                      clickFavoriteHandler(activeFilm, !information.isFavorite);
+                    }}>
+                      <svg viewBox="0 0 18 14" width="18" height="14">
+                        <use xlinkHref="#in-list"></use>
+                      </svg>
+                      <span>My list</span>
+                    </button>
+                    : <button className="btn btn--list movie-card__button" type="button" onClick={() => {
+                      clickFavoriteHandler(activeFilm, !information.isFavorite);
+                    }}>
+                      <svg viewBox="0 0 19 20" width="19" height="20">
+                        <use xlinkHref="#add"></use>
+                      </svg>
+                      <span>My list</span>
+                    </button>
+                }
                 {isAuthorizationRequired ? `` : <a href="add-review.html" className="btn movie-card__button">Add review</a>}
               </div>
             </div>
@@ -104,6 +127,7 @@ const Details = (props) => {
         </footer>
       </div>
   </>;
+
 };
 
 Details.propTypes = {
@@ -124,7 +148,7 @@ Details.propTypes = {
     videoLink: PropTypes.string.isRequired,
     isFavorite: PropTypes.bool.isRequired,
     id: PropTypes.number.isRequired
-  }).isRequired,
+  }),
   films: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
@@ -145,7 +169,7 @@ Details.propTypes = {
         id: PropTypes.number.isRequired
       }).isRequired).isRequired,
   clickHandler: PropTypes.func,
-  isAuthorizationRequired: PropTypes.bool.func,
+  isAuthorizationRequired: PropTypes.bool.isRequired,
 };
 
 export default Details;

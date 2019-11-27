@@ -19,7 +19,7 @@ class ListFilms extends React.PureComponent {
       {reducerFilms.map((it, i) => <SmallCardWrapped
 
         key={it.name + i}
-        id={i}
+        id={it.id}
         information={{
           name: it.name,
           previewImage: it.previewImage,
