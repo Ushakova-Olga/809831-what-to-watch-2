@@ -8,6 +8,7 @@ import FavoriteList from "../../components/favorite-list/favorite-list.jsx";
 import {connect} from "react-redux";
 import {Operation, ActionCreator} from "../../reducer/reducer";
 import {Switch, Route} from 'react-router-dom';
+import withLogin from "../../hocs/with-login/with-login.jsx";
 
 // import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";
 // import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-player-large.jsx';
@@ -47,24 +48,27 @@ const getPageScreen = (props) => {
     }}
     />
     <Route path="/films/:id/review" exact render={(routerProps) => {
+      const AddReviewWrapped = withLogin(AddReview);
       const id = parseInt(routerProps.match.params.id);
       changeActiveFilmHandler(id);
-      return <AddReview films={films} filmsInitial={filmsInitial} userData={userData} id={id}
+      return <AddReviewWrapped films={films} filmsInitial={filmsInitial} userData={userData} id={id}
       submitHandler={(text, rating)=> {
         console.log(x);
         console.log(y);
       }} />;
     }}
     />
-    <Route path="/favorite" exact render={() => {
+    <Route path="/mylist" exact render={() => {
+      const FavoriteListWrapped = withLogin(FavoriteList);
       if (favoriteFilms.length === 0) {
         loadFavoriteFilmsHandler();
       }
-      return <FavoriteList isAuthorizationRequired={isAuthorizationRequired} userData={userData} films={favoriteFilms} countFilms={countFilms} clickHandler={() => {}}/>;
+      return <FavoriteListWrapped isAuthorizationRequired={isAuthorizationRequired} userData={userData} films={favoriteFilms} countFilms={countFilms} clickHandler={() => {}}/>;
     }}
     />
   </Switch>;
 };
+
 /* const getPageScreen = (props) => {
   const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre, isAuthorizationRequired, submitHandler, userData} = props;
 

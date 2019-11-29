@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 
@@ -18,7 +19,11 @@ const withLogin = ((Component) => {
     isAuthorizationRequired: PropTypes.bool.isRequired,
   };
 
-  return WithLogin;
+  const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+    isAuthorizationRequired: state.isAuthorizationRequired,
+  });
+
+  return connect(mapStateToProps, null)(WithLogin);
 });
 
 export default withLogin;
