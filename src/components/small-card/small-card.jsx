@@ -14,7 +14,7 @@ class SmallCard extends React.PureComponent {
 
     return <article className="small-movie-card catalog__movies-card"
       onClick={() => {
-        window.location.href = `/films/${id}`;//`/details`;
+        window.location.href = `/films/${id}`;
         clickHandler();
       }}
       onMouseEnter={() => {

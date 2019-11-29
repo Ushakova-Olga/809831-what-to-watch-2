@@ -42,20 +42,20 @@ const getPageScreen = (props) => {
     }}
     />
     <Route path="/films/:id" exact render={(routerProps) => {
-      const id = parseInt(routerProps.match.params.id);
+      const id = parseInt(routerProps.match.params.id, 10);
       changeActiveFilmHandler(id);
-      return <Details activeFilm={id} films={filmsInitial} clickHandler={() => {}} userData={userData}  isAuthorizationRequired={isAuthorizationRequired} clickFavoriteHandler={changeFavoriteHandler} />;
+      return <Details activeFilm={id} films={filmsInitial} clickHandler={() => {}} userData={userData} isAuthorizationRequired={isAuthorizationRequired} clickFavoriteHandler={changeFavoriteHandler} />;
     }}
     />
     <Route path="/films/:id/review" exact render={(routerProps) => {
       const AddReviewWrapped = withLogin(AddReview);
-      const id = parseInt(routerProps.match.params.id);
+      const id = parseInt(routerProps.match.params.id, 10);
       changeActiveFilmHandler(id);
       return <AddReviewWrapped films={films} filmsInitial={filmsInitial} userData={userData} id={id}
-      submitHandler={(text, rating)=> {
-        console.log(x);
-        console.log(y);
-      }} />;
+        submitHandler={ () => { // (text, rating)=> {
+          // console.log(x);
+          // console.log(y);
+        }} />;
     }}
     />
     <Route path="/mylist" exact render={() => {
@@ -142,6 +142,27 @@ getPageScreen.propTypes = {
   submitHandler: PropTypes.func.isRequired,
   activeFilm: PropTypes.number.isRequired,
   changeFavoriteHandler: PropTypes.func.isRequired,
+  changeActiveFilmHandler: PropTypes.func.isRequired,
+  loadFavoriteFilmsHandler: PropTypes.func.isRequired,
+  favoriteFilms: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        previewImage: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        released: PropTypes.number.isRequired,
+        posterImage: PropTypes.string.isRequired,
+        backgroundImage: PropTypes.string.isRequired,
+        previewVideoLink: PropTypes.string.isRequired,
+        scoresCount: PropTypes.number.isRequired,
+        description: PropTypes.string.isRequired,
+        starring: PropTypes.array.isRequired,
+        director: PropTypes.string.isRequired,
+        runTime: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        videoLink: PropTypes.string.isRequired,
+        isFavorite: PropTypes.bool.isRequired,
+        id: PropTypes.number.isRequired
+      }).isRequired).isRequired,
 };
 
 const mapStateToProps = (state) => ({

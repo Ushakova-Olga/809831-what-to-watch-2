@@ -143,7 +143,6 @@ const Operation = {
     return api.get(`favorite`)
       .then((response) => {
         const convertedData = response.data.map((item) => convertItem(item));
-        //console.log(convertedData);
         dispatch(ActionCreator.loadFavoriteFilms(convertedData));
       });
   },

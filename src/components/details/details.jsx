@@ -3,10 +3,16 @@ import PropTypes from 'prop-types';
 import Tabs from "../tabs/tabs.jsx";
 import ListFilms from "../../components/list-films/list-films.jsx";
 import UserBlock from "../../components/user-block/user-block.jsx";
-//import {Link} from 'react-router-dom';
 
 const Details = (props) => {
-  const {activeFilm, films, clickHandler, isAuthorizationRequired, clickFilterHandler, clickFavoriteHandler, userData} = props;
+  const {
+    activeFilm,
+    films,
+    clickHandler,
+    isAuthorizationRequired,
+    clickFavoriteHandler,
+    userData
+  } = props;
 
   const result = films.filter((it) => it.id === activeFilm);
   let information = {};
@@ -37,8 +43,7 @@ const Details = (props) => {
     backgroundImage,
   } = information;
 
-
-    return <>
+  return <>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
@@ -180,6 +185,15 @@ Details.propTypes = {
       }).isRequired).isRequired,
   clickHandler: PropTypes.func,
   isAuthorizationRequired: PropTypes.bool.isRequired,
+  activeFilm: PropTypes.number.isRequired,
+  clickFilterHandler: PropTypes.func,
+  clickFavoriteHandler: PropTypes.func,
+  userData: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    email: PropTypes.string,
+    avatarUrl: PropTypes.string,
+  }),
 };
 
 export default Details;

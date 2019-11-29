@@ -4,7 +4,6 @@ import ListGenres from "../../components/list-genres/list-genres.jsx";
 import ShowMore from "../../components/show-more/show-more.jsx";
 import PropTypes from 'prop-types';
 import UserBlock from "../../components/user-block/user-block.jsx";
-//import {Link} from 'react-router-dom';
 
 const MainScreen = (props) => {
   const {films, filmsInitial, clickHandler, clickFilterHandler, clickHandlerMore, countFilms, currentGenre, isAuthorizationRequired, userData, clickFavoriteHandler, activeFilm} = props;
