@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import SignIn from "../../components/sign-in/sign-in.jsx";
 import MainScreen from "../../components/main-screen/main-screen.jsx";
 import Details from "../../components/details/details.jsx";
@@ -7,7 +7,7 @@ import AddReview from "../../components/add-review/add-review.jsx";
 import FavoriteList from "../../components/favorite-list/favorite-list.jsx";
 import {connect} from "react-redux";
 import {Operation, ActionCreator} from "../../reducer/reducer";
-import {Switch, Route} from 'react-router-dom';
+import {Switch, Route} from "react-router-dom";
 import withLogin from "../../hocs/with-login/with-login.jsx";
 
 // import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";

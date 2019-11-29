@@ -1,6 +1,6 @@
 import {ActionCreator, reducer, Operation} from "./reducer";
-import configureAPI from '../api';
-import MockAdapter from 'axios-mock-adapter';
+import configureAPI from "../api";
+import MockAdapter from "axios-mock-adapter";
 import FILMS from "../mocks/films.js";
 
 it(`Reducer correctly set a genre`, () => {

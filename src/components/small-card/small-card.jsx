@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import VideoPlayer from "../../components/video-player/video-player.jsx";
 
 class SmallCard extends React.PureComponent {

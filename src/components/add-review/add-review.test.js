@@ -1,6 +1,6 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import AddReview from './add-review';
+import React from "react";
+import renderer from "react-test-renderer";
+import AddReview from "./add-review";
 import films from "../../mocks/films.js";
 
 it(`AddReview renders correctly`, () => {

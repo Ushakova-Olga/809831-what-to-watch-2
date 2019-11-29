@@ -1,7 +1,7 @@
-import React from 'react';
-import Enzyme, {mount} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import ListFilms from '../list-films/list-films';
+import React from "react";
+import Enzyme, {mount} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
+import ListFilms from "../list-films/list-films";
 import films from "../../mocks/films.js";
 
 Enzyme.configure({adapter: new Adapter()});

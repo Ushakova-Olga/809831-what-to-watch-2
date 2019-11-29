@@ -1,5 +1,5 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import React from "react";
+import renderer from "react-test-renderer";
 import ListGenres from "./list-genres";
 import films from "../../mocks/films.js";
 

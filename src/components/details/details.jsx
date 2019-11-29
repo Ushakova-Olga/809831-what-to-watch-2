@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import Tabs from "../tabs/tabs.jsx";
 import ListFilms from "../../components/list-films/list-films.jsx";
 import UserBlock from "../../components/user-block/user-block.jsx";
