@@ -8,14 +8,26 @@ class VideoPlayerLarge extends React.PureComponent {
 
   render() {
     const {
-      information,
       videoRef,
       isPlaying,
       progress,
       runTime,
       onPlayButtonClick,
       onFullScreenButtonClick,
+      openCloseFilm,
+      information
     } = this.props;
+    //console.log(activeFilm);
+
+    //const result = films.filter((it) => it.id === activeFilm);
+    //let information = {};
+    /*information = result.length > 0 ? result[0] : {
+      id: 0,
+      name: ``,
+      previewImage: ``,
+      previewVideoLink: ``,
+      videoLink: ``,
+    };*/
 
     const {videoLink, previewImage} = information;
 
@@ -26,7 +38,9 @@ class VideoPlayerLarge extends React.PureComponent {
         <video src={videoLink} className="player__video" poster={previewImage} type={`video/${format}`} ref={videoRef} >
         </video>
 
-        <button type="button" className="player__exit">Exit</button>
+        <button type="button" className="player__exit" onClick={() => {
+          openCloseFilm(false);
+        }}>Exit</button>
 
         <div className="player__controls">
           <div className="player__controls-row">

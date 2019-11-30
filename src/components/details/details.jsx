@@ -11,7 +11,8 @@ const Details = (props) => {
     clickHandler,
     isAuthorizationRequired,
     clickFavoriteHandler,
-    userData
+    userData,
+    openCloseFilm,
   } = props;
 
   const result = films.filter((it) => it.id === activeFilm);
@@ -74,7 +75,8 @@ const Details = (props) => {
 
               <div className="movie-card__buttons">
                 <button className="btn btn--play movie-card__button" type="button" onClick={() => {
-                  window.location.href = `/film`;
+                  //window.location.href = `/film`;
+                  openCloseFilm(true);
                 }}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>

@@ -10,11 +10,11 @@ import {Operation, ActionCreator} from "../../reducer/reducer";
 import {Switch, Route} from "react-router-dom";
 import withLogin from "../../hocs/with-login/with-login.jsx";
 
-// import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";
-// import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-player-large.jsx';
+import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";
+import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-player-large.jsx';
 
 
-// const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
+const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
 
 const getPageScreen = (props) => {
   const {
@@ -31,10 +31,37 @@ const getPageScreen = (props) => {
     changeFavoriteHandler,
     changeActiveFilmHandler,
     loadFavoriteFilmsHandler,
-    favoriteFilms} = props;
+    favoriteFilms,
+    openCloseFilm,
+    isFilmPlaying,
+  } = props;
   return <Switch>
     <Route path="/" exact render={() => {
-      return <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} userData={userData} isAuthorizationRequired={isAuthorizationRequired} activeFilm={activeFilm} clickPlayHandler={() => {}} clickFavoriteHandler={changeFavoriteHandler} />;
+      const result = films.filter((it) => it.id === activeFilm);
+      let information = {};
+      information = result.length > 0 ? result[0] : {
+        id: 0,
+        name: ``,
+        previewImage: ``,
+        previewVideoLink: ``,
+        videoLink: ``,
+      };
+
+      return !isFilmPlaying ? <MainScreen
+      films={films}
+      filmsInitial={filmsInitial}
+      countFilms={countFilms}
+      currentGenre={currentGenre}
+      clickHandler={() => {}}
+      clickFilterHandler={clickFilterHandler}
+      clickHandlerMore={clickMoreButton}
+      userData={userData}
+      isAuthorizationRequired={isAuthorizationRequired}
+      activeFilm={activeFilm}
+      clickPlayHandler={() => {}}
+      clickFavoriteHandler={changeFavoriteHandler}
+      openCloseFilm={openCloseFilm} />:
+      <VideoPlayerLargeWrapped information={information} openCloseFilm={openCloseFilm} />;;
     }}
     />
     <Route path="/login" exact render={() => {
@@ -44,7 +71,26 @@ const getPageScreen = (props) => {
     <Route path="/films/:id" exact render={(routerProps) => {
       const id = parseInt(routerProps.match.params.id, 10);
       changeActiveFilmHandler(id);
-      return <Details activeFilm={id} films={filmsInitial} clickHandler={() => {}} userData={userData} isAuthorizationRequired={isAuthorizationRequired} clickFavoriteHandler={changeFavoriteHandler} />;
+
+      const result = films.filter((it) => it.id === activeFilm);
+      let information = {};
+      information = result.length > 0 ? result[0] : {
+        id: 0,
+        name: ``,
+        previewImage: ``,
+        previewVideoLink: ``,
+        videoLink: ``,
+      };
+
+      return !isFilmPlaying ? <Details
+      activeFilm={id}
+      films={filmsInitial}
+      clickHandler={() => {}}
+      userData={userData}
+      isAuthorizationRequired={isAuthorizationRequired}
+      clickFavoriteHandler={changeFavoriteHandler}
+      openCloseFilm={openCloseFilm} /> :
+      <VideoPlayerLargeWrapped information={information} openCloseFilm={openCloseFilm} />;
     }}
     />
     <Route path="/films/:id/review" exact render={(routerProps) => {
@@ -63,7 +109,14 @@ const getPageScreen = (props) => {
       if (favoriteFilms.length === 0) {
         loadFavoriteFilmsHandler();
       }
-      return <FavoriteListWrapped isAuthorizationRequired={isAuthorizationRequired} userData={userData} films={favoriteFilms} countFilms={countFilms} clickHandler={() => {}}/>;
+      return <FavoriteListWrapped
+      isAuthorizationRequired={isAuthorizationRequired}
+      userData={userData}
+      films={favoriteFilms}
+      countFilms={countFilms}
+      clickHandler={() => {}}
+      openCloseFilm={openCloseFilm}
+      />;
     }}
     />
   </Switch>;
@@ -174,6 +227,7 @@ const mapStateToProps = (state) => ({
   userData: state.userData,
   activeFilm: state.activeFilm,
   favoriteFilms: state.favoriteFilms,
+  isFilmPlaying: state.isFilmPlaying,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -195,6 +249,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   loadFavoriteFilmsHandler: () => {
     dispatch(Operation.loadFavoriteFilms());
+  },
+  openCloseFilm: (status) => {
+    dispatch(ActionCreator.openCloseFilm(status));
   },
 });
 

@@ -10,6 +10,7 @@ const initialState = {
   userData: {},
   activeFilm: 0,
   favoriteFilms: [],
+  isFilmPlaying: false,
 };
 
 const convertKey = (key) => {
@@ -129,6 +130,11 @@ const ActionCreator = {
     type: `CHANGE_FAVORITE`,
     payload: id,
   }),
+
+  openCloseFilm: (status) => ({
+    type: `CHANGE_ACTIVE_STATUS`,
+    payload: status,
+  }),
 };
 
 const Operation = {
@@ -208,6 +214,10 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         films: changeFavoriteId(state.films, action.payload),
         filmsInitial: changeFavoriteId(state.filmsInitial, action.payload),
+      });
+    case `CHANGE_ACTIVE_STATUS`:
+      return Object.assign({}, state, {
+        isFilmPlaying: action.payload,
       });
   }
   return state;

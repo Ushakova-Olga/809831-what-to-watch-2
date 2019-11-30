@@ -6,7 +6,20 @@ import PropTypes from 'prop-types';
 import UserBlock from "../../components/user-block/user-block.jsx";
 
 const MainScreen = (props) => {
-  const {films, filmsInitial, clickHandler, clickFilterHandler, clickHandlerMore, countFilms, currentGenre, isAuthorizationRequired, userData, clickFavoriteHandler, activeFilm} = props;
+  const {
+    films,
+    filmsInitial,
+    clickHandler,
+    clickFilterHandler,
+    clickHandlerMore,
+    countFilms,
+    currentGenre,
+    isAuthorizationRequired,
+    userData,
+    clickFavoriteHandler,
+    activeFilm,
+    openCloseFilm,
+  } = props;
   let currentFilm = {};
   const result = filmsInitial.filter((it) => it.id === activeFilm);
   currentFilm = result.length > 0 ? result[0] : {};
@@ -46,7 +59,8 @@ const MainScreen = (props) => {
 
               <div className="movie-card__buttons">
                 <button className="btn btn--play movie-card__button" type="button" onClick={() => {
-                  window.location.href = `/film:${activeFilm}`;
+                  // window.location.href = `/film:${activeFilm}`;
+                  openCloseFilm(true);
                 }}>
                   <svg viewboxname="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>

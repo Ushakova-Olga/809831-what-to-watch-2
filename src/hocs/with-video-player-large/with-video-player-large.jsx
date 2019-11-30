@@ -110,7 +110,7 @@ const withVideoPlayerLarge = (Component) => {
       posterImage: PropTypes.string.isRequired,
       backgroundImage: PropTypes.string.isRequired,
       previewVideoLink: PropTypes.string.isRequired,
-      rating: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired,
       scoresCount: PropTypes.number.isRequired,
       description: PropTypes.string.isRequired,
       starring: PropTypes.array.isRequired,
