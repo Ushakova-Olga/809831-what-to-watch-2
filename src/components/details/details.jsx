@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Tabs from "../tabs/tabs.jsx";
 import ListFilms from "../../components/list-films/list-films.jsx";
 import UserBlock from "../../components/user-block/user-block.jsx";
+import {Link} from "react-router-dom";
 
 const Details = (props) => {
   const {
@@ -102,7 +103,7 @@ const Details = (props) => {
                       <span>My list</span>
                     </button>
                 }
-                {isAuthorizationRequired ? `` : <a href="add-review.html" className="btn movie-card__button">Add review</a>}
+                {isAuthorizationRequired ? `` : <Link className="btn movie-card__button" to={`/films/${activeFilm}/review`}>Add review</Link>}
               </div>
             </div>
           </div>

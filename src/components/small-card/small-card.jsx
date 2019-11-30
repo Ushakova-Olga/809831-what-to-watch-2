@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import VideoPlayer from "../../components/video-player/video-player.jsx";
+import {Link} from "react-router-dom";
 
 class SmallCard extends React.PureComponent {
   constructor(props) {
@@ -13,10 +14,10 @@ class SmallCard extends React.PureComponent {
     const {name, previewImage, previewVideoLink} = information;
 
     return <article className="small-movie-card catalog__movies-card"
-      onClick={() => {
+    /*  onClick={() => {
         window.location.href = `/films/${id}`;
         clickHandler();
-      }}
+      }}*/
       onMouseEnter={() => {
         this.timerId = setTimeout(onMouseEnter, 1000);
       }}
@@ -35,7 +36,7 @@ class SmallCard extends React.PureComponent {
         </VideoPlayer>
       </div>
       <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href="movie-page.html" >{name}</a>
+        <Link to={`/films/${id}`} className="small-movie-card__link" >{name}</Link>
       </h3>
     </article>;
   }
