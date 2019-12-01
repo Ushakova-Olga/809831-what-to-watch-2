@@ -73,7 +73,7 @@ const convertItem = (obj) => {
 };
 
 const getFilms = (genre, filmsList) => {
-  if (genre === `All genres`) {
+  if (genre.toLowerCase() === `all genres`) {
     return filmsList;
   }
 
@@ -200,7 +200,6 @@ const reducer = (state = initialState, action) => {
     case `FILMS_FILTER`:
       return Object.assign({}, state, {
         films: getFilms(action.payload, state.filmsInitial),
-        filmsInitial: state.filmsInitial
       });
     case `ADD_COUNT_FILMS`:
       return Object.assign({}, state, {
