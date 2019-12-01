@@ -101,7 +101,7 @@ const MainScreen = (props) => {
 
           <ListFilms films={films} countFilms={countFilms} clickHandler={clickHandler} />
 
-          <ShowMore clickHandlerMore={clickHandlerMore} />
+          {films.length > countFilms ? <ShowMore clickHandlerMore={clickHandlerMore} />: ``}
         </section>
 
         <footer className="page-footer">
