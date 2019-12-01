@@ -14,10 +14,6 @@ class SmallCard extends React.PureComponent {
     const {name, previewImage, previewVideoLink} = information;
 
     return <article className="small-movie-card catalog__movies-card"
-    /*  onClick={() => {
-        window.location.href = `/films/${id}`;
-        clickHandler();
-      }}*/
       onMouseEnter={() => {
         this.timerId = setTimeout(onMouseEnter, 1000);
       }}
@@ -26,15 +22,17 @@ class SmallCard extends React.PureComponent {
         onMouseLeave();
       }}
     >
-      <div className="small-movie-card__image">
-        <VideoPlayer
-          previewVideoLink={previewVideoLink}
-          previewImage={previewImage}
-          isPlaying={isActive}
-          clickHandler={clickHandler}
-          key={`v${id}`}>
-        </VideoPlayer>
-      </div>
+      <Link to={`/films/${id}`}>
+        <div className="small-movie-card__image">
+          <VideoPlayer
+            previewVideoLink={previewVideoLink}
+            previewImage={previewImage}
+            isPlaying={isActive}
+            clickHandler={clickHandler}
+            key={`v${id}`}>
+          </VideoPlayer>
+        </div>
+      </Link>
       <h3 className="small-movie-card__title">
         <Link to={`/films/${id}`} className="small-movie-card__link" >{name}</Link>
       </h3>
