@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+const FILTERS_COUNT = 9;
 
 class ListGenres extends React.PureComponent {
   constructor(props) {
@@ -34,12 +35,12 @@ class ListGenres extends React.PureComponent {
     const {filmsInitial} = this.props;
     const list = [];
     list.push(`All genres`);
-    filmsInitial.forEach((it) => {
+    filmsInitial.forEach((it, i) => {
       list.push(it.genre);
     });
 
     const set = new Set(list);
-    return [...set];
+    return [...set].slice(0, FILTERS_COUNT);
   }
 }
 

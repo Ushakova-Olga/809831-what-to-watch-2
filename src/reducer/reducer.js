@@ -1,4 +1,4 @@
-const FILMS_COUNT = 8;
+const FILMS_COUNT = 20;
 const FILMS_COUNT_ADD = 20;
 
 const initialState = {
