@@ -37,7 +37,8 @@ class VideoPlayer extends React.PureComponent {
 
   componentDidUpdate() {
     const video = this._videoRef.current;
-    if (video) {
+
+    if (video.networkState) {
       if (this.props.isPlaying) {
         video.play();
       } else {
