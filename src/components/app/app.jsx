@@ -36,6 +36,7 @@ const getPageScreen = (props) => {
     isFilmPlaying,
     comments,
     loadCommentsHandler,
+    isFavoriteActually,
   } = props;
   return <Switch>
     <Route path="/" exact render={() => {
@@ -110,7 +111,7 @@ const getPageScreen = (props) => {
     />
     <Route path="/mylist" exact render={() => {
       const FavoriteListWrapped = withLogin(FavoriteList);
-      if (favoriteFilms.length === 0) {
+      if (!isFavoriteActually) {
         loadFavoriteFilmsHandler();
       }
       return <FavoriteListWrapped
@@ -233,6 +234,7 @@ const mapStateToProps = (state) => ({
   favoriteFilms: state.favoriteFilms,
   isFilmPlaying: state.isFilmPlaying,
   comments: state.comments,
+  isFavoriteActually: state.isFavoriteActually,
 });
 
 const mapDispatchToProps = (dispatch) => ({

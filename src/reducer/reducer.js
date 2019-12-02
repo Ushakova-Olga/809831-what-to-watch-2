@@ -12,6 +12,7 @@ const initialState = {
   favoriteFilms: [],
   isFilmPlaying: false,
   comments: [],
+  isFavoriteActually: false,
 };
 
 const convertKey = (key) => {
@@ -200,6 +201,7 @@ const reducer = (state = initialState, action) => {
     case `LOAD_FAVORITE_FILMS`:
       return Object.assign({}, state, {
         favoriteFilms: action.payload,
+        isFavoriteActually: true,
       });
     case `CHANGE_IS_AUTHORIZATION_REQUIRED`:
       return Object.assign({}, state, {
@@ -229,6 +231,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         films: changeFavoriteId(state.films, action.payload),
         filmsInitial: changeFavoriteId(state.filmsInitial, action.payload),
+        isFavoriteActually: false,
       });
     case `CHANGE_ACTIVE_STATUS`:
       return Object.assign({}, state, {
