@@ -34,6 +34,8 @@ const getPageScreen = (props) => {
     favoriteFilms,
     openCloseFilm,
     isFilmPlaying,
+    comments,
+    loadCommentsHandler,
   } = props;
   return <Switch>
     <Route path="/" exact render={() => {
@@ -71,6 +73,7 @@ const getPageScreen = (props) => {
     <Route path="/films/:id" exact render={(routerProps) => {
       const id = parseInt(routerProps.match.params.id, 10);
       changeActiveFilmHandler(id);
+      if ((activeFilm !== id)||(comments.length == 0)) loadCommentsHandler(id);
 
       const result = films.filter((it) => it.id === activeFilm);
       let information = {};
@@ -89,7 +92,8 @@ const getPageScreen = (props) => {
       userData={userData}
       isAuthorizationRequired={isAuthorizationRequired}
       clickFavoriteHandler={changeFavoriteHandler}
-      openCloseFilm={openCloseFilm} /> :
+      openCloseFilm={openCloseFilm}
+      comments={comments} /> :
       <VideoPlayerLargeWrapped information={information} openCloseFilm={openCloseFilm} />;
     }}
     />
@@ -228,6 +232,7 @@ const mapStateToProps = (state) => ({
   activeFilm: state.activeFilm,
   favoriteFilms: state.favoriteFilms,
   isFilmPlaying: state.isFilmPlaying,
+  comments: state.comments,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -252,6 +257,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   openCloseFilm: (status) => {
     dispatch(ActionCreator.openCloseFilm(status));
+  },
+  loadCommentsHandler: (id) => {
+    dispatch(Operation.loadComments(id));
   },
 });
 

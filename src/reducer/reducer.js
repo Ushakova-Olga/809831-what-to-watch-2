@@ -11,6 +11,7 @@ const initialState = {
   activeFilm: 0,
   favoriteFilms: [],
   isFilmPlaying: false,
+  comments: [],
 };
 
 const convertKey = (key) => {
@@ -85,6 +86,10 @@ const ActionCreator = {
     type: `LOAD_FILMS`,
     payload: films,
   }),
+  loadComments: (comments) => ({
+    type: `LOAD_COMMENTS`,
+    payload: comments,
+  }),
   loadFavoriteFilms: (favoriteFilms) => ({
     type: `LOAD_FAVORITE_FILMS`,
     payload: favoriteFilms,
@@ -145,6 +150,13 @@ const Operation = {
         dispatch(ActionCreator.loadFilms(convertedData));
       });
   },
+  loadComments: (id) => (dispatch, _, api) => {
+    return api.get(`comments/${id}`)
+      .then((response) => {
+        const convertedData = response.data.map((item) => convertItem(item));
+        dispatch(ActionCreator.loadComments(convertedData));
+      });
+  },
   loadFavoriteFilms: () => (dispatch, _, api) => {
     return api.get(`favorite`)
       .then((response) => {
@@ -180,6 +192,10 @@ const reducer = (state = initialState, action) => {
         films: action.payload,
         filmsInitial: action.payload,
         activeFilm: action.payload[0] ? 1 : 0,
+      });
+    case `LOAD_COMMENTS`:
+      return Object.assign({}, state, {
+        comments: action.payload,
       });
     case `LOAD_FAVORITE_FILMS`:
       return Object.assign({}, state, {

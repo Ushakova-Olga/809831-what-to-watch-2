@@ -14,6 +14,7 @@ const Details = (props) => {
     clickFavoriteHandler,
     userData,
     openCloseFilm,
+    comments,
   } = props;
 
   const result = films.filter((it) => it.id === activeFilm);
@@ -115,7 +116,7 @@ const Details = (props) => {
               <img src={posterImage} alt={name} width="218" height="327" />
             </div>
 
-            <Tabs information={information} />
+            <Tabs information={information} comments={comments} />
 
           </div>
         </div>

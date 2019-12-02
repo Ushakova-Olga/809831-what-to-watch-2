@@ -14,7 +14,7 @@ class Tabs extends React.PureComponent {
 
   render() {
     const {currentTab} = this.state;
-    const {information} = this.props;
+    const {information, comments} = this.props;
 
     return (
       <section className="movie-card__desc">
@@ -50,7 +50,7 @@ class Tabs extends React.PureComponent {
 
         <TabOverview currentTab={currentTab} indexTab={0} information={information} />
         <TabDetails currentTab={currentTab} indexTab={1} information={information} />
-        <TabReviews currentTab={currentTab} indexTab={2} />
+        <TabReviews currentTab={currentTab} comments={comments} indexTab={2} />
       </section>
     );
   }
