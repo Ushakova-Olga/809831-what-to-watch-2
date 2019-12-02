@@ -5,7 +5,7 @@ class VideoPlayer extends React.PureComponent {
   constructor(props) {
     super(props);
     this._videoRef = React.createRef();
-    this._playPromize;
+    //this._playPromize;
   }
 
   render() {

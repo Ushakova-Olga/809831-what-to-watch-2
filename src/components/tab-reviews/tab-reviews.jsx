@@ -9,7 +9,7 @@ class TabReviews extends React.PureComponent {
 
   render() {
     const {currentTab, indexTab, comments} = this.props;
-    console.log(comments);
+
     if (currentTab === indexTab) {
       return <article className="movie-card__reviews movie-card__row">
         <div className="movie-card__reviews-col">

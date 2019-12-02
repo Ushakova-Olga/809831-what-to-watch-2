@@ -4,6 +4,9 @@ import Tabs from "../tabs/tabs.jsx";
 import ListFilms from "../../components/list-films/list-films.jsx";
 import UserBlock from "../../components/user-block/user-block.jsx";
 import {Link} from "react-router-dom";
+import withTabs from "../../hocs/with-tabs/with-tabs.jsx";
+
+const TabsWrapped = withTabs(Tabs);
 
 const Details = (props) => {
   const {
@@ -116,7 +119,7 @@ const Details = (props) => {
               <img src={posterImage} alt={name} width="218" height="327" />
             </div>
 
-            <Tabs information={information} comments={comments} />
+            <TabsWrapped information={information} comments={comments} />
 
           </div>
         </div>
