@@ -115,7 +115,7 @@ const withVideoPlayerLarge = (Component) => {
       description: PropTypes.string.isRequired,
       starring: PropTypes.array.isRequired,
       director: PropTypes.string.isRequired,
-      duration: PropTypes.number.isRequired,
+      runTime: PropTypes.number.isRequired,
     }).isRequired,
   };
 

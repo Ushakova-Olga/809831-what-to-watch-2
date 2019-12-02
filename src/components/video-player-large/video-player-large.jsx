@@ -29,7 +29,7 @@ class VideoPlayerLarge extends React.PureComponent {
       videoLink: ``,
     };*/
 
-    const {videoLink, previewImage} = information;
+    const {videoLink, previewImage, name} = information;
 
     const format = videoLink.match(/\w+$/);
 
@@ -72,7 +72,7 @@ class VideoPlayerLarge extends React.PureComponent {
               </button>
             )}
 
-            <div className="player__name">Transpotting</div>
+            <div className="player__name">{name}</div>
 
             <button type="button" className="player__full-screen" onClick={ () => {
               onFullScreenButtonClick();
