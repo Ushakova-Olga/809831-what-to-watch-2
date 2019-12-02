@@ -5,6 +5,7 @@ class VideoPlayer extends React.PureComponent {
   constructor(props) {
     super(props);
     this._videoRef = React.createRef();
+    this._playPromize;
   }
 
   render() {
@@ -32,20 +33,22 @@ class VideoPlayer extends React.PureComponent {
 
     if (video) {
       video.src = previewVideoLink;
+      video.load();
     }
   }
 
   componentDidUpdate() {
     const video = this._videoRef.current;
 
-    if (video.networkState) {
-      if (this.props.isPlaying) {
-        video.play();
-      } else {
+    if (this.props.isPlaying) {
+        if (video.readyState >= 2) {
+          //this._playPromize =
+          video.play();
+        }
+      } else {//if (this._playPromize !== undefined) {
         video.pause();
         video.load();
       }
-    }
   }
 
   componentWillUnmount() {
