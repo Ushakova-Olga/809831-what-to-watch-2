@@ -5,7 +5,18 @@ class TabOverview extends React.PureComponent {
   constructor(props) {
     super(props);
   }
-
+  levelCount(rating) {
+    if (rating < 3) {
+      return `bad`;
+    } else if (rating < 5) {
+      return `normal`;
+    } else if (rating < 8) {
+      return `good`;
+    } else if (rating < 10) {
+      return `very good`;
+    };
+      return `awesome`;
+  }
   render() {
     const {currentTab, indexTab, information} = this.props;
 
@@ -14,7 +25,7 @@ class TabOverview extends React.PureComponent {
         <div className="movie-rating">
           <div className="movie-rating__score">{information.rating}</div>
           <p className="movie-rating__meta">
-            <span className="movie-rating__level">Very good</span>
+            <span className="movie-rating__level">{this.levelCount(information.rating)}</span>
             <span className="movie-rating__count">{`${information.scoresCount} ratings`}</span>
           </p>
         </div>
