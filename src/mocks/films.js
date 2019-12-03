@@ -1,6 +1,7 @@
 const films = [
   {
     id: 0,
+    isFavorite: false,
     name: `Fantastic Beasts: The Crimes of Grindelwald`,
     previewImage: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     genre: `Drama`,
@@ -19,6 +20,7 @@ const films = [
   },
   {
     id: 1,
+    isFavorite: false,
     name: `Fantastic Beasts`,
     previewImage: `bohemian-rhapsody.jpg`,
     genre: `Comedy`,
@@ -37,6 +39,7 @@ const films = [
   },
   {
     id: 2,
+    isFavorite: false,
     name: `Macbeth`,
     previewImage: `macbeth.jpg`,
     genre: `Tragedy`,
@@ -55,6 +58,7 @@ const films = [
   },
   {
     id: 3,
+    isFavorite: false,
     name: `Aviator`,
     previewImage: `aviator.jpg`,
     genre: `Drama`,
@@ -73,6 +77,7 @@ const films = [
   },
   {
     id: 4,
+    isFavorite: false,
     name: `We need to talk about Kevin`,
     previewImage: `we-need-to-talk-about-kevin.jpg`,
     genre: `Comedy`,
@@ -91,6 +96,7 @@ const films = [
   },
   {
     id: 5,
+    isFavorite: false,
     name: `The Grand Budapest Hotel`,
     previewImage: `the-grand-budapest-hotel-poster.jpg`,
     genre: `Drama`,
@@ -109,6 +115,7 @@ const films = [
   },
   {
     id: 6,
+    isFavorite: false,
     name: `Fantastic Beasts: The Crimes of Grindelwald`,
     previewImage: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     genre: `Drama`,
@@ -127,6 +134,7 @@ const films = [
   },
   {
     id: 7,
+    isFavorite: false,
     name: `Fantastic Beasts`,
     previewImage: `bohemian-rhapsody.jpg`,
     genre: `Comedy`,
@@ -145,6 +153,7 @@ const films = [
   },
   {
     id: 8,
+    isFavorite: false,
     name: `Macbeth`,
     previewImage: `macbeth.jpg`,
     genre: `Tragedy`,
@@ -163,6 +172,7 @@ const films = [
   },
   {
     id: 9,
+    isFavorite: false,
     name: `Aviator`,
     previewImage: `aviator.jpg`,
     genre: `Drama`,
@@ -181,6 +191,7 @@ const films = [
   },
   {
     id: 10,
+    isFavorite: false,
     name: `We need to talk about Kevin`,
     previewImage: `we-need-to-talk-about-kevin.jpg`,
     genre: `Comedy`,
@@ -199,6 +210,7 @@ const films = [
   },
   {
     id: 11,
+    isFavorite: false,
     name: `The Grand Budapest Hotel`,
     previewImage: `the-grand-budapest-hotel-poster.jpg`,
     genre: `Drama`,

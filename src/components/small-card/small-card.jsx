@@ -10,7 +10,7 @@ class SmallCard extends React.PureComponent {
   }
 
   render() {
-    const {information, clickHandler, onMouseEnter, onMouseLeave, isActive, id} = this.props;
+    const {information, onMouseEnter, onMouseLeave, isActive, id} = this.props;
     const {name, previewImage, previewVideoLink} = information;
 
     return <article className="small-movie-card catalog__movies-card"
@@ -28,7 +28,6 @@ class SmallCard extends React.PureComponent {
             previewVideoLink={previewVideoLink}
             previewImage={previewImage}
             isPlaying={isActive}
-            clickHandler={clickHandler}
             key={`v${id}`}>
           </VideoPlayer>
         </div>
@@ -59,7 +58,6 @@ SmallCard.propTypes = {
     isFavorite: PropTypes.bool.isRequired,
     id: PropTypes.number.isRequired
   }).isRequired,
-  clickHandler: PropTypes.func,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
   isActive: PropTypes.bool.isRequired,

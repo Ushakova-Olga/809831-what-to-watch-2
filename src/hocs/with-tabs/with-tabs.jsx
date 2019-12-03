@@ -9,9 +9,6 @@ const withTabs = (Component) => {
         currentTab: 0,
       };
 
-      //this.overMouseHandler = this.overMouseHandler.bind(this);
-      //this.leaveMouseHandler = this.leaveMouseHandler.bind(this);
-
       this.onMouseClickChild = this.onMouseClickChild.bind(this);
     }
 
@@ -24,7 +21,7 @@ const withTabs = (Component) => {
     componentWillUnmount() {
       this.currentTab = 0;
       this.onMouseClickChild = null;
-}
+    }
 
     render() {
       return <Component

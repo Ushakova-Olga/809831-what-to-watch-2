@@ -38,7 +38,7 @@ const withActiveItem = (Component) => {
       this._isMounted = false;
       this.overMouseHandler = null;
       this.leaveMouseHandler = null;
-}
+    }
 
     render() {
       return <Component

@@ -71,6 +71,19 @@ Tabs.propTypes = {
     isFavorite: PropTypes.bool.isRequired,
     id: PropTypes.number.isRequired
   }).isRequired,
+  comments: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        user: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+        }).isRequired,
+        rating: PropTypes.number.isRequired,
+        comment: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+      }).isRequired).isRequired,
+  onMouseClickChild: PropTypes.func,
+  currentTab: PropTypes.number,
 };
 
 export default Tabs;

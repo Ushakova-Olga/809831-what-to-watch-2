@@ -101,7 +101,7 @@ const MainScreen = (props) => {
 
           <ListFilms films={films} countFilms={countFilms} clickHandler={clickHandler} />
 
-          {films.length > countFilms ? <ShowMore clickHandlerMore={clickHandlerMore} />: ``}
+          {films.length > countFilms ? <ShowMore clickHandlerMore={clickHandlerMore} /> : ``}
         </section>
 
         <footer className="page-footer">
@@ -174,6 +174,7 @@ MainScreen.propTypes = {
   }),
   clickFavoriteHandler: PropTypes.func.isRequired,
   activeFilm: PropTypes.number.isRequired,
+  openCloseFilm: PropTypes.func,
 };
 
 export default MainScreen;

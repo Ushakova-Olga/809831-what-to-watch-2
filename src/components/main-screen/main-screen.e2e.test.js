@@ -15,12 +15,14 @@ it(`Main screen correctly pressed header`, () => {
     clickFavoriteHandler={clickFavoriteHandler}
     activeFilm = {1}
     currentGenre={`All genres`}
+    clickHandlerMore={jest.fn()}
     userData = {{
       id: 1,
       name: `Olga`,
       email: `test`,
       avatarUrl: `avatar`
     }}
+    isAuthorizationRequired={false}
   />);
 
   const mainHeader = componentMainScreen.find(`.btn--list`);

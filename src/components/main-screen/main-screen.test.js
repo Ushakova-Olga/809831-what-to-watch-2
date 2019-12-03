@@ -2,11 +2,12 @@ import React from "react";
 import renderer from "react-test-renderer";
 import MainScreen from "../main-screen/main-screen";
 import films from "../../mocks/films.js";
+import {BrowserRouter} from "react-router-dom";
 
 it(`Main screen correctly renders`, () => {
 
   const tree = renderer
-    .create(<MainScreen
+    .create(<BrowserRouter><MainScreen
       films={films}
       filmsInitial={films}
       countFilms={8}
@@ -18,7 +19,10 @@ it(`Main screen correctly renders`, () => {
         email: `test`,
         avatarUrl: `avatar`
       }}
-    />)
+      isAuthorizationRequired={false}
+      clickFavoriteHandler={() => {}}
+      activeFilm={0}
+    /></BrowserRouter>)
   .toJSON();
   expect(tree).toMatchSnapshot();
 });

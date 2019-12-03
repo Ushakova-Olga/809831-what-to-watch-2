@@ -80,7 +80,6 @@ const Details = (props) => {
 
               <div className="movie-card__buttons">
                 <button className="btn btn--play movie-card__button" type="button" onClick={() => {
-                  //window.location.href = `/film`;
                   openCloseFilm(true);
                 }}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
@@ -201,6 +200,18 @@ Details.propTypes = {
     email: PropTypes.string,
     avatarUrl: PropTypes.string,
   }),
+  openCloseFilm: PropTypes.func,
+  comments: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        user: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+        }).isRequired,
+        rating: PropTypes.number.isRequired,
+        comment: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+      }).isRequired).isRequired,
 };
 
 export default Details;

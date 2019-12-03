@@ -51,20 +51,20 @@ const getPageScreen = (props) => {
       };
 
       return !isFilmPlaying ? <MainScreen
-      films={films}
-      filmsInitial={filmsInitial}
-      countFilms={countFilms}
-      currentGenre={currentGenre}
-      clickHandler={() => {}}
-      clickFilterHandler={clickFilterHandler}
-      clickHandlerMore={clickMoreButton}
-      userData={userData}
-      isAuthorizationRequired={isAuthorizationRequired}
-      activeFilm={activeFilm}
-      clickPlayHandler={() => {}}
-      clickFavoriteHandler={changeFavoriteHandler}
-      openCloseFilm={openCloseFilm} />:
-      <VideoPlayerLargeWrapped information={information} openCloseFilm={openCloseFilm} />;;
+        films={films}
+        filmsInitial={filmsInitial}
+        countFilms={countFilms}
+        currentGenre={currentGenre}
+        clickHandler={() => {}}
+        clickFilterHandler={clickFilterHandler}
+        clickHandlerMore={clickMoreButton}
+        userData={userData}
+        isAuthorizationRequired={isAuthorizationRequired}
+        activeFilm={activeFilm}
+        clickPlayHandler={() => {}}
+        clickFavoriteHandler={changeFavoriteHandler}
+        openCloseFilm={openCloseFilm} /> :
+        <VideoPlayerLargeWrapped information={information} openCloseFilm={openCloseFilm} />;
     }}
     />
     <Route path="/login" exact render={() => {
@@ -74,7 +74,9 @@ const getPageScreen = (props) => {
     <Route path="/films/:id" exact render={(routerProps) => {
       const id = parseInt(routerProps.match.params.id, 10);
       changeActiveFilmHandler(id);
-      if ((activeFilm !== id)||(comments.length == 0)) loadCommentsHandler(id);
+      if ((activeFilm !== id) || (comments.length === 0)) {
+        loadCommentsHandler(id);
+      }
 
       const result = films.filter((it) => it.id === activeFilm);
       let information = {};
@@ -87,15 +89,15 @@ const getPageScreen = (props) => {
       };
 
       return !isFilmPlaying ? <Details
-      activeFilm={id}
-      films={filmsInitial}
-      clickHandler={() => {}}
-      userData={userData}
-      isAuthorizationRequired={isAuthorizationRequired}
-      clickFavoriteHandler={changeFavoriteHandler}
-      openCloseFilm={openCloseFilm}
-      comments={comments} /> :
-      <VideoPlayerLargeWrapped information={information} openCloseFilm={openCloseFilm} />;
+        activeFilm={id}
+        films={filmsInitial}
+        clickHandler={() => {}}
+        userData={userData}
+        isAuthorizationRequired={isAuthorizationRequired}
+        clickFavoriteHandler={changeFavoriteHandler}
+        openCloseFilm={openCloseFilm}
+        comments={comments} /> :
+        <VideoPlayerLargeWrapped information={information} openCloseFilm={openCloseFilm} />;
     }}
     />
     <Route path="/films/:id/review" exact render={(routerProps) => {
@@ -115,12 +117,12 @@ const getPageScreen = (props) => {
         loadFavoriteFilmsHandler();
       }
       return <FavoriteListWrapped
-      isAuthorizationRequired={isAuthorizationRequired}
-      userData={userData}
-      films={favoriteFilms}
-      countFilms={countFilms}
-      clickHandler={() => {}}
-      openCloseFilm={openCloseFilm}
+        isAuthorizationRequired={isAuthorizationRequired}
+        userData={userData}
+        films={favoriteFilms}
+        countFilms={countFilms}
+        clickHandler={() => {}}
+        openCloseFilm={openCloseFilm}
       />;
     }}
     />
@@ -221,6 +223,21 @@ getPageScreen.propTypes = {
         isFavorite: PropTypes.bool.isRequired,
         id: PropTypes.number.isRequired
       }).isRequired).isRequired,
+  comments: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        user: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+        }).isRequired,
+        rating: PropTypes.number.isRequired,
+        comment: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+      }).isRequired).isRequired,
+  openCloseFilm: PropTypes.func,
+  isFilmPlaying: PropTypes.bool.isRequired,
+  loadCommentsHandler: PropTypes.func,
+  isFavoriteActually: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({

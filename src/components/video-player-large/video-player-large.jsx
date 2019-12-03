@@ -17,11 +17,10 @@ class VideoPlayerLarge extends React.PureComponent {
       openCloseFilm,
       information
     } = this.props;
-    //console.log(activeFilm);
 
-    //const result = films.filter((it) => it.id === activeFilm);
-    //let information = {};
-    /*information = result.length > 0 ? result[0] : {
+    // const result = films.filter((it) => it.id === activeFilm);
+    // let information = {};
+    /* information = result.length > 0 ? result[0] : {
       id: 0,
       name: ``,
       previewImage: ``,
@@ -138,6 +137,7 @@ VideoPlayerLarge.propTypes = {
     PropTypes.func,
     PropTypes.shape({current: PropTypes.instanceOf(Element)}),
   ]),
+  openCloseFilm: PropTypes.func,
 };
 
 export default VideoPlayerLarge;

@@ -12,7 +12,7 @@ class ListFilms extends React.PureComponent {
   }
 
   render() {
-    const {films, clickHandler, countFilms} = this.props;
+    const {films, countFilms} = this.props;
     const reducerFilms = films.slice(0, countFilms);
 
     return <div className="catalog__movies-list">
@@ -37,7 +37,6 @@ class ListFilms extends React.PureComponent {
           isFavorite: it.isFavorite,
           id: it.id,
           starring: it.starring}}
-        clickHandler={clickHandler}
         isPlaying={false}
       />)}
     </div>;
@@ -62,7 +61,6 @@ ListFilms.propTypes = {
         rating: PropTypes.number.isRequired,
         videoLink: PropTypes.string.isRequired,
       }).isRequired).isRequired,
-  clickHandler: PropTypes.func,
   countFilms: PropTypes.number.isRequired,
 };
 

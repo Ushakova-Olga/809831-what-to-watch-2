@@ -35,7 +35,7 @@ class ListGenres extends React.PureComponent {
     const {filmsInitial} = this.props;
     const list = [];
     list.push(`All genres`);
-    filmsInitial.forEach((it, i) => {
+    filmsInitial.forEach((it) => {
       list.push(it.genre);
     });
 

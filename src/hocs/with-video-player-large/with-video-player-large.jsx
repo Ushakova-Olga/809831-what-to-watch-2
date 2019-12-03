@@ -26,7 +26,6 @@ const withVideoPlayerLarge = (Component) => {
       const video = this._videoRef.current;
 
       video.src = previewVideoLink;
-      video.load();
 
       video.onloadeddata = () => this.setState({
         isLoading: false,
