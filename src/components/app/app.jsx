@@ -12,7 +12,7 @@ import withLogin from "../../hocs/with-login/with-login.jsx";
 
 import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";
 import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-player-large.jsx';
-
+import withFormSubmit from '../../hocs/with-form-submit/with-form-submit.jsx';
 
 const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
 
@@ -37,6 +37,7 @@ const getPageScreen = (props) => {
     comments,
     loadCommentsHandler,
     isFavoriteActually,
+    history,
   } = props;
   return <Switch>
     <Route path="/" exact render={() => {
@@ -100,15 +101,16 @@ const getPageScreen = (props) => {
         <VideoPlayerLargeWrapped information={information} openCloseFilm={openCloseFilm} />;
     }}
     />
-    <Route path="/films/:id/review" exact render={(routerProps) => {
-      const AddReviewWrapped = withLogin(AddReview);
+    <Route path="/films/:id/review" exact history={history} render={(routerProps) => {
+      const AddReviewWrapped = withLogin(withFormSubmit(AddReview));
       const id = parseInt(routerProps.match.params.id, 10);
       changeActiveFilmHandler(id);
-      return <AddReviewWrapped films={films} filmsInitial={filmsInitial} userData={userData} id={id}
-        submitHandler={ () => { // (text, rating)=> {
-          // console.log(x);
-          // console.log(y);
-        }} />;
+      return <AddReviewWrapped
+        films={films}
+        filmsInitial={filmsInitial}
+        userData={userData} id={id}
+        history={history}
+      />;
     }}
     />
     <Route path="/mylist" exact render={() => {
@@ -128,22 +130,6 @@ const getPageScreen = (props) => {
     />
   </Switch>;
 };
-
-/* const getPageScreen = (props) => {
-  const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre, isAuthorizationRequired, submitHandler, userData} = props;
-
-  switch (location.pathname) {
-    case `/`:
-      return isAuthorizationRequired ? <SignIn submitHandler={submitHandler} isAuthorizationRequired={isAuthorizationRequired} /> : <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} userData={userData} isAuthorizationRequired={isAuthorizationRequired}/>;
-    case `/details`:
-      return <Details information={films[0]} films={films} clickHandler={() => {}} isAuthorizationRequired={isAuthorizationRequired} />;
-    case `/film`:
-      return <VideoPlayerLargeWrapped information={films[0]} />;
-    case `/review`:
-      return isAuthorizationRequired ? <SignIn submitHandler={submitHandler} isAuthorizationRequired={isAuthorizationRequired} /> : <AddReview films={films} filmsInitial={filmsInitial} userData={userData} id={films[0].id} submitHandler={()=> {}} />;
-  }
-  return <MainScreen filmsInitial={filmsInitial} films={films} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickHandlerMore={clickMoreButton} userData={userData} />;
-};*/
 
 const App = (props) => {
   return <React.Fragment>{getPageScreen(props)}</React.Fragment>;

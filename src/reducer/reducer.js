@@ -13,6 +13,7 @@ const initialState = {
   isFilmPlaying: false,
   comments: [],
   isFavoriteActually: false,
+  errorLoadingReview: ``,
 };
 
 const convertKey = (key) => {
@@ -141,6 +142,10 @@ const ActionCreator = {
     type: `CHANGE_ACTIVE_STATUS`,
     payload: status,
   }),
+  uploadReview: (id, error) => ({
+    type: `UPLOAD_RIVIEW`,
+    payload: error
+  }),
 };
 
 const Operation = {
@@ -183,6 +188,18 @@ const Operation = {
         }
       })
       .catch((_err) => {});
+  },
+  uploadReview: (id, data) => (dispatch, _, api) => {
+    return api.post(`/comments/${id}`, data)
+      .then((response) => {
+        if (response.data) {
+          dispatch(ActionCreator.loadComments(response.data));
+        }
+        return response;
+      })
+      .catch((error) => {
+        throw new Error(`${error} on uploading review`);
+      });
   },
 };
 
@@ -236,6 +253,10 @@ const reducer = (state = initialState, action) => {
     case `CHANGE_ACTIVE_STATUS`:
       return Object.assign({}, state, {
         isFilmPlaying: action.payload,
+      });
+    case `UPLOAD_REVIEW`:
+      return Object.assign({}, state, {
+        errorLoadingReview: action.payload,
       });
   }
   return state;

@@ -14,8 +14,8 @@ class TabOverview extends React.PureComponent {
       return `good`;
     } else if (rating < 10) {
       return `very good`;
-    };
-      return `awesome`;
+    }
+    return `awesome`;
   }
   render() {
     const {currentTab, indexTab, information} = this.props;

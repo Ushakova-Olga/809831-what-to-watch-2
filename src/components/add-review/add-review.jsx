@@ -2,8 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const AddReview = (props) => {
-  const {films, submitHandler, id, userData} = props;
-
+  const {films, id, userData, error, isFormValid, onChange, onSubmit, errorLoadingReview} = props;
   const information = films.find((it) => it.id === id);
 
   return information ? <section className="movie-card movie-card--full">
@@ -51,7 +50,19 @@ const AddReview = (props) => {
         evt.preventDefault();
         const text = evt.target.querySelector(`#review-text`).value;
         const rating = evt.target.querySelector(`.rating__input:checked`).value;
-        submitHandler(text, rating);
+        onSubmit(rating, text);
+      }}
+      onChange={(evt) => {
+        let text = ``;
+        let rating = 0;
+        if (evt.target.classList.contains(`add-review__textarea`)) {
+          rating = document.querySelector(`.rating__input:checked`).value;
+          text = evt.target.value;
+        } else {
+          text = document.querySelector(`#review-text`).value;
+          rating = evt.target.value;
+        }
+        onChange(rating, text);
       }}>
         <div className="rating">
           <div className="rating__stars">
@@ -75,10 +86,12 @@ const AddReview = (props) => {
         <div className="add-review__text">
           <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"></textarea>
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit">Post</button>
+            <button className="add-review__btn" type="submit" disabled={!isFormValid}>Post</button>
           </div>
         </div>
       </form>
+      {error}
+      {errorLoadingReview}
     </div>
   </section> : ``;
 };
@@ -109,7 +122,11 @@ AddReview.propTypes = {
     avatarUrl: PropTypes.string,
   }),
   id: PropTypes.number.isRequired,
-  submitHandler: PropTypes.func.isRequired,
+  error: PropTypes.string.isRequired,
+  isFormValid: PropTypes.bool.isRequired,
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func,
+  errorLoadingReview: PropTypes.string.isRequired,
 };
 
 export default AddReview;

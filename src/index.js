@@ -12,6 +12,9 @@ import configureAPI from "./api";
 import {applyMiddleware} from "redux";
 import {compose} from "recompose";
 
+import {createBrowserHistory} from "history";
+const history = createBrowserHistory();
+
 const init = () => {
   const api = configureAPI((...args) => store.dispatch(...args));
 
@@ -26,8 +29,8 @@ const init = () => {
 
   ReactDOM.render(
       <Provider store={store}>
-        <BrowserRouter>
-          <App />
+        <BrowserRouter history={history}>
+          <App  history={history} />
         </BrowserRouter>
       </Provider>,
       document.querySelector(`#root`)
