@@ -53,8 +53,6 @@ const withVideoPlayerLarge = (Component) => {
 
     componentWillUnmount() {
       const video = this._videoRef.current;
-      video.src = ``;
-
       video.onloadedmetadata = null;
       video.onplay = null;
       video.onpause = null;
@@ -63,10 +61,6 @@ const withVideoPlayerLarge = (Component) => {
 
     _onPlayButtonClick() {
       const video = this._videoRef.current;
-
-      /*if (this.state.isLoading) {
-        return;
-      }*/
       if (this.state.isPlaying) {
         video.pause();
       } else {
@@ -76,8 +70,13 @@ const withVideoPlayerLarge = (Component) => {
     }
 
     _onFullScreenButtonClick() {
+      const video = this._videoRef.current;
       this.setState({isFullscreen: !this.state.isFullscreen});
-      this._videoRef.current.requestFullscreen();
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.msRequestFullscreen) {
+        video.msRequestFullscreen();
+      }
     }
 
     render() {
@@ -114,6 +113,7 @@ const withVideoPlayerLarge = (Component) => {
       starring: PropTypes.array.isRequired,
       director: PropTypes.string.isRequired,
       runTime: PropTypes.number.isRequired,
+      videoLink: PropTypes.string.isRequired,
     }).isRequired,
   };
 

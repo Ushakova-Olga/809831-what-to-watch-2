@@ -18,16 +18,6 @@ class VideoPlayerLarge extends React.PureComponent {
       information
     } = this.props;
 
-    // const result = films.filter((it) => it.id === activeFilm);
-    // let information = {};
-    /* information = result.length > 0 ? result[0] : {
-      id: 0,
-      name: ``,
-      previewImage: ``,
-      previewVideoLink: ``,
-      videoLink: ``,
-    };*/
-
     const {videoLink, previewImage, name} = information;
     const format = videoLink.match(/\w+$/);
 
@@ -74,7 +64,7 @@ class VideoPlayerLarge extends React.PureComponent {
 
             <button type="button" className="player__full-screen" onClick={ () => {
               onFullScreenButtonClick();
-              //videoRef.current.requestFullscreen();
+              // videoRef.current.requestFullscreen();
             }
             }>
               <svg viewBox="0 0 27 27" width="27" height="27">

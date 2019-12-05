@@ -29,7 +29,12 @@ mockComponent.propTypes = {
 
 const MockComponentWrapped = withVideoPlayerLarge(mockComponent);
 const onPlayButtonClick = jest.fn();
+
 component = mount(<MockComponentWrapped isLoading={false} onPlayButtonClick={onPlayButtonClick} information={films[0]} />);
+
+jest
+  .spyOn(window.HTMLMediaElement.prototype, `play`)
+  .mockImplementation(() => {});
 
 it(`withVideoPlayerLarge initial state set correctly`, () => {
   expect(component.state(`isPlaying`)).toBe(false);
