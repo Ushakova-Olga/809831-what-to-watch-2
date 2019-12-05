@@ -19,13 +19,14 @@ const withFormSubmit = (Component) => {
         isFormValid: false,
         isSending: false,
         isUnmounted: false,
+        isBlocking: false,
       };
     }
 
     render() {
-      const {isFormValid, error, isSending} = this.state;
-      const {errorLoadingReview, history, id} = this.props;
-      console.log(history);
+      const {isFormValid, error, isSending, isBlocking} = this.state;
+      const {errorLoadingReview, id} = this.props;
+
       return isSending ? <Redirect to={`/films/${id}`} /> : <Component
         {...this.props}
         error={error}
@@ -33,6 +34,7 @@ const withFormSubmit = (Component) => {
         onChange={this._onChange}
         onSubmit={this._onSubmit}
         errorLoadingReview={errorLoadingReview}
+        isBlocking={isBlocking}
       />;
     }
 
@@ -57,6 +59,7 @@ const withFormSubmit = (Component) => {
         isFormValid: false,
         isSending: false,
         isUnmounted: false,
+        isBlocking: false,
       });
     }
     componentWillUnmount() {
@@ -64,32 +67,39 @@ const withFormSubmit = (Component) => {
         isFormValid: false,
         isSending: false,
         isUnmounted: true,
+        idBlocking: false,
       });
       this._onChange = null;
       this._onSubmit = null;
     }
 
     _onSubmit(rating, comment) {
-      const {id, uploadReview, history} = this.props;
-      this.setState({
-        isSending: true,
+      const {id, uploadReview, loadComments, history} = this.props;
+      this.setState ({
+        isBlocking: true,
       });
       uploadReview(id, {rating, comment})
         .then((response) => {
           if (response.data) {
-            //return history.push(`/films/${id}`);
-            //return <Redirect to={`/films/${id}`} />;
-            /*if (!this.state.isUnmounted) {
+            if (!this.state.isUnmounted) {
               this.setState ({
                 isSending: true,
+                isBlocking: false,
               });
-            }*/
+              loadComments(response.data);
+            }
           }
           return;
         })
         .catch((error) => {
-          const errorObject = JSON.parse(JSON.stringify(error));
-          this.setState({error: errorObject.message});
+          if (!this.state.isUnmounted) {
+            const errorObject = JSON.parse(JSON.stringify(error));
+            console.log(error);
+            this.setState({
+              error: errorObject.message,
+              isBlocking: false,
+            });
+          }
           return;
         });
     }

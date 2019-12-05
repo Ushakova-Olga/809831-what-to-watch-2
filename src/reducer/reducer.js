@@ -193,7 +193,7 @@ const Operation = {
     return api.post(`/comments/${id}`, data)
       .then((response) => {
         if (response.data) {
-          dispatch(ActionCreator.loadComments(response.data));
+          //dispatch(ActionCreator.loadComments(response.data));
         }
         return response;
       })

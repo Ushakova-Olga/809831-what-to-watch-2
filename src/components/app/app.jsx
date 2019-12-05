@@ -37,7 +37,6 @@ const getPageScreen = (props) => {
     comments,
     loadCommentsHandler,
     isFavoriteActually,
-    history,
   } = props;
   return <Switch>
     <Route path="/" exact render={() => {
@@ -101,7 +100,7 @@ const getPageScreen = (props) => {
         <VideoPlayerLargeWrapped information={information} openCloseFilm={openCloseFilm} />;
     }}
     />
-    <Route path="/films/:id/review" exact history={history} render={(routerProps) => {
+    <Route path="/films/:id/review" exact render={(routerProps) => {
       const AddReviewWrapped = withLogin(withFormSubmit(AddReview));
       const id = parseInt(routerProps.match.params.id, 10);
       changeActiveFilmHandler(id);
@@ -109,7 +108,6 @@ const getPageScreen = (props) => {
         films={films}
         filmsInitial={filmsInitial}
         userData={userData} id={id}
-        history={history}
       />;
     }}
     />
