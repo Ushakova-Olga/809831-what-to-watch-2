@@ -16,6 +16,14 @@ import withFormSubmit from '../../hocs/with-form-submit/with-form-submit.jsx';
 
 const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
 
+const getFilms = (genre, filmsList) => {
+  if (genre.toLowerCase() === `all genres`) {
+    return filmsList;
+  }
+
+  return filmsList.filter((it) => it.genre.toLowerCase() === genre.toLowerCase());
+};
+
 const getPageScreen = (props) => {
   const {
     films,
@@ -42,7 +50,7 @@ const getPageScreen = (props) => {
   return <Switch>
     <Route path="/" exact render={() => {
       return !isFilmPlaying ? <MainScreen
-        films={films}
+        films={getFilms(currentGenre, filmsInitial)}
         filmsInitial={filmsInitial}
         countFilms={countFilms}
         currentGenre={currentGenre}
@@ -69,7 +77,7 @@ const getPageScreen = (props) => {
         loadCommentsHandler(id);
       }
 
-      const result = films.filter((it) => it.id === activeFilm);
+      const result = filmsInitial.filter((it) => it.id === activeFilm);
       let information = {};
       information = result.length > 0 ? result[0] : {
         id: 0,
@@ -95,6 +103,7 @@ const getPageScreen = (props) => {
       const AddReviewWrapped = withLogin(withFormSubmit(AddReview));
       const id = parseInt(routerProps.match.params.id, 10);
       changeActiveFilmHandler(id);
+      const films = getFilms(currentGenre, filmsInitial);
       return <AddReviewWrapped
         films={films}
         filmsInitial={filmsInitial}
@@ -125,25 +134,6 @@ const App = (props) => {
 };
 
 getPageScreen.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        previewImage: PropTypes.string.isRequired,
-        genre: PropTypes.string.isRequired,
-        released: PropTypes.number.isRequired,
-        posterImage: PropTypes.string.isRequired,
-        backgroundImage: PropTypes.string.isRequired,
-        previewVideoLink: PropTypes.string.isRequired,
-        scoresCount: PropTypes.number.isRequired,
-        description: PropTypes.string.isRequired,
-        starring: PropTypes.array.isRequired,
-        director: PropTypes.string.isRequired,
-        runTime: PropTypes.number.isRequired,
-        rating: PropTypes.number.isRequired,
-        videoLink: PropTypes.string.isRequired,
-        isFavorite: PropTypes.bool.isRequired,
-        id: PropTypes.number.isRequired
-      }).isRequired).isRequired,
   filmsInitial: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
@@ -251,7 +241,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   clickFilterHandler: (genre) => {
     dispatch(ActionCreator.setNewFilmsGenre(genre));
-    dispatch(ActionCreator.getFilmsListOnGenre(genre));
+    // dispatch(ActionCreator.getFilmsListOnGenre(genre));
   },
   clickMoreButton: () => {
     dispatch(ActionCreator.addCountFilms());

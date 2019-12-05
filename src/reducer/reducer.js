@@ -3,7 +3,7 @@ const FILMS_COUNT_ADD = 20;
 
 const initialState = {
   genre: `All genres`,
-  films: [],
+  // films: [],
   filmsCount: FILMS_COUNT,
   filmsInitial: [],
   isAuthorizationRequired: true,
@@ -62,14 +62,6 @@ const convertItem = (obj) => {
   return newObj;
 };
 
-const getFilms = (genre, filmsList) => {
-  if (genre.toLowerCase() === `all genres`) {
-    return filmsList;
-  }
-
-  return filmsList.filter((it) => it.genre.toLowerCase() === genre.toLowerCase());
-};
-
 const ActionCreator = {
   loadFilms: (films) => ({
     type: `LOAD_FILMS`,
@@ -102,14 +94,6 @@ const ActionCreator = {
     type: `SET_GENRE`,
     payload: genre
   }),
-
-  // получение списка фильмов в соответствии с выбранным жанром
-  getFilmsListOnGenre: (genre) => {
-    return {
-      type: `FILMS_FILTER`,
-      payload: genre
-    };
-  },
 
   // количество фильмов для просмотра увеличить на 20
   addCountFilms: () => ({
@@ -206,7 +190,6 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case `LOAD_FILMS`:
       return Object.assign({}, state, {
-        films: action.payload,
         filmsInitial: action.payload,
       });
     case `LOAD_COMMENTS`:
@@ -237,10 +220,6 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         genre: action.payload
       });
-    case `FILMS_FILTER`:
-      return Object.assign({}, state, {
-        films: getFilms(action.payload, state.filmsInitial),
-      });
     case `ADD_COUNT_FILMS`:
       return Object.assign({}, state, {
         filmsCount: state.filmsCount + action.payload
@@ -251,7 +230,6 @@ const reducer = (state = initialState, action) => {
       });
     case `CHANGE_FAVORITE`:
       return Object.assign({}, state, {
-        films: changeFavoriteId(state.films, action.payload),
         filmsInitial: changeFavoriteId(state.filmsInitial, action.payload),
         isFavoriteActually: false,
       });
