@@ -22,10 +22,10 @@ const withVideoPlayerLarge = (Component) => {
 
     componentDidMount() {
       const {information} = this.props;
-      const {previewVideoLink} = information;
+      const {videoLink} = information;
       const video = this._videoRef.current;
 
-      video.src = previewVideoLink;
+      video.src = videoLink;
 
       video.onloadeddata = () => this.setState({
         isLoading: false,
@@ -51,18 +51,6 @@ const withVideoPlayerLarge = (Component) => {
         });
     }
 
-    componentDidUpdate() {
-      const video = this._videoRef.current;
-      if (this.state.isLoading) {
-        return;
-      }
-      if (this.state.isPlaying) {
-        video.play();
-      } else {
-        video.pause();
-      }
-    }
-
     componentWillUnmount() {
       const video = this._videoRef.current;
       video.src = ``;
@@ -74,11 +62,22 @@ const withVideoPlayerLarge = (Component) => {
     }
 
     _onPlayButtonClick() {
+      const video = this._videoRef.current;
+
+      /*if (this.state.isLoading) {
+        return;
+      }*/
+      if (this.state.isPlaying) {
+        video.pause();
+      } else {
+        video.play();
+      }
       this.setState({isPlaying: !this.state.isPlaying});
     }
 
     _onFullScreenButtonClick() {
       this.setState({isFullscreen: !this.state.isFullscreen});
+      this._videoRef.current.requestFullscreen();
     }
 
     render() {

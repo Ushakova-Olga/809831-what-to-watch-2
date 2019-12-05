@@ -150,8 +150,10 @@ const Operation = {
   loadComments: (id) => (dispatch, _, api) => {
     return api.get(`comments/${id}`)
       .then((response) => {
-        const convertedData = response.data.map((item) => convertItem(item));
-        dispatch(ActionCreator.loadComments(convertedData));
+        if (response.data) {
+          const convertedData = response.data.map((item) => convertItem(item));
+          dispatch(ActionCreator.loadComments(convertedData));
+        }
       });
   },
   loadFavoriteFilms: () => (dispatch, _, api) => {

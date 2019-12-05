@@ -29,7 +29,6 @@ class VideoPlayerLarge extends React.PureComponent {
     };*/
 
     const {videoLink, previewImage, name} = information;
-
     const format = videoLink.match(/\w+$/);
 
     return (
@@ -75,7 +74,7 @@ class VideoPlayerLarge extends React.PureComponent {
 
             <button type="button" className="player__full-screen" onClick={ () => {
               onFullScreenButtonClick();
-              videoRef.current.requestFullscreen();
+              //videoRef.current.requestFullscreen();
             }
             }>
               <svg viewBox="0 0 27 27" width="27" height="27">
