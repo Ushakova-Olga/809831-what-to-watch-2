@@ -1,6 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+const MIN_PROCENT = 0;
+const MAX_PROCENT = 100;
+const SECONDS_IN_MINUTE = 60;
+const MINUTES_IN_HOUR = 60;
+
 class VideoPlayerLarge extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -33,8 +38,8 @@ class VideoPlayerLarge extends React.PureComponent {
         <div className="player__controls">
           <div className="player__controls-row">
             <div className="player__time">
-              <progress className="player__progress" value={runTime ? Math.round((progress / runTime) * 100) : 0} max="100"></progress>
-              <div className="player__toggler" style={{left: `${runTime ? Math.round((progress / runTime) * 100) : 0}%`}}>Toggler</div>
+              <progress className="player__progress" value={runTime ? Math.round((progress / runTime) * MAX_PROCENT) : MIN_PROCENT} max={MAX_PROCENT}></progress>
+              <div className="player__toggler" style={{left: `${runTime ? Math.round((progress / runTime) * MAX_PROCENT) : MIN_PROCENT}%`}}>Toggler</div>
             </div>
             <div className="player__time-value">{(runTime - progress > 0) ? this._timeToString(runTime - progress) : `00:00:00`}</div>
           </div>
@@ -62,11 +67,7 @@ class VideoPlayerLarge extends React.PureComponent {
 
             <div className="player__name">{name}</div>
 
-            <button type="button" className="player__full-screen" onClick={ () => {
-              onFullScreenButtonClick();
-              // videoRef.current.requestFullscreen();
-            }
-            }>
+            <button type="button" className="player__full-screen" onClick={onFullScreenButtonClick}>
               <svg viewBox="0 0 27 27" width="27" height="27">
                 <use xlinkHref="#full-screen"></use>
               </svg>
@@ -83,10 +84,10 @@ class VideoPlayerLarge extends React.PureComponent {
     let hours = 0;
     let minutes = 0;
 
-    hours = Math.floor(seconds / 3600);
-    seconds = seconds % 3600;
-    minutes = Math.floor(seconds / 60);
-    seconds = seconds % 60;
+    hours = Math.floor(seconds / (SECONDS_IN_MINUTE * MINUTES_IN_HOUR));
+    seconds = seconds % (SECONDS_IN_MINUTE * MINUTES_IN_HOUR);
+    minutes = Math.floor(seconds / SECONDS_IN_MINUTE);
+    seconds = seconds % SECONDS_IN_MINUTE;
 
     const time = `${String(hours).padStart(2, `0`)}:${String(minutes).padStart(2, `0`)}:${String(seconds).padStart(2, `0`)}`;
     return time;

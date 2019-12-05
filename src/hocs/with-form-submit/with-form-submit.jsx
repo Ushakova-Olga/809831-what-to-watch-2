@@ -6,6 +6,9 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {Operation, ActionCreator} from "../../reducer/reducer";
 
+const TEXT_LENGHT_MIN = 50;
+const TEXT_LENGHT_MAX = 400;
+
 const withFormSubmit = (Component) => {
   class WithFormSubmit extends React.PureComponent {
     constructor(props) {
@@ -42,7 +45,7 @@ const withFormSubmit = (Component) => {
       this.setState(() => {
         let valid = false;
 
-        if (text.length >= 50 && text.length <= 400) {
+        if (text.length >= TEXT_LENGHT_MIN && text.length <= TEXT_LENGHT_MAX) {
           valid = true;
         }
 

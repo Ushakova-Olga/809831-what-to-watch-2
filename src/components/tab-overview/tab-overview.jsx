@@ -1,18 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+const RATING_BAD = 3;
+const RATING_NORMAL = 5;
+const RATING_GOOD = 8;
+const RATING_VERY_GOOD = 10;
+
 class TabOverview extends React.PureComponent {
   constructor(props) {
     super(props);
   }
   levelCount(rating) {
-    if (rating < 3) {
+    if (rating < RATING_BAD) {
       return `bad`;
-    } else if (rating < 5) {
+    } else if (rating < RATING_NORMAL) {
       return `normal`;
-    } else if (rating < 8) {
+    } else if (rating < RATING_GOOD) {
       return `good`;
-    } else if (rating < 10) {
+    } else if (rating < RATING_VERY_GOOD) {
       return `very good`;
     }
     return `awesome`;

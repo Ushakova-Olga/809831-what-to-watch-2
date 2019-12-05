@@ -56,7 +56,6 @@ const MainScreen = (props) => {
 
               <div className="movie-card__buttons">
                 <button className="btn btn--play movie-card__button" type="button" onClick={() => {
-                  // window.location.href = `/film:${activeFilm}`;
                   openCloseFilm(true);
                 }}>
                   <svg viewboxname="0 0 19 19" width="19" height="19">

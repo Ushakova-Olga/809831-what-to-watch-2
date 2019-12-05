@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import VideoPlayer from "../../components/video-player/video-player.jsx";
 import {Link} from "react-router-dom";
 
+const TIME_TO_PLAY_PREVIEW = 1000;
+
 class SmallCard extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -15,7 +17,7 @@ class SmallCard extends React.PureComponent {
 
     return <article className="small-movie-card catalog__movies-card"
       onMouseEnter={() => {
-        this.timerId = setTimeout(onMouseEnter, 1000);
+        this.timerId = setTimeout(onMouseEnter, TIME_TO_PLAY_PREVIEW);
       }}
       onMouseLeave={() => {
         clearTimeout(this.timerId);
