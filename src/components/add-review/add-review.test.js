@@ -15,6 +15,11 @@ it(`AddReview renders correctly`, () => {
           avatarUrl: `test`,
         }}
         id={0}
-        submitHandler={jest.fn()} />).toJSON();
+        submitHandler={jest.fn()}
+        isFormValid={true}
+        errorLoadingReview={``}
+        isBlocking={false}
+        error={``}
+      />).toJSON();
   expect(tree).toMatchSnapshot();
 });

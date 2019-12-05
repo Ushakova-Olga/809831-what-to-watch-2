@@ -21,7 +21,7 @@ it(`Main screen correctly renders`, () => {
       }}
       isAuthorizationRequired={false}
       clickFavoriteHandler={() => {}}
-      activeFilm={0}
+      promoFilm = {films[0]}
     /></BrowserRouter>)
   .toJSON();
   expect(tree).toMatchSnapshot();

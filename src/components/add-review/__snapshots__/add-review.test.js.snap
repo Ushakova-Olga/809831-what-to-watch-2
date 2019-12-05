@@ -105,6 +105,7 @@ exports[`AddReview renders correctly 1`] = `
     <form
       action="#"
       className="add-review__form"
+      onChange={[Function]}
       onSubmit={[Function]}
     >
       <div
@@ -115,6 +116,7 @@ exports[`AddReview renders correctly 1`] = `
         >
           <input
             className="rating__input"
+            disabled={false}
             id="star-1"
             name="rating"
             type="radio"
@@ -128,6 +130,7 @@ exports[`AddReview renders correctly 1`] = `
           </label>
           <input
             className="rating__input"
+            disabled={false}
             id="star-2"
             name="rating"
             type="radio"
@@ -142,6 +145,7 @@ exports[`AddReview renders correctly 1`] = `
           <input
             className="rating__input"
             defaultChecked={true}
+            disabled={false}
             id="star-3"
             name="rating"
             type="radio"
@@ -155,6 +159,7 @@ exports[`AddReview renders correctly 1`] = `
           </label>
           <input
             className="rating__input"
+            disabled={false}
             id="star-4"
             name="rating"
             type="radio"
@@ -168,6 +173,7 @@ exports[`AddReview renders correctly 1`] = `
           </label>
           <input
             className="rating__input"
+            disabled={false}
             id="star-5"
             name="rating"
             type="radio"
@@ -186,6 +192,7 @@ exports[`AddReview renders correctly 1`] = `
       >
         <textarea
           className="add-review__textarea"
+          disabled={false}
           id="review-text"
           name="review-text"
           placeholder="Review text"
@@ -195,6 +202,7 @@ exports[`AddReview renders correctly 1`] = `
         >
           <button
             className="add-review__btn"
+            disabled={false}
             type="submit"
           >
             Post
@@ -202,6 +210,8 @@ exports[`AddReview renders correctly 1`] = `
         </div>
       </div>
     </form>
+    
+    
   </div>
 </section>
 `;

@@ -60,7 +60,7 @@ exports[`Tabs component renders correctly 1`] = `
         <span
           className="movie-rating__level"
         >
-          Very good
+          very good
         </span>
         <span
           className="movie-rating__count"
