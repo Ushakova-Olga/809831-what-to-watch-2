@@ -14,12 +14,18 @@ const initialState = {
   comments: [],
   isFavoriteActually: false,
   errorLoadingReview: ``,
+  promoFilm: {},
 };
 
 const convertKey = (key) => {
   const arr = key.split(`_`).map((word, ind) => ind === 0 ? word : word[0].toUpperCase() + word.slice(1));
   return arr.join(``);
 };
+
+const getId = (film) => {
+  if (film.id) return film.id;
+  return 0;
+}
 
 const changeFavoriteId = (films, id) => {
   const result = films.map((it) => {
@@ -87,6 +93,10 @@ const ActionCreator = {
   loadFilms: (films) => ({
     type: `LOAD_FILMS`,
     payload: films,
+  }),
+  loadPromoFilm: (film) => ({
+    type: `LOAD_PROMO_FILM`,
+    payload: film,
   }),
   loadComments: (comments) => ({
     type: `LOAD_COMMENTS`,
@@ -198,9 +208,18 @@ const Operation = {
         return response;
       })
       .catch((error) => {
-        throw new Error(`${error} on uploading review`);
+        throw new Error(error);
       });
   },
+
+  loadPromoFilm: () => (dispatch, _, api) => {
+    return api.get(`films/promo`)
+      .then((response) => {
+        const convertedData = convertItem(response.data);
+        dispatch(ActionCreator.loadPromoFilm(convertedData));
+      })
+      .catch((_err) => {});
+    },
 };
 
 const reducer = (state = initialState, action) => {
@@ -209,7 +228,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         films: action.payload,
         filmsInitial: action.payload,
-        activeFilm: action.payload[0] ? 1 : 0,
+        //activeFilm: action.payload[0] ? 1 : 0,
       });
     case `LOAD_COMMENTS`:
       return Object.assign({}, state, {
@@ -220,6 +239,13 @@ const reducer = (state = initialState, action) => {
         favoriteFilms: action.payload,
         isFavoriteActually: true,
       });
+
+    case `LOAD_PROMO_FILM`:
+      return Object.assign({}, state, {
+        promoFilm: action.payload,
+        activeFilm: getId(action.payload),
+      });
+
     case `CHANGE_IS_AUTHORIZATION_REQUIRED`:
       return Object.assign({}, state, {
         isAuthorizationRequired: action.payload,

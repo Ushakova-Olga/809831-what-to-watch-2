@@ -37,10 +37,11 @@ const getPageScreen = (props) => {
     comments,
     loadCommentsHandler,
     isFavoriteActually,
+    promoFilm,
   } = props;
   return <Switch>
     <Route path="/" exact render={() => {
-      const result = films.filter((it) => it.id === activeFilm);
+      /*const result = films.filter((it) => it.id === activeFilm);
       let information = {};
       information = result.length > 0 ? result[0] : {
         id: 0,
@@ -48,7 +49,7 @@ const getPageScreen = (props) => {
         previewImage: ``,
         previewVideoLink: ``,
         videoLink: ``,
-      };
+      };*/
 
       return !isFilmPlaying ? <MainScreen
         films={films}
@@ -60,11 +61,11 @@ const getPageScreen = (props) => {
         clickHandlerMore={clickMoreButton}
         userData={userData}
         isAuthorizationRequired={isAuthorizationRequired}
-        activeFilm={activeFilm}
+        promoFilm={promoFilm}
         clickPlayHandler={() => {}}
         clickFavoriteHandler={changeFavoriteHandler}
         openCloseFilm={openCloseFilm} /> :
-        <VideoPlayerLargeWrapped information={information} openCloseFilm={openCloseFilm} />;
+        <VideoPlayerLargeWrapped information={promoFilm} openCloseFilm={openCloseFilm} />;
     }}
     />
     <Route path="/login" exact render={() => {
@@ -236,6 +237,7 @@ const mapStateToProps = (state) => ({
   isFilmPlaying: state.isFilmPlaying,
   comments: state.comments,
   isFavoriteActually: state.isFavoriteActually,
+  promoFilm: state.promoFilm,
 });
 
 const mapDispatchToProps = (dispatch) => ({

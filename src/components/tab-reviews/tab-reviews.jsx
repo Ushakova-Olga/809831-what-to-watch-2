@@ -10,7 +10,7 @@ class TabReviews extends React.PureComponent {
   render() {
     const {currentTab, indexTab, comments} = this.props;
     const commentsSorted = comments.sort((a, b) => moment(b.date) - moment(a.date));
-    console.log(commentsSorted);
+
     const left = [];
     const right = [];
     commentsSorted.forEach((it, i, arr) => {

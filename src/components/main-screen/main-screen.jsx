@@ -17,17 +17,14 @@ const MainScreen = (props) => {
     isAuthorizationRequired,
     userData,
     clickFavoriteHandler,
-    activeFilm,
+    promoFilm,
     openCloseFilm,
   } = props;
-  let currentFilm = {};
-  const result = filmsInitial.filter((it) => it.id === activeFilm);
-  currentFilm = result.length > 0 ? result[0] : {};
 
   return <>
-      {activeFilm > 0 ? <section className="movie-card">
+      {promoFilm ? <section className="movie-card">
         <div className="movie-card__bg">
-          <img src={currentFilm.previewImage} alt={currentFilm.name} />
+          <img src={promoFilm.previewImage} alt={promoFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -47,14 +44,14 @@ const MainScreen = (props) => {
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src={currentFilm.posterImage} alt={currentFilm.name} width="218" height="327" />
+              <img src={promoFilm.posterImage} alt={promoFilm.name} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title" onClick={clickHandler}>{currentFilm.name}</h2>
+              <h2 className="movie-card__title" onClick={clickHandler}>{promoFilm.name}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{currentFilm.genre}</span>
-                <span className="movie-card__year">{currentFilm.year}</span>
+                <span className="movie-card__genre">{promoFilm.genre}</span>
+                <span className="movie-card__year">{promoFilm.year}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -68,9 +65,9 @@ const MainScreen = (props) => {
                   <span>Play</span>
                 </button>
                 {
-                  currentFilm.isFavorite ?
+                  promoFilm.isFavorite ?
                     <button className="btn btn--list movie-card__button" type="button" onClick={() => {
-                      clickFavoriteHandler(activeFilm, !currentFilm.isFavorite);
+                      clickFavoriteHandler(promoFilm.id, !promoFilm.isFavorite);
                     }}>
                       <svg viewBox="0 0 18 14" width="18" height="14">
                         <use xlinkHref="#in-list"></use>
@@ -78,7 +75,7 @@ const MainScreen = (props) => {
                       <span>My list</span>
                     </button>
                     : <button className="btn btn--list movie-card__button" type="button" onClick={() => {
-                      clickFavoriteHandler(activeFilm, !currentFilm.isFavorite);
+                      clickFavoriteHandler(promoFilm.id, !promoFilm.isFavorite);
                     }}>
                       <svg viewBox="0 0 19 20" width="19" height="20">
                         <use xlinkHref="#add"></use>
@@ -173,7 +170,24 @@ MainScreen.propTypes = {
     avatarUrl: PropTypes.string,
   }),
   clickFavoriteHandler: PropTypes.func.isRequired,
-  activeFilm: PropTypes.number.isRequired,
+  promoFilm: PropTypes.shape({
+      name: PropTypes.string,
+      previewImage: PropTypes.string,
+      genre: PropTypes.string,
+      released: PropTypes.number,
+      posterImage: PropTypes.string,
+      backgroundImage: PropTypes.string,
+      previewVideoLink: PropTypes.string,
+      scoresCount: PropTypes.number,
+      description: PropTypes.string,
+      starring: PropTypes.array,
+      director: PropTypes.string,
+      runTime: PropTypes.number,
+      rating: PropTypes.number,
+      videoLink: PropTypes.string,
+      isFavorite: PropTypes.bool,
+      id: PropTypes.number,
+    }).isRequired,
   openCloseFilm: PropTypes.func,
 };
 
