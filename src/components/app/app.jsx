@@ -41,16 +41,6 @@ const getPageScreen = (props) => {
   } = props;
   return <Switch>
     <Route path="/" exact render={() => {
-      /*const result = films.filter((it) => it.id === activeFilm);
-      let information = {};
-      information = result.length > 0 ? result[0] : {
-        id: 0,
-        name: ``,
-        previewImage: ``,
-        previewVideoLink: ``,
-        videoLink: ``,
-      };*/
-
       return !isFilmPlaying ? <MainScreen
         films={films}
         filmsInitial={filmsInitial}
@@ -223,6 +213,24 @@ getPageScreen.propTypes = {
   isFilmPlaying: PropTypes.bool.isRequired,
   loadCommentsHandler: PropTypes.func,
   isFavoriteActually: PropTypes.bool.isRequired,
+  promoFilm: PropTypes.shape({
+    name: PropTypes.string,
+    previewImage: PropTypes.string,
+    genre: PropTypes.string,
+    released: PropTypes.number,
+    posterImage: PropTypes.string,
+    backgroundImage: PropTypes.string,
+    previewVideoLink: PropTypes.string,
+    scoresCount: PropTypes.number,
+    description: PropTypes.string,
+    starring: PropTypes.array,
+    director: PropTypes.string,
+    runTime: PropTypes.number,
+    rating: PropTypes.number,
+    videoLink: PropTypes.string,
+    isFavorite: PropTypes.bool,
+    id: PropTypes.number,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({

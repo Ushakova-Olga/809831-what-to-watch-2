@@ -13,7 +13,7 @@ class TabReviews extends React.PureComponent {
 
     const left = [];
     const right = [];
-    commentsSorted.forEach((it, i, arr) => {
+    commentsSorted.forEach((it, i) => {
       if (i % 2 === 0) {
         left.push(it);
       } else {
@@ -23,7 +23,7 @@ class TabReviews extends React.PureComponent {
     if (currentTab === indexTab) {
       return <article className="movie-card__reviews movie-card__row">
         <div className="movie-card__reviews-col">
-          {left.map((it, i, arr) => {
+          {left.map((it) => {
             return <div className="review" key={it.id}>
               <blockquote className="review__quote">
                 <p className="review__text">
@@ -42,7 +42,7 @@ class TabReviews extends React.PureComponent {
           })}
         </div>
         <div className="movie-card__reviews-col">
-          {right.map((it, i, arr) => {
+          {right.map((it) => {
             return <div className="review" key={it.id}>
               <blockquote className="review__quote">
                 <p className="review__text">

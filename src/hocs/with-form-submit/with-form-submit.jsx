@@ -53,8 +53,7 @@ const withFormSubmit = (Component) => {
     }
 
     componentDidMount() {
-
-      this.setState ({
+      this.setState({
         error: ``,
         isFormValid: false,
         isSending: false,
@@ -74,15 +73,15 @@ const withFormSubmit = (Component) => {
     }
 
     _onSubmit(rating, comment) {
-      const {id, uploadReview, loadComments, history} = this.props;
-      this.setState ({
+      const {id, uploadReview, loadComments} = this.props;
+      this.setState({
         isBlocking: true,
       });
       uploadReview(id, {rating, comment})
         .then((response) => {
           if (response.data) {
             if (!this.state.isUnmounted) {
-              this.setState ({
+              this.setState({
                 isSending: true,
                 isBlocking: false,
               });
@@ -94,7 +93,6 @@ const withFormSubmit = (Component) => {
         .catch((error) => {
           if (!this.state.isUnmounted) {
             const errorObject = JSON.parse(JSON.stringify(error));
-            console.log(error);
             this.setState({
               error: errorObject.message,
               isBlocking: false,
@@ -108,6 +106,8 @@ const withFormSubmit = (Component) => {
   WithFormSubmit.propTypes = {
     id: PropTypes.number.isRequired,
     uploadReview: PropTypes.func.isRequired,
+    loadComments: PropTypes.func.isRequired,
+    errorLoadingReview: PropTypes.string.isRequired,
   };
   return WithFormSubmit;
 };

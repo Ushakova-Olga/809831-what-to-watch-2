@@ -31,7 +31,7 @@ const init = () => {
   ReactDOM.render(
       <Provider store={store}>
         <BrowserRouter history={history}>
-          <App  history={history} />
+          <App />
         </BrowserRouter>
       </Provider>,
       document.querySelector(`#root`)

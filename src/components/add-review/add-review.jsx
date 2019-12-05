@@ -127,6 +127,7 @@ AddReview.propTypes = {
   onChange: PropTypes.func,
   onSubmit: PropTypes.func,
   errorLoadingReview: PropTypes.string.isRequired,
+  isBlocking: PropTypes.bool.isRequired,
 };
 
 export default AddReview;

@@ -51,7 +51,7 @@ const MainScreen = (props) => {
               <h2 className="movie-card__title" onClick={clickHandler}>{promoFilm.name}</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">{promoFilm.genre}</span>
-                <span className="movie-card__year">{promoFilm.year}</span>
+                <span className="movie-card__year">{promoFilm.released}</span>
               </p>
 
               <div className="movie-card__buttons">
@@ -171,23 +171,23 @@ MainScreen.propTypes = {
   }),
   clickFavoriteHandler: PropTypes.func.isRequired,
   promoFilm: PropTypes.shape({
-      name: PropTypes.string,
-      previewImage: PropTypes.string,
-      genre: PropTypes.string,
-      released: PropTypes.number,
-      posterImage: PropTypes.string,
-      backgroundImage: PropTypes.string,
-      previewVideoLink: PropTypes.string,
-      scoresCount: PropTypes.number,
-      description: PropTypes.string,
-      starring: PropTypes.array,
-      director: PropTypes.string,
-      runTime: PropTypes.number,
-      rating: PropTypes.number,
-      videoLink: PropTypes.string,
-      isFavorite: PropTypes.bool,
-      id: PropTypes.number,
-    }).isRequired,
+    name: PropTypes.string,
+    previewImage: PropTypes.string,
+    genre: PropTypes.string,
+    released: PropTypes.number,
+    posterImage: PropTypes.string,
+    backgroundImage: PropTypes.string,
+    previewVideoLink: PropTypes.string,
+    scoresCount: PropTypes.number,
+    description: PropTypes.string,
+    starring: PropTypes.array,
+    director: PropTypes.string,
+    runTime: PropTypes.number,
+    rating: PropTypes.number,
+    videoLink: PropTypes.string,
+    isFavorite: PropTypes.bool,
+    id: PropTypes.number,
+  }).isRequired,
   openCloseFilm: PropTypes.func,
 };
 

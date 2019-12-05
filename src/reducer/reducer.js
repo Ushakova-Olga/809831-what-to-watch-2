@@ -23,9 +23,11 @@ const convertKey = (key) => {
 };
 
 const getId = (film) => {
-  if (film.id) return film.id;
+  if (film.id) {
+    return film.id;
+  }
   return 0;
-}
+};
 
 const changeFavoriteId = (films, id) => {
   const result = films.map((it) => {
@@ -56,27 +58,6 @@ const convertItem = (obj) => {
       newObj[convertKey(key)] = obj[key];
     }
   }
-
-  /* newObj = {
-    img: obj.previewImage,
-    name: obj.name,
-    genre: obj.genre,
-    year: obj.released,
-    posterlarge: obj.poster_image,
-    cover: obj.background_image,
-    src: obj.previewVideoLink,
-    rating: obj.scores_count,
-    ratingCount: obj.scores_count,
-    description: obj.description,
-    actors: obj.starring,
-    description
-    director
-    runTime
-    rating
-    videoLink
-    isFavorite
-    id
-  };*/
 
   return newObj;
 };
@@ -202,9 +183,6 @@ const Operation = {
   uploadReview: (id, data) => (dispatch, _, api) => {
     return api.post(`/comments/${id}`, data)
       .then((response) => {
-        if (response.data) {
-          //dispatch(ActionCreator.loadComments(response.data));
-        }
         return response;
       })
       .catch((error) => {
@@ -219,7 +197,7 @@ const Operation = {
         dispatch(ActionCreator.loadPromoFilm(convertedData));
       })
       .catch((_err) => {});
-    },
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -228,7 +206,6 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         films: action.payload,
         filmsInitial: action.payload,
-        //activeFilm: action.payload[0] ? 1 : 0,
       });
     case `LOAD_COMMENTS`:
       return Object.assign({}, state, {
