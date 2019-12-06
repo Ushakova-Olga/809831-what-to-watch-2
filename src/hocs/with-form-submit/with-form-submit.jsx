@@ -29,6 +29,7 @@ const withFormSubmit = (Component) => {
     render() {
       const {isFormValid, error, isSending, isBlocking} = this.state;
       const {errorLoadingReview, id} = this.props;
+      console.log(error);
 
       return isSending ? <Redirect to={`/films/${id}`} /> : <Component
         {...this.props}
@@ -70,6 +71,7 @@ const withFormSubmit = (Component) => {
         isSending: false,
         isUnmounted: true,
         idBlocking: false,
+        error: ``,
       });
       this._onChange = null;
       this._onSubmit = null;
@@ -90,17 +92,21 @@ const withFormSubmit = (Component) => {
               });
               loadComments(response.data);
             }
-          }
-          return;
-        })
-        .catch((error) => {
-          if (!this.state.isUnmounted) {
-            const errorObject = JSON.parse(JSON.stringify(error));
+          } else {
+            const errorObject = JSON.parse(JSON.stringify(response));
             this.setState({
               error: errorObject.message,
               isBlocking: false,
             });
           }
+          return;
+        })
+        .catch((error) => {
+            const errorObject = JSON.parse(JSON.stringify(error));
+            this.setState({
+              error: errorObject.message,
+              isBlocking: false,
+            });
           return;
         });
     }

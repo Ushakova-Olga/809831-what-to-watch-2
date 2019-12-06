@@ -51,13 +51,6 @@ it(`Action creator correctly set genre`, () => {
   });
 });
 
-it(`Action creator correctly filter films`, () => {
-  expect(ActionCreator.getFilmsListOnGenre(`tragedy`)).toEqual({
-    type: `FILMS_FILTER`,
-    payload: `tragedy`
-  });
-});
-
 it(`Action creator correctly load films`, () => {
   const dispatch = jest.fn();
   const load = Operation.loadFilms();

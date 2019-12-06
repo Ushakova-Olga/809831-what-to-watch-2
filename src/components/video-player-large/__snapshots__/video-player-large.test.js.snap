@@ -28,7 +28,7 @@ exports[`VideoPlayerLarge renders correctly 1`] = `
       >
         <progress
           className="player__progress"
-          max="100"
+          max={100}
           value={0}
         />
         <div

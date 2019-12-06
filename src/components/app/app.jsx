@@ -26,7 +26,6 @@ const getFilms = (genre, filmsList) => {
 
 const getPageScreen = (props) => {
   const {
-    films,
     filmsInitial,
     clickFilterHandler,
     countFilms,

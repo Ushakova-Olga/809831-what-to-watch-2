@@ -169,7 +169,9 @@ const Operation = {
   uploadReview: (id, data) => (dispatch, _, api) => {
     return api.post(`/comments/${id}`, data)
       .then((response) => {
-        return response;
+        if (response.data) {
+          return response;
+        } else return response;
       })
       .catch((error) => {
         throw new Error(error);
