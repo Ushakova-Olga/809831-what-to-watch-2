@@ -233,6 +233,7 @@ const reducer = (state = initialState, action) => {
     case `CHANGE_FAVORITE`:
       return Object.assign({}, state, {
         filmsInitial: changeFavoriteId(state.filmsInitial, action.payload),
+        promoFilm: changeFavoriteId([state.promoFilm], action.payload)[0],
         isFavoriteActually: false,
       });
     case `CHANGE_ACTIVE_STATUS`:

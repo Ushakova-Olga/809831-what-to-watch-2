@@ -45,6 +45,7 @@ const getPageScreen = (props) => {
     loadCommentsHandler,
     isFavoriteActually,
     promoFilm,
+    history,
   } = props;
   return <Switch>
     <Route path="/" exact render={() => {
@@ -61,7 +62,8 @@ const getPageScreen = (props) => {
         promoFilm={promoFilm}
         clickPlayHandler={() => {}}
         clickFavoriteHandler={changeFavoriteHandler}
-        openCloseFilm={openCloseFilm} /> :
+        openCloseFilm={openCloseFilm}
+        history={history} /> :
         <VideoPlayerLargeWrapped information={promoFilm} openCloseFilm={openCloseFilm} />;
     }}
     />
@@ -94,7 +96,8 @@ const getPageScreen = (props) => {
         isAuthorizationRequired={isAuthorizationRequired}
         clickFavoriteHandler={changeFavoriteHandler}
         openCloseFilm={openCloseFilm}
-        comments={comments} /> :
+        comments={comments}
+        history={history} /> :
         <VideoPlayerLargeWrapped information={information} openCloseFilm={openCloseFilm} />;
     }}
     />

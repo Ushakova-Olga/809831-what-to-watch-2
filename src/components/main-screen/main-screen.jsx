@@ -19,6 +19,7 @@ const MainScreen = (props) => {
     clickFavoriteHandler,
     promoFilm,
     openCloseFilm,
+    history,
   } = props;
 
   return <>
@@ -66,7 +67,11 @@ const MainScreen = (props) => {
                 {
                   promoFilm.isFavorite ?
                     <button className="btn btn--list movie-card__button" type="button" onClick={() => {
-                      clickFavoriteHandler(promoFilm.id, !promoFilm.isFavorite);
+                      if (!isAuthorizationRequired) {
+                        clickFavoriteHandler(promoFilm.id, !promoFilm.isFavorite);
+                      } else {
+                        history.push(`/login`);
+                      }
                     }}>
                       <svg viewBox="0 0 18 14" width="18" height="14">
                         <use xlinkHref="#in-list"></use>
@@ -74,7 +79,11 @@ const MainScreen = (props) => {
                       <span>My list</span>
                     </button>
                     : <button className="btn btn--list movie-card__button" type="button" onClick={() => {
-                      clickFavoriteHandler(promoFilm.id, !promoFilm.isFavorite);
+                      if (!isAuthorizationRequired) {
+                        clickFavoriteHandler(promoFilm.id, !promoFilm.isFavorite);
+                      } else {
+                        history.push(`/login`);
+                      }
                     }}>
                       <svg viewBox="0 0 19 20" width="19" height="20">
                         <use xlinkHref="#add"></use>

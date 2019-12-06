@@ -18,6 +18,7 @@ const Details = (props) => {
     userData,
     openCloseFilm,
     comments,
+    history,
   } = props;
 
   const result = films.filter((it) => it.id === activeFilm);
@@ -90,7 +91,11 @@ const Details = (props) => {
                 {
                   information.isFavorite ?
                     <button className="btn btn--list movie-card__button" type="button" onClick={() => {
-                      clickFavoriteHandler(activeFilm, !information.isFavorite);
+                      if (!isAuthorizationRequired) {
+                        clickFavoriteHandler(activeFilm, !information.isFavorite);
+                      } else {
+                        history.push(`/login`);
+                      }
                     }}>
                       <svg viewBox="0 0 18 14" width="18" height="14">
                         <use xlinkHref="#in-list"></use>
@@ -98,7 +103,11 @@ const Details = (props) => {
                       <span>My list</span>
                     </button>
                     : <button className="btn btn--list movie-card__button" type="button" onClick={() => {
-                      clickFavoriteHandler(activeFilm, !information.isFavorite);
+                      if (!isAuthorizationRequired) {
+                        clickFavoriteHandler(activeFilm, !information.isFavorite);
+                      } else {
+                        history.push(`/login`);
+                      }
                     }}>
                       <svg viewBox="0 0 19 20" width="19" height="20">
                         <use xlinkHref="#add"></use>
