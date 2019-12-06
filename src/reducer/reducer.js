@@ -171,7 +171,9 @@ const Operation = {
       .then((response) => {
         if (response.data) {
           return response;
-        } else return response;
+        } else {
+          return response;
+        }
       })
       .catch((error) => {
         throw new Error(error);

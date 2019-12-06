@@ -223,6 +223,9 @@ getPageScreen.propTypes = {
     isFavorite: PropTypes.bool,
     id: PropTypes.number,
   }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }),
 };
 
 const mapStateToProps = (state) => ({

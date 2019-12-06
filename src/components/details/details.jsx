@@ -221,6 +221,9 @@ Details.propTypes = {
         comment: PropTypes.string.isRequired,
         date: PropTypes.string.isRequired,
       }).isRequired).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }),
 };
 
 export default Details;

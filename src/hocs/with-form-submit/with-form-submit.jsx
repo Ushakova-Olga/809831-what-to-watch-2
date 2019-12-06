@@ -29,7 +29,6 @@ const withFormSubmit = (Component) => {
     render() {
       const {isFormValid, error, isSending, isBlocking} = this.state;
       const {errorLoadingReview, id} = this.props;
-      console.log(error);
 
       return isSending ? <Redirect to={`/films/${id}`} /> : <Component
         {...this.props}
@@ -102,11 +101,11 @@ const withFormSubmit = (Component) => {
           return;
         })
         .catch((error) => {
-            const errorObject = JSON.parse(JSON.stringify(error));
-            this.setState({
-              error: errorObject.message,
-              isBlocking: false,
-            });
+          const errorObject = JSON.parse(JSON.stringify(error));
+          this.setState({
+            error: errorObject.message,
+            isBlocking: false,
+          });
           return;
         });
     }

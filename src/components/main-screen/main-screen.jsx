@@ -197,6 +197,9 @@ MainScreen.propTypes = {
     id: PropTypes.number,
   }).isRequired,
   openCloseFilm: PropTypes.func,
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }),
 };
 
 export default MainScreen;
