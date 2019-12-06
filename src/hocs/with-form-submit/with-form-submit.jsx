@@ -1,7 +1,6 @@
 import React from "react";
 import {compose} from "recompose";
 import PropTypes from "prop-types";
-import {Redirect} from 'react-router-dom';
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {Operation, ActionCreator} from "../../reducer/reducer";
@@ -20,17 +19,16 @@ const withFormSubmit = (Component) => {
       this.state = {
         error: ``,
         isFormValid: false,
-        isSending: false,
         isUnmounted: false,
         isBlocking: false,
       };
     }
 
     render() {
-      const {isFormValid, error, isSending, isBlocking} = this.state;
-      const {errorLoadingReview, id} = this.props;
+      const {isFormValid, error, isBlocking} = this.state;
+      const {errorLoadingReview} = this.props;
 
-      return isSending ? <Redirect to={`/films/${id}`} /> : <Component
+      return <Component
         {...this.props}
         error={error}
         isFormValid={isFormValid}
@@ -59,7 +57,6 @@ const withFormSubmit = (Component) => {
       this.setState({
         error: ``,
         isFormValid: false,
-        isSending: false,
         isUnmounted: false,
         isBlocking: false,
       });
@@ -67,7 +64,6 @@ const withFormSubmit = (Component) => {
     componentWillUnmount() {
       this.setState({
         isFormValid: false,
-        isSending: false,
         isUnmounted: true,
         idBlocking: false,
         error: ``,
@@ -77,20 +73,14 @@ const withFormSubmit = (Component) => {
     }
 
     _onSubmit(rating, comment) {
-      const {id, uploadReview, loadComments} = this.props;
+      const {id, uploadReview, history} = this.props;
       this.setState({
         isBlocking: true,
       });
       uploadReview(id, {rating, comment})
         .then((response) => {
           if (response.data) {
-            if (!this.state.isUnmounted) {
-              this.setState({
-                isSending: true,
-                isBlocking: false,
-              });
-              loadComments(response.data);
-            }
+            return history.push(`/films/${id}`);
           } else {
             const errorObject = JSON.parse(JSON.stringify(response));
             this.setState({
@@ -98,7 +88,7 @@ const withFormSubmit = (Component) => {
               isBlocking: false,
             });
           }
-          return;
+          return null;
         })
         .catch((error) => {
           const errorObject = JSON.parse(JSON.stringify(error));
@@ -116,6 +106,9 @@ const withFormSubmit = (Component) => {
     uploadReview: PropTypes.func.isRequired,
     loadComments: PropTypes.func.isRequired,
     errorLoadingReview: PropTypes.string.isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func
+    }),
   };
   return WithFormSubmit;
 };

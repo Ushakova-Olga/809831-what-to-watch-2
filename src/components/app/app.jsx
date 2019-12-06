@@ -110,6 +110,7 @@ const getPageScreen = (props) => {
         films={films}
         filmsInitial={filmsInitial}
         userData={userData} id={id}
+        history={history}
       />;
     }}
     />

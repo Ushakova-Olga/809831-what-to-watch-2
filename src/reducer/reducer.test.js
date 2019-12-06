@@ -53,7 +53,7 @@ it(`Action creator correctly set genre`, () => {
 
 it(`Action creator correctly load films`, () => {
   const dispatch = jest.fn();
-  const load = Operation.loadFilms();
+  const loadFilms = Operation.loadFilms();
 
   const api = configureAPI(dispatch);
   const apiMock = new MockAdapter(api);
@@ -62,7 +62,7 @@ it(`Action creator correctly load films`, () => {
     .onGet(`films`)
     .reply(200, [{fake: true}]);
 
-  return load(dispatch, jest.fn(), api)
+  return loadFilms(dispatch, jest.fn(), api)
     .then(() => {
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -70,4 +70,203 @@ it(`Action creator correctly load films`, () => {
         payload: [{fake: true}],
       });
     });
+});
+
+
+it(`Action creator correctly load comments`, () => {
+  const dispatch = jest.fn();
+  const loadComments = Operation.loadComments(1);
+
+  const api = configureAPI(dispatch);
+  const apiMock = new MockAdapter(api);
+
+  apiMock
+    .onGet(`comments/1`)
+    .reply(200, [{fake: true}]);
+
+  return loadComments(dispatch, jest.fn(), api)
+    .then(() => {
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: `LOAD_COMMENTS`,
+        payload: [{fake: true}],
+      });
+    });
+});
+
+it(`Action creator correctly load favorite films`, () => {
+  const dispatch = jest.fn();
+  const loadFavoriteFilms = Operation.loadFavoriteFilms();
+
+  const api = configureAPI(dispatch);
+  const apiMock = new MockAdapter(api);
+
+  apiMock
+    .onGet(`favorite`)
+    .reply(200, [{fake: true}]);
+
+  return loadFavoriteFilms(dispatch, jest.fn(), api)
+    .then(() => {
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: `LOAD_FAVORITE_FILMS`,
+        payload: [{fake: true}],
+      });
+    });
+});
+
+it(`Action creator correctly load promo film`, () => {
+  const dispatch = jest.fn();
+  const loadPromoFilm = Operation.loadPromoFilm();
+
+  const api = configureAPI(dispatch);
+  const apiMock = new MockAdapter(api);
+
+  apiMock
+    .onGet(`films/promo`)
+    .reply(200, [{fake: true}]);
+
+  return loadPromoFilm(dispatch, jest.fn(), api)
+    .then(() => {
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: `LOAD_PROMO_FILM`,
+        payload: {0: {fake: true}},
+      });
+    });
+});
+
+it(`Reducer correctly change isAuthorizationRequired`, () => {
+  expect(
+      reducer(
+          {
+            isAuthorizationRequired: false,
+          },
+          {
+            type: `CHANGE_IS_AUTHORIZATION_REQUIRED`,
+            payload: true
+          }
+      )
+  ).toEqual({
+    isAuthorizationRequired: true,
+  });
+});
+
+it(`Action creator correctly enters user`, () => {
+  const dispatch = jest.fn();
+  const logIn = Operation.logIn(`test@mail.ru`, `12345`);
+
+  const api = configureAPI(dispatch);
+  const apiMock = new MockAdapter(api);
+
+  apiMock
+    .onPost(`login`)
+    .reply(200, [{email: `test@mail.ru`, password: `12345`}]);
+
+  return logIn(dispatch, jest.fn(), api)
+    .then(() => {
+      expect(dispatch).toHaveBeenCalledTimes(2);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: `CHANGE_IS_AUTHORIZATION_REQUIRED`,
+        payload: false,
+      });
+      expect(dispatch).toHaveBeenNthCalledWith(2, {
+        type: `ENTER_USER`,
+        payload: {0: {email: `test@mail.ru`, password: `12345`}},
+      });
+    });
+});
+
+it(`Reducer correctly change filmsCount`, () => {
+  expect(
+      reducer(
+          {
+            filmsCount: 8,
+          },
+          {
+            type: `ADD_COUNT_FILMS`,
+            payload: 20,
+          }
+      )
+  ).toEqual({
+    filmsCount: 28,
+  });
+});
+
+it(`Reducer correctly change activeFilm`, () => {
+  expect(
+      reducer(
+          {
+            activeFilm: 1,
+          },
+          {
+            type: `CHANGE_ACTIVE_FILM`,
+            payload: 2,
+          }
+      )
+  ).toEqual({
+    activeFilm: 2,
+  });
+});
+
+it(`Action creator correctly changeFavorite`, () => {
+  const dispatch = jest.fn();
+  const changeFavorite = Operation.changeFavorite(1, true);
+
+  const api = configureAPI(dispatch);
+  const apiMock = new MockAdapter(api);
+
+  apiMock
+    .onPost(`favorite/1/1`)
+    .reply(200, 1);
+
+  return changeFavorite(dispatch, jest.fn(), api)
+    .then(() => {
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: `CHANGE_FAVORITE`,
+        payload: 1,
+      });
+    });
+});
+
+it(`Reducer correctly change isFilmPlaying`, () => {
+  expect(
+      reducer(
+          {
+            isFilmPlaying: false,
+          },
+          {
+            type: `CHANGE_ACTIVE_STATUS`,
+            payload: true,
+          }
+      )
+  ).toEqual({
+    isFilmPlaying: true,
+  });
+});
+
+it(`Action creator correctly uploadReview`, () => {
+  const dispatch = jest.fn();
+  const upload = Operation.uploadReview(1, {rating: 3, comment: `Good`});
+
+  const api = configureAPI(dispatch);
+  const apiMock = new MockAdapter(api);
+
+  apiMock
+    .onPost(`/comments/1`)
+    .reply(200, {0: {rating: 3, comment: `Good`}, 1: {rating: 5, comment: `Very Good`}});
+
+  // return expect(upload(dispatch, {}, api)).toEqual([{rating: 3, comment: `Good`}, {rating: 5, comment: `Very Good`}]);
+  return upload(dispatch, {}, api)
+  .then(() => {
+    expect(dispatch).toHaveBeenCalledTimes(1);
+    expect(dispatch).toHaveBeenNthCalledWith(1, {
+      type: `LOAD_COMMENTS`,
+      payload: {
+        0: {rating: 3, comment: `Good`},
+        1: {rating: 5, comment: `Very Good`}
+      },
+    });
+  });
 });
