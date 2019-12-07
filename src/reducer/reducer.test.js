@@ -193,11 +193,11 @@ it(`Reducer correctly change filmsCount`, () => {
   });
 });
 
-it(`Reducer correctly change activeFilm`, () => {
+it(`Reducer correctly change activeFilmId`, () => {
   expect(
       reducer(
           {
-            activeFilm: 1,
+            activeFilmId: 1,
           },
           {
             type: `CHANGE_ACTIVE_FILM`,
@@ -205,7 +205,7 @@ it(`Reducer correctly change activeFilm`, () => {
           }
       )
   ).toEqual({
-    activeFilm: 2,
+    activeFilmId: 2,
   });
 });
 

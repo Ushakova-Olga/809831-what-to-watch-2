@@ -34,7 +34,7 @@ const getPageScreen = (props) => {
     isAuthorizationRequired,
     submitHandler,
     userData,
-    activeFilm,
+    activeFilmId,
     changeFavoriteHandler,
     changeActiveFilmHandler,
     loadFavoriteFilmsHandler,
@@ -74,11 +74,11 @@ const getPageScreen = (props) => {
     <Route path="/films/:id" exact render={(routerProps) => {
       const id = parseInt(routerProps.match.params.id, 10);
       changeActiveFilmHandler(id);
-      if ((activeFilm !== id) || (comments.length === 0)) {
+      if ((activeFilmId !== id) || (comments.length === 0)) {
         loadCommentsHandler(id);
       }
 
-      const result = initialFilms.filter((it) => it.id === activeFilm);
+      const result = initialFilms.filter((it) => it.id === activeFilmId);
       let information = {};
       information = result.length > 0 ? result[0] : {
         id: 0,
@@ -89,7 +89,7 @@ const getPageScreen = (props) => {
       };
 
       return !isFilmPlaying ? <Details
-        activeFilm={id}
+        activeFilmId={id}
         films={initialFilms}
         clickHandler={() => {}}
         userData={userData}
@@ -168,7 +168,7 @@ getPageScreen.propTypes = {
     avatarUrl: PropTypes.string,
   }),
   submitHandler: PropTypes.func.isRequired,
-  activeFilm: PropTypes.number.isRequired,
+  activeFilmId: PropTypes.number.isRequired,
   changeFavoriteHandler: PropTypes.func.isRequired,
   changeActiveFilmHandler: PropTypes.func.isRequired,
   loadFavoriteFilmsHandler: PropTypes.func.isRequired,
@@ -236,7 +236,7 @@ const mapStateToProps = (state) => ({
   initialFilms: state.initialFilms,
   isAuthorizationRequired: state.isAuthorizationRequired,
   userData: state.userData,
-  activeFilm: state.activeFilm,
+  activeFilmId: state.activeFilmId,
   favoriteFilms: state.favoriteFilms,
   isFilmPlaying: state.isFilmPlaying,
   comments: state.comments,

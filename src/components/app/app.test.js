@@ -16,7 +16,7 @@ const state = {
   initialFilms: films,
   isAuthorizationRequired: true,
   userData: {},
-  activeFilm: 1,
+  activeFilmId: 1,
   favoriteFilms: [],
   isFilmPlaying: false,
   comments: [],
@@ -41,7 +41,7 @@ it(`App component correctly renders`, () => {
           initialFilms={films}
           isAuthorizationRequired={true}
           userData={{}}
-          activeFilm={1}
+          activeFilmId={1}
           favoriteFilms={[]}
           isFilmPlaying={false}
           comments={[]}

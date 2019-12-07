@@ -7,7 +7,7 @@ const initialState = {
   initialFilms: [],
   isAuthorizationRequired: true,
   userData: {},
-  activeFilm: 0,
+  activeFilmId: 0,
   favoriteFilms: [],
   isFilmPlaying: false,
   comments: [],
@@ -217,7 +217,7 @@ const reducer = (state = initialState, action) => {
     case `LOAD_PROMO_FILM`:
       return Object.assign({}, state, {
         promoFilm: action.payload,
-        activeFilm: getId(action.payload),
+        activeFilmId: getId(action.payload),
       });
 
     case `CHANGE_IS_AUTHORIZATION_REQUIRED`:
@@ -238,7 +238,7 @@ const reducer = (state = initialState, action) => {
       });
     case `CHANGE_ACTIVE_FILM`:
       return Object.assign({}, state, {
-        activeFilm: action.payload
+        activeFilmId: action.payload
       });
     case `CHANGE_FAVORITE`:
       return Object.assign({}, state, {

@@ -9,7 +9,7 @@ it(`FavoriteList component renders correctly`, () => {
   const tree = renderer
     .create(<BrowserRouter>
       <Details
-        activeFilm={1}
+        activeFilmId={1}
         films={films}
         clickHandler={() => {}}
         isAuthorizationRequired={true}

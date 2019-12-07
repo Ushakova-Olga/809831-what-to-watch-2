@@ -10,7 +10,7 @@ const TabsWrapped = withTabs(Tabs);
 
 const Details = (props) => {
   const {
-    activeFilm,
+    activeFilmId,
     films,
     clickHandler,
     isAuthorizationRequired,
@@ -21,7 +21,7 @@ const Details = (props) => {
     history,
   } = props;
 
-  const result = films.filter((it) => it.id === activeFilm);
+  const result = films.filter((it) => it.id === activeFilmId);
   let information = {};
   information = result.length > 0 ? result[0] : {
     id: 0,
@@ -92,7 +92,7 @@ const Details = (props) => {
                   information.isFavorite ?
                     <button className="btn btn--list movie-card__button" type="button" onClick={() => {
                       if (!isAuthorizationRequired) {
-                        clickFavoriteHandler(activeFilm, !information.isFavorite);
+                        clickFavoriteHandler(activeFilmId, !information.isFavorite);
                       } else {
                         history.push(`/login`);
                       }
@@ -104,7 +104,7 @@ const Details = (props) => {
                     </button>
                     : <button className="btn btn--list movie-card__button" type="button" onClick={() => {
                       if (!isAuthorizationRequired) {
-                        clickFavoriteHandler(activeFilm, !information.isFavorite);
+                        clickFavoriteHandler(activeFilmId, !information.isFavorite);
                       } else {
                         history.push(`/login`);
                       }
@@ -115,7 +115,7 @@ const Details = (props) => {
                       <span>My list</span>
                     </button>
                 }
-                {isAuthorizationRequired ? `` : <Link className="btn movie-card__button" to={`/films/${activeFilm}/review`}>Add review</Link>}
+                {isAuthorizationRequired ? `` : <Link className="btn movie-card__button" to={`/films/${activeFilmId}/review`}>Add review</Link>}
               </div>
             </div>
           </div>
@@ -200,7 +200,7 @@ Details.propTypes = {
       }).isRequired).isRequired,
   clickHandler: PropTypes.func,
   isAuthorizationRequired: PropTypes.bool.isRequired,
-  activeFilm: PropTypes.number.isRequired,
+  activeFilmId: PropTypes.number.isRequired,
   clickFilterHandler: PropTypes.func,
   clickFavoriteHandler: PropTypes.func,
   userData: PropTypes.shape({
