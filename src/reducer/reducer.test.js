@@ -257,7 +257,6 @@ it(`Action creator correctly uploadReview`, () => {
     .onPost(`/comments/1`)
     .reply(200, {0: {rating: 3, comment: `Good`}, 1: {rating: 5, comment: `Very Good`}});
 
-  // return expect(upload(dispatch, {}, api)).toEqual([{rating: 3, comment: `Good`}, {rating: 5, comment: `Very Good`}]);
   return upload(dispatch, {}, api)
   .then(() => {
     expect(dispatch).toHaveBeenCalledTimes(1);

@@ -3,7 +3,7 @@ import {compose} from "recompose";
 import PropTypes from "prop-types";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {Operation, ActionCreator} from "../../reducer/reducer";
+import {Operation} from "../../reducer/reducer";
 
 const TEXT_LENGHT_MIN = 50;
 const TEXT_LENGHT_MAX = 400;
@@ -74,30 +74,34 @@ const withFormSubmit = (Component) => {
 
     _onSubmit(rating, comment) {
       const {id, uploadReview, history} = this.props;
-      this.setState({
-        isBlocking: true,
-      });
-      uploadReview(id, {rating, comment})
-        .then((response) => {
-          if (response.data) {
-            return history.push(`/films/${id}`);
-          } else {
-            const errorObject = JSON.parse(JSON.stringify(response));
+      const {isFormValid} = this.state;
+
+      if (isFormValid) {
+        this.setState({
+          isBlocking: true,
+        });
+        uploadReview(id, {rating, comment})
+          .then((response) => {
+            if (response.data) {
+              return history.push(`/films/${id}`);
+            } else {
+              const errorObject = JSON.parse(JSON.stringify(response));
+              this.setState({
+                error: errorObject.message,
+                isBlocking: false,
+              });
+            }
+            return null;
+          })
+          .catch((error) => {
+            const errorObject = JSON.parse(JSON.stringify(error));
             this.setState({
               error: errorObject.message,
               isBlocking: false,
             });
-          }
-          return null;
-        })
-        .catch((error) => {
-          const errorObject = JSON.parse(JSON.stringify(error));
-          this.setState({
-            error: errorObject.message,
-            isBlocking: false,
+            return;
           });
-          return;
-        });
+      }
     }
   }
 
@@ -119,7 +123,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   uploadReview: bindActionCreators(Operation.uploadReview, dispatch),
-  loadComments: bindActionCreators(ActionCreator.loadComments, dispatch),
+  // loadComments: bindActionCreators(ActionCreator.loadComments, dispatch),
 });
 
+export {withFormSubmit};
 export default compose(connect(mapStateToProps, mapDispatchToProps), withFormSubmit);
