@@ -35,12 +35,12 @@ const validItem = shallow(<MockComponentWrapped store={store} uploadReview={uplo
 
 it(`Non valid form should not upload review`, () => {
   nonValidItem.setState({isFormValid: false});
-  nonValidItem.instance()._onSubmit(event);
+  nonValidItem.instance()._handleFormSubmit(event);
   expect(uploadReview).toHaveBeenCalledTimes(0);
 });
 
 it(`Valid form should upload review`, () => {
   validItem.setState({isFormValid: true});
-  validItem.instance()._onSubmit(event);
+  validItem.instance()._handleFormSubmit(event);
   expect(uploadReview).toHaveBeenCalledTimes(1);
 });

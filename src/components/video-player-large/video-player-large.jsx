@@ -1,10 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import {timeToString} from "../../util/util";
 const MIN_PROCENT = 0;
 const MAX_PROCENT = 100;
-const SECONDS_IN_MINUTE = 60;
-const MINUTES_IN_HOUR = 60;
 
 class VideoPlayerLarge extends React.PureComponent {
   constructor(props) {
@@ -41,7 +39,7 @@ class VideoPlayerLarge extends React.PureComponent {
               <progress className="player__progress" value={runTime ? Math.round((progress / runTime) * MAX_PROCENT) : MIN_PROCENT} max={MAX_PROCENT}></progress>
               <div className="player__toggler" style={{left: `${runTime ? Math.round((progress / runTime) * MAX_PROCENT) : MIN_PROCENT}%`}}>Toggler</div>
             </div>
-            <div className="player__time-value">{(runTime - progress > 0) ? this._timeToString(runTime - progress) : `00:00:00`}</div>
+            <div className="player__time-value">{(runTime - progress > 0) ? timeToString(runTime - progress) : `00:00:00`}</div>
           </div>
 
           <div className="player__controls-row">
@@ -77,20 +75,6 @@ class VideoPlayerLarge extends React.PureComponent {
         </div>
       </div>
     );
-  }
-
-  _timeToString(seconds) {
-    seconds = Math.round(seconds);
-    let hours = 0;
-    let minutes = 0;
-
-    hours = Math.floor(seconds / (SECONDS_IN_MINUTE * MINUTES_IN_HOUR));
-    seconds = seconds % (SECONDS_IN_MINUTE * MINUTES_IN_HOUR);
-    minutes = Math.floor(seconds / SECONDS_IN_MINUTE);
-    seconds = seconds % SECONDS_IN_MINUTE;
-
-    const time = `${String(hours).padStart(2, `0`)}:${String(minutes).padStart(2, `0`)}:${String(seconds).padStart(2, `0`)}`;
-    return time;
   }
 }
 

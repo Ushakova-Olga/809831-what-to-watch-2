@@ -1,23 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 const FILTERS_COUNT = 9;
 
 class ListGenres extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.onFilterClick = this.onFilterClick.bind(this);
+    this._handleFilterClick = this._handleFilterClick.bind(this);
   }
 
   render() {
     return (
       <ul className="catalog__genres-list">
-        {this.getListGenres().map((it) => {
+        {this._handleListGenres().map((it) => {
           const nameClass = this.props.currentGenre.toLowerCase() === it.toLowerCase() ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`;
           return (
             <li
               className={nameClass}
               key={it}>
-              <a href="#" className="catalog__genres-link" onClick={this.onFilterClick}>{it}</a>
+              <a href="#" className="catalog__genres-link" onClick={this._handleFilterClick}>{it}</a>
             </li>
           );
         })}
@@ -25,13 +26,13 @@ class ListGenres extends React.PureComponent {
     );
   }
 
-  onFilterClick(evt) {
+  _handleFilterClick(evt) {
     const {onClickFilter} = this.props;
     evt.preventDefault();
     onClickFilter(evt.target.textContent.toLowerCase());
   }
 
-  getListGenres() {
+  _handleListGenres() {
     const {initialFilms} = this.props;
     const list = [];
     list.push(`All genres`);

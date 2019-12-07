@@ -16,8 +16,8 @@ const withVideoPlayerLarge = (Component) => {
         runTime: null,
       };
 
-      this._onPlayButtonClick = this._onPlayButtonClick.bind(this);
-      this._onFullScreenButtonClick = this._onFullScreenButtonClick.bind(this);
+      this._handlePlayButtonClick = this._handlePlayButtonClick.bind(this);
+      this._handleFullScreenButtonClick = this._handleFullScreenButtonClick.bind(this);
     }
 
     componentDidMount() {
@@ -59,7 +59,7 @@ const withVideoPlayerLarge = (Component) => {
       video.ontimeupdate = null;
     }
 
-    _onPlayButtonClick() {
+    _handlePlayButtonClick() {
       const video = this._videoRef.current;
       if (this.state.isPlaying) {
         video.pause();
@@ -69,7 +69,7 @@ const withVideoPlayerLarge = (Component) => {
       this.setState({isPlaying: !this.state.isPlaying});
     }
 
-    _onFullScreenButtonClick() {
+    _handleFullScreenButtonClick() {
       const video = this._videoRef.current;
       this.setState({isFullscreen: !this.state.isFullscreen});
       if (video.requestFullscreen) {
@@ -91,8 +91,8 @@ const withVideoPlayerLarge = (Component) => {
           isFullscreen={isFullscreen}
           progress={progress}
           runTime={runTime}
-          onPlayButtonClick={this._onPlayButtonClick}
-          onFullScreenButtonClick={this._onFullScreenButtonClick}
+          onPlayButtonClick={this._handlePlayButtonClick}
+          onFullScreenButtonClick={this._handleFullScreenButtonClick}
         />
       );
     }

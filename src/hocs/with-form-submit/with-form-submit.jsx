@@ -13,8 +13,8 @@ const withFormSubmit = (Component) => {
     constructor(props) {
       super(props);
 
-      this._onChange = this._onChange.bind(this);
-      this._onSubmit = this._onSubmit.bind(this);
+      this._handleFormChange = this._handleFormChange.bind(this);
+      this._handleFormSubmit = this._handleFormSubmit.bind(this);
 
       this.state = {
         error: ``,
@@ -32,14 +32,14 @@ const withFormSubmit = (Component) => {
         {...this.props}
         error={error}
         isFormValid={isFormValid}
-        onChange={this._onChange}
-        onSubmit={this._onSubmit}
+        onChange={this._handleFormChange}
+        onSubmit={this._handleFormSubmit}
         errorLoadingReview={errorLoadingReview}
         isBlocking={isBlocking}
       />;
     }
 
-    _onChange(rating, text) {
+    _handleFormChange(rating, text) {
       this.setState(() => {
         let valid = false;
 
@@ -72,7 +72,7 @@ const withFormSubmit = (Component) => {
       this._onSubmit = null;
     }
 
-    _onSubmit(rating, comment) {
+    _handleFormSubmit(rating, comment) {
       const {id, uploadReview, history} = this.props;
       const {isFormValid} = this.state;
 

@@ -1,27 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-const RATING_BAD = 3;
-const RATING_NORMAL = 5;
-const RATING_GOOD = 8;
-const RATING_VERY_GOOD = 10;
+import {levelCount} from "../../util/util";
 
 class TabOverview extends React.PureComponent {
   constructor(props) {
     super(props);
   }
-  levelCount(rating) {
-    if (rating < RATING_BAD) {
-      return `bad`;
-    } else if (rating < RATING_NORMAL) {
-      return `normal`;
-    } else if (rating < RATING_GOOD) {
-      return `good`;
-    } else if (rating < RATING_VERY_GOOD) {
-      return `very good`;
-    }
-    return `awesome`;
-  }
+
   render() {
     const {currentTab, indexTab, information} = this.props;
 
@@ -30,7 +15,7 @@ class TabOverview extends React.PureComponent {
         <div className="movie-rating">
           <div className="movie-rating__score">{information.rating}</div>
           <p className="movie-rating__meta">
-            <span className="movie-rating__level">{this.levelCount(information.rating)}</span>
+            <span className="movie-rating__level">{levelCount(information.rating)}</span>
             <span className="movie-rating__count">{`${information.scoresCount} ratings`}</span>
           </p>
         </div>

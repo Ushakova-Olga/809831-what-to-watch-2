@@ -14,6 +14,6 @@ it(`WithActiveItem первоначально возвращает false`, () =>
 });
 
 it(`WithActiveItem при наведении переключает isActive`, () => {
-  activeItem.instance().overMouseHandler();
+  activeItem.instance()._handleMouseOver();
   expect(activeItem.state().isActive).toEqual(true);
 });

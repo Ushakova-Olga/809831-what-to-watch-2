@@ -10,11 +10,11 @@ const withActiveItem = (Component) => {
       };
       this._isMounted = false;
 
-      this.overMouseHandler = this.overMouseHandler.bind(this);
-      this.leaveMouseHandler = this.leaveMouseHandler.bind(this);
+      this._handleMouseOver = this._handleMouseOver.bind(this);
+      this._handleMouseLeave = this._handleMouseLeave.bind(this);
     }
 
-    overMouseHandler() {
+    _handleMouseOver() {
       if (this._isMounted) {
         this.setState({
           isActive: true,
@@ -22,7 +22,7 @@ const withActiveItem = (Component) => {
       }
     }
 
-    leaveMouseHandler() {
+    _handleMouseLeave() {
       if (this._isMounted) {
         this.setState({
           isActive: false
@@ -36,8 +36,8 @@ const withActiveItem = (Component) => {
 
     componentWillUnmount() {
       this._isMounted = false;
-      this.overMouseHandler = null;
-      this.leaveMouseHandler = null;
+      this._handleMouseOver = null;
+      this._handleMouseLeave = null;
     }
 
     render() {
@@ -45,8 +45,8 @@ const withActiveItem = (Component) => {
         {...this.props}
         isActive={this.state.isActive}
         activeItem={this.state.activeItem}
-        onMouseEnter={this.overMouseHandler}
-        onMouseLeave={this.leaveMouseHandler}
+        onMouseEnter={this._handleMouseOver}
+        onMouseLeave={this._handleMouseLeave}
       />;
     }
 
