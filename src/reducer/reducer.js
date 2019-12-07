@@ -49,14 +49,6 @@ const changeFavoriteId = (films, id) => {
   return result;
 };
 
-const getFilms = (genre, filmsList) => {
-  if (genre === `All genres`) {
-    return filmsList;
-  }
-
-  return filmsList.filter((it) => it.genre.toLowerCase() === genre.toLowerCase());
-};
-
 const convertItem = (obj) => {
   let newObj = {};
 
@@ -86,7 +78,6 @@ const ActionCreator = {
     type: `LOAD_FAVORITE_FILMS`,
     payload: favoriteFilms,
   }),
-
   changeIsAuthorizationRequired: (bool) => ({
     type: `CHANGE_IS_AUTHORIZATION_REQUIRED`,
     payload: bool,
@@ -95,31 +86,22 @@ const ActionCreator = {
     type: `ENTER_USER`,
     payload: userData,
   }),
-
-  // изменение фильтра по жанрам
   setNewFilmsGenre: (genre) => ({
     type: `SET_GENRE`,
     payload: genre
   }),
-
-  // количество фильмов для просмотра увеличить на 20
   addCountFilms: () => ({
     type: `ADD_COUNT_FILMS`,
     payload: FILMS_COUNT_ADD,
   }),
-
-  //
   changeActiveFilm: (id) => ({
     type: `CHANGE_ACTIVE_FILM`,
     payload: id,
   }),
-
-  //
   changeFavorite: (id) => ({
     type: `CHANGE_FAVORITE`,
     payload: id,
   }),
-
   openCloseFilm: (status) => ({
     type: `CHANGE_ACTIVE_STATUS`,
     payload: status,
@@ -258,4 +240,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer, ActionCreator, Operation, getFilms};
+export {reducer, ActionCreator, Operation};
