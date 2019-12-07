@@ -4,53 +4,47 @@ import TabDetails from "../../components/tab-details/tab-details.jsx";
 import TabOverview from "../../components/tab-overview/tab-overview.jsx";
 import TabReviews from "../../components/tab-reviews/tab-reviews.jsx";
 
-class Tabs extends React.PureComponent {
-  constructor(props) {
-    super(props);
-  }
+const Tabs = (props) => {
+  const {information, comments, onMouseClickChild, currentTab} = props;
 
-  render() {
-    const {information, comments, onMouseClickChild, currentTab} = this.props;
+  return (
+    <section className="movie-card__desc">
+      <nav className="movie-nav movie-card__nav">
+        <ul className="movie-nav__list">
 
-    return (
-      <section className="movie-card__desc">
-        <nav className="movie-nav movie-card__nav">
-          <ul className="movie-nav__list">
+          <li className = {`movie-nav__item ${currentTab === 0 ? `movie-nav__item--active` : ``}`}>
+            <a href="#" className="movie-nav__link" onClick={(evt) => {
+              evt.preventDefault();
+              if (currentTab !== 0) {
+                onMouseClickChild(0);
+              }
+            }}>Overview</a>
+          </li>
+          <li className = {`movie-nav__item ${currentTab === 1 ? `movie-nav__item--active` : ``}`}>
+            <a href="#" className="movie-nav__link" onClick={(evt) => {
+              evt.preventDefault();
+              if (currentTab !== 1) {
+                onMouseClickChild(1);
+              }
+            }}>Details</a>
+          </li>
+          <li className = {`movie-nav__item ${currentTab === 2 ? `movie-nav__item--active` : ``}`}>
+            <a href="#" className="movie-nav__link" onClick={(evt) => {
+              evt.preventDefault();
+              if (currentTab !== 2) {
+                onMouseClickChild(2);
+              }
+            }}>Reviews</a>
+          </li>
+        </ul>
+      </nav>
 
-            <li className = {`movie-nav__item ${currentTab === 0 ? `movie-nav__item--active` : ``}`}>
-              <a href="#" className="movie-nav__link" onClick={(evt) => {
-                evt.preventDefault();
-                if (currentTab !== 0) {
-                  onMouseClickChild(0);
-                }
-              }}>Overview</a>
-            </li>
-            <li className = {`movie-nav__item ${currentTab === 1 ? `movie-nav__item--active` : ``}`}>
-              <a href="#" className="movie-nav__link" onClick={(evt) => {
-                evt.preventDefault();
-                if (currentTab !== 1) {
-                  onMouseClickChild(1);
-                }
-              }}>Details</a>
-            </li>
-            <li className = {`movie-nav__item ${currentTab === 2 ? `movie-nav__item--active` : ``}`}>
-              <a href="#" className="movie-nav__link" onClick={(evt) => {
-                evt.preventDefault();
-                if (currentTab !== 2) {
-                  onMouseClickChild(2);
-                }
-              }}>Reviews</a>
-            </li>
-          </ul>
-        </nav>
-
-        <TabOverview currentTab={currentTab} indexTab={0} information={information} />
-        <TabDetails currentTab={currentTab} indexTab={1} information={information} />
-        <TabReviews currentTab={currentTab} comments={comments} indexTab={2} />
-      </section>
-    );
-  }
-}
+      <TabOverview currentTab={currentTab} indexTab={0} information={information} />
+      <TabDetails currentTab={currentTab} indexTab={1} information={information} />
+      <TabReviews currentTab={currentTab} comments={comments} indexTab={2} />
+    </section>
+  );
+};
 
 Tabs.propTypes = {
   information: PropTypes.shape({
