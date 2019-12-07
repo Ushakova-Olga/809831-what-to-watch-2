@@ -3,8 +3,6 @@
 exports[`Small card correctly renders 1`] = `
 <article
   className="small-movie-card catalog__movies-card"
-  onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
 >
   <a
     href="/films/0"

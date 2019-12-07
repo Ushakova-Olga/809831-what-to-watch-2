@@ -3,43 +3,30 @@ import PropTypes from "prop-types";
 import VideoPlayer from "../../components/video-player/video-player.jsx";
 import {Link} from "react-router-dom";
 
-const TIME_TO_PLAY_PREVIEW = 1000;
+const SmallCard = (props) => {
+  const {information, onMouseEnter, onMouseLeave, isActive, id} = props;
+  const {name, previewImage, previewVideoLink} = information;
 
-class SmallCard extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.timerId = null;
-  }
+  return <article className="small-movie-card catalog__movies-card"
+    onMouseEnter={onMouseEnter}
+    onMouseLeave={onMouseLeave}
+  >
+    <Link to={`/films/${id}`}>
+      <div className="small-movie-card__image">
+        <VideoPlayer
+          previewVideoLink={previewVideoLink}
+          previewImage={previewImage}
+          isPlaying={isActive}
+          key={`v${id}`}>
+        </VideoPlayer>
+      </div>
+    </Link>
+    <h3 className="small-movie-card__title">
+      <Link to={`/films/${id}`} className="small-movie-card__link" >{name}</Link>
+    </h3>
+  </article>;
+};
 
-  render() {
-    const {information, onMouseEnter, onMouseLeave, isActive, id} = this.props;
-    const {name, previewImage, previewVideoLink} = information;
-
-    return <article className="small-movie-card catalog__movies-card"
-      onMouseEnter={() => {
-        this.timerId = setTimeout(onMouseEnter, TIME_TO_PLAY_PREVIEW);
-      }}
-      onMouseLeave={() => {
-        clearTimeout(this.timerId);
-        onMouseLeave();
-      }}
-    >
-      <Link to={`/films/${id}`}>
-        <div className="small-movie-card__image">
-          <VideoPlayer
-            previewVideoLink={previewVideoLink}
-            previewImage={previewImage}
-            isPlaying={isActive}
-            key={`v${id}`}>
-          </VideoPlayer>
-        </div>
-      </Link>
-      <h3 className="small-movie-card__title">
-        <Link to={`/films/${id}`} className="small-movie-card__link" >{name}</Link>
-      </h3>
-    </article>;
-  }
-}
 
 SmallCard.propTypes = {
   information: PropTypes.shape({

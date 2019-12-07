@@ -10,6 +10,6 @@ const MockComponentWrapped = withTabs(MockComponent);
 
 it(`withTabs HOC correctly saving number of tab to state`, () => {
   const component = shallow(<MockComponentWrapped />);
-  component.instance().onMouseClickChild(1);
+  component.instance()._handlerMouseClickChild(1);
   expect(component.state().currentTab).toEqual(1);
 });

@@ -9,10 +9,10 @@ const withTabs = (Component) => {
         currentTab: 0,
       };
 
-      this.onMouseClickChild = this.onMouseClickChild.bind(this);
+      this._handlerMouseClickChild = this._handlerMouseClickChild.bind(this);
     }
 
-    onMouseClickChild(id) {
+    _handlerMouseClickChild(id) {
       this.setState({
         currentTab: id,
       });
@@ -27,7 +27,7 @@ const withTabs = (Component) => {
       return <Component
         {...this.props}
         currentTab={this.state.currentTab}
-        onMouseClickChild={this.onMouseClickChild}
+        onMouseClickChild={this._handlerMouseClickChild}
       />;
     }
 
