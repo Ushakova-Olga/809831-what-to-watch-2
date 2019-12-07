@@ -50,6 +50,14 @@ const changeFavoriteId = (films, id) => {
   return result;
 };
 
+const getFilms = (genre, filmsList) => {
+  if (genre === `All genres`) {
+    return filmsList;
+  }
+
+  return filmsList.filter((it) => it.genre.toLowerCase() === genre.toLowerCase());
+};
+
 const convertItem = (obj) => {
   let newObj = {};
 
@@ -251,4 +259,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer, ActionCreator, Operation};
+export {reducer, ActionCreator, Operation, getFilms};
