@@ -6,7 +6,7 @@ import films from "../../mocks/films.js";
 
 Enzyme.configure({adapter: new Adapter()});
 
-it(`Linc clicked`, () => {
+it(`Filter linc clicked correctly`, () => {
   const clickFilterHandler = jest.fn();
   const componentListLinksGenre = shallow(<ListGenres
     films={films}

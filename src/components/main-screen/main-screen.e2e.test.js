@@ -6,7 +6,7 @@ import films from "../../mocks/films.js";
 
 Enzyme.configure({adapter: new Adapter()});
 
-it(`Main screen correctly pressed header`, () => {
+it(`Main screen correctly pressed favorite button`, () => {
   const clickFavoriteHandler = jest.fn();
   const componentMainScreen = shallow(<MainScreen
     films={films}
