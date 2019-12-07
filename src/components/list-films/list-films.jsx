@@ -12,8 +12,8 @@ class ListFilms extends React.PureComponent {
   }
 
   render() {
-    const {films, countFilms} = this.props;
-    const reducerFilms = films.slice(0, countFilms);
+    const {films, filmsCount} = this.props;
+    const reducerFilms = films.slice(0, filmsCount);
 
     return <div className="catalog__movies-list">
       {reducerFilms.map((it, i) => <SmallCardWrapped
@@ -61,7 +61,7 @@ ListFilms.propTypes = {
         rating: PropTypes.number.isRequired,
         videoLink: PropTypes.string.isRequired,
       }).isRequired).isRequired,
-  countFilms: PropTypes.number.isRequired,
+  filmsCount: PropTypes.number.isRequired,
 };
 
 export default ListFilms;

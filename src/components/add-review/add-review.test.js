@@ -15,7 +15,7 @@ it(`AddReview renders correctly`, () => {
           avatarUrl: `test`,
         }}
         id={0}
-        submitHandler={jest.fn()}
+        onSubmit={jest.fn()}
         isFormValid={true}
         errorLoadingReview={``}
         isBlocking={false}

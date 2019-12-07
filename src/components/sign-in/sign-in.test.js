@@ -7,7 +7,7 @@ it(`SignIn renders correctly`, () => {
   const tree = renderer.create(
       <BrowserRouter><SignIn
         isAuthorizationRequired={true}
-        submitHandler={jest.fn()}
+        onSubmit={jest.fn()}
       /></BrowserRouter>).toJSON();
   expect(tree).toMatchSnapshot();
 });

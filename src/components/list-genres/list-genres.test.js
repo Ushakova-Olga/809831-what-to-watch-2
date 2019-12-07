@@ -7,7 +7,7 @@ it(`List genres correctly renders`, () => {
   const tree = renderer.create(<ListGenres
     films={films}
     initialFilms={films}
-    clickFilterHandler={jest.fn()}
+    onClickFilter={jest.fn()}
     currentGenre={`All genres`}
   />);
   expect(tree).toMatchSnapshot();

@@ -114,7 +114,6 @@ AddReview.propTypes = {
         rating: PropTypes.number.isRequired,
         videoLink: PropTypes.string.isRequired,
       }).isRequired).isRequired,
-  clickHandler: PropTypes.func,
   userData: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,

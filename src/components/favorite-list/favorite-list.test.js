@@ -11,8 +11,7 @@ it(`FavoriteList component renders correctly`, () => {
         isAuthorizationRequired={true}
         userData={{id: 1, name: `fake`, email: `test@mail.ru`, avatarUrl: ``}}
         films={films}
-        countFilms={8}
-        clickHandler={() => {}}
+        filmsCount={8}
       >
       </FavoriteList>
     </BrowserRouter>)

@@ -26,9 +26,9 @@ class ListGenres extends React.PureComponent {
   }
 
   onFilterClick(evt) {
-    const {clickFilterHandler} = this.props;
+    const {onClickFilter} = this.props;
     evt.preventDefault();
-    clickFilterHandler(evt.target.textContent.toLowerCase());
+    onClickFilter(evt.target.textContent.toLowerCase());
   }
 
   getListGenres() {
@@ -64,7 +64,7 @@ ListGenres.propTypes = {
         isFavorite: PropTypes.bool.isRequired,
         id: PropTypes.number.isRequired
       }).isRequired).isRequired,
-  clickFilterHandler: PropTypes.func,
+  onClickFilter: PropTypes.func,
   currentGenre: PropTypes.string.isRequired,
 };
 

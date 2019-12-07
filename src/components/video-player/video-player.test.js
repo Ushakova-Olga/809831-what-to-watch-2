@@ -8,7 +8,6 @@ it(`Video player correctly renders`, () => {
       previewVideoLink={``}
       previewImage={``}
       isPlaying={false}
-      clickHandler={()=>{}}
       key={``}>
     </VideoPlayer>)
     .toJSON();

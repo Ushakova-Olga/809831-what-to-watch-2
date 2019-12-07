@@ -6,7 +6,7 @@ it(`Show more button correctly renders`, () => {
 
   const tree = renderer
     .create(<ShowMore
-      clickHandlerMore={() => {}}
+      onClickMore={() => {}}
     />)
   .toJSON();
   expect(tree).toMatchSnapshot();

@@ -5,7 +5,7 @@ import ListFilms from "../../components/list-films/list-films.jsx";
 import {Link} from "react-router-dom";
 
 const FavoriteList = (props) => {
-  const {isAuthorizationRequired, userData, films, countFilms, clickHandler} = props;
+  const {isAuthorizationRequired, userData, films, filmsCount} = props;
 
   return <>
   <div className="user-page">
@@ -26,7 +26,7 @@ const FavoriteList = (props) => {
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-      <ListFilms films={films} countFilms={countFilms} clickHandler={clickHandler} />
+      <ListFilms films={films} filmsCount={filmsCount} />
     </section>
   </div>
   </>;
@@ -57,7 +57,6 @@ FavoriteList.propTypes = {
     email: PropTypes.string,
     avatarUrl: PropTypes.string,
   }),
-  clickHandler: PropTypes.func,
-  countFilms: PropTypes.number.isRequired,
+  filmsCount: PropTypes.number.isRequired,
 };
 export default FavoriteList;

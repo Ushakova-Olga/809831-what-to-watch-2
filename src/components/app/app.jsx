@@ -9,7 +9,6 @@ import {connect} from "react-redux";
 import {Operation, ActionCreator} from "../../reducer/reducer";
 import {Switch, Route} from "react-router-dom";
 import withLogin from "../../hocs/with-login/with-login.jsx";
-
 import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";
 import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-player-large.jsx';
 import withFormSubmit from '../../hocs/with-form-submit/with-form-submit.jsx';
@@ -27,22 +26,22 @@ const getFilms = (genre, filmsList) => {
 const getPageScreen = (props) => {
   const {
     initialFilms,
-    clickFilterHandler,
-    countFilms,
-    clickMoreButton,
+    onClickFilter,
+    filmsCount,
+    onClickMore,
     currentGenre,
     isAuthorizationRequired,
-    submitHandler,
+    onSubmit,
     userData,
     activeFilmId,
-    changeFavoriteHandler,
-    changeActiveFilmHandler,
-    loadFavoriteFilmsHandler,
+    onChangeFavorite,
+    onChangeActiveFilm,
+    onLoadFavoriteFilms,
     favoriteFilms,
-    openCloseFilm,
+    onOpenCloseFilm,
     isFilmPlaying,
     comments,
-    loadCommentsHandler,
+    onLoadComments,
     isFavoriteActually,
     promoFilm,
     history,
@@ -52,30 +51,28 @@ const getPageScreen = (props) => {
       return !isFilmPlaying ? <MainScreen
         films={getFilms(currentGenre, initialFilms)}
         initialFilms={initialFilms}
-        countFilms={countFilms}
+        filmsCount={filmsCount}
         currentGenre={currentGenre}
-        clickHandler={() => {}}
-        clickFilterHandler={clickFilterHandler}
-        clickHandlerMore={clickMoreButton}
+        onClickFilter={onClickFilter}
+        onClickMore={onClickMore}
         userData={userData}
         isAuthorizationRequired={isAuthorizationRequired}
         promoFilm={promoFilm}
-        clickPlayHandler={() => {}}
-        clickFavoriteHandler={changeFavoriteHandler}
-        openCloseFilm={openCloseFilm}
+        onClickFavorite={onChangeFavorite}
+        onOpenCloseFilm={onOpenCloseFilm}
         history={history} /> :
-        <VideoPlayerLargeWrapped information={promoFilm} openCloseFilm={openCloseFilm} />;
+        <VideoPlayerLargeWrapped information={promoFilm} onOpenCloseFilm={onOpenCloseFilm} />;
     }}
     />
     <Route path="/login" exact render={() => {
-      return <SignIn submitHandler={submitHandler} isAuthorizationRequired={isAuthorizationRequired} />;
+      return <SignIn onSubmit={onSubmit} isAuthorizationRequired={isAuthorizationRequired} />;
     }}
     />
     <Route path="/films/:id" exact render={(routerProps) => {
       const id = parseInt(routerProps.match.params.id, 10);
-      changeActiveFilmHandler(id);
+      onChangeActiveFilm(id);
       if ((activeFilmId !== id) || (comments.length === 0)) {
-        loadCommentsHandler(id);
+        onLoadComments(id);
       }
 
       const result = initialFilms.filter((it) => it.id === activeFilmId);
@@ -91,20 +88,19 @@ const getPageScreen = (props) => {
       return !isFilmPlaying ? <Details
         activeFilmId={id}
         films={initialFilms}
-        clickHandler={() => {}}
         userData={userData}
         isAuthorizationRequired={isAuthorizationRequired}
-        clickFavoriteHandler={changeFavoriteHandler}
-        openCloseFilm={openCloseFilm}
+        onClickFavorite={onChangeFavorite}
+        onOpenCloseFilm={onOpenCloseFilm}
         comments={comments}
         history={history} /> :
-        <VideoPlayerLargeWrapped information={information} openCloseFilm={openCloseFilm} />;
+        <VideoPlayerLargeWrapped information={information} onOpenCloseFilm={onOpenCloseFilm} />;
     }}
     />
     <Route path="/films/:id/review" exact render={(routerProps) => {
       const AddReviewWrapped = withLogin(withFormSubmit(AddReview));
       const id = parseInt(routerProps.match.params.id, 10);
-      changeActiveFilmHandler(id);
+      onChangeActiveFilm(id);
       const films = getFilms(currentGenre, initialFilms);
       return <AddReviewWrapped
         films={films}
@@ -117,15 +113,14 @@ const getPageScreen = (props) => {
     <Route path="/mylist" exact render={() => {
       const FavoriteListWrapped = withLogin(FavoriteList);
       if (!isFavoriteActually) {
-        loadFavoriteFilmsHandler();
+        onLoadFavoriteFilms();
       }
       return <FavoriteListWrapped
         isAuthorizationRequired={isAuthorizationRequired}
         userData={userData}
         films={favoriteFilms}
-        countFilms={countFilms}
-        clickHandler={() => {}}
-        openCloseFilm={openCloseFilm}
+        filmsCount={filmsCount}
+        onOpenCloseFilm={onOpenCloseFilm}
       />;
     }}
     />
@@ -156,9 +151,9 @@ getPageScreen.propTypes = {
         isFavorite: PropTypes.bool.isRequired,
         id: PropTypes.number.isRequired
       }).isRequired).isRequired,
-  clickFilterHandler: PropTypes.func,
-  countFilms: PropTypes.number.isRequired,
-  clickMoreButton: PropTypes.func.isRequired,
+  onClickFilter: PropTypes.func,
+  filmsCount: PropTypes.number.isRequired,
+  onClickMore: PropTypes.func.isRequired,
   currentGenre: PropTypes.string.isRequired,
   isAuthorizationRequired: PropTypes.bool.isRequired,
   userData: PropTypes.shape({
@@ -167,11 +162,11 @@ getPageScreen.propTypes = {
     email: PropTypes.string,
     avatarUrl: PropTypes.string,
   }),
-  submitHandler: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   activeFilmId: PropTypes.number.isRequired,
-  changeFavoriteHandler: PropTypes.func.isRequired,
-  changeActiveFilmHandler: PropTypes.func.isRequired,
-  loadFavoriteFilmsHandler: PropTypes.func.isRequired,
+  onChangeFavorite: PropTypes.func.isRequired,
+  onChangeActiveFilm: PropTypes.func.isRequired,
+  onLoadFavoriteFilms: PropTypes.func.isRequired,
   favoriteFilms: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
@@ -202,9 +197,9 @@ getPageScreen.propTypes = {
         comment: PropTypes.string.isRequired,
         date: PropTypes.string.isRequired,
       }).isRequired).isRequired,
-  openCloseFilm: PropTypes.func,
+  onOpenCloseFilm: PropTypes.func,
   isFilmPlaying: PropTypes.bool.isRequired,
-  loadCommentsHandler: PropTypes.func,
+  onLoadComments: PropTypes.func,
   isFavoriteActually: PropTypes.bool.isRequired,
   promoFilm: PropTypes.shape({
     name: PropTypes.string,
@@ -232,7 +227,7 @@ getPageScreen.propTypes = {
 const mapStateToProps = (state) => ({
   currentGenre: state.genre,
   films: state.films,
-  countFilms: state.filmsCount,
+  filmsCount: state.filmsCount,
   initialFilms: state.initialFilms,
   isAuthorizationRequired: state.isAuthorizationRequired,
   userData: state.userData,
@@ -245,29 +240,28 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  clickFilterHandler: (genre) => {
+  onClickFilter: (genre) => {
     dispatch(ActionCreator.setNewFilmsGenre(genre));
-    // dispatch(ActionCreator.getFilmsListOnGenre(genre));
   },
-  clickMoreButton: () => {
+  onClickMore: () => {
     dispatch(ActionCreator.addCountFilms());
   },
-  submitHandler: (email, password) => {
+  onSubmit: (email, password) => {
     dispatch(Operation.logIn(email, password));
   },
-  changeFavoriteHandler: (id, isFavorite) => {
+  onChangeFavorite: (id, isFavorite) => {
     dispatch(Operation.changeFavorite(id, isFavorite));
   },
-  changeActiveFilmHandler: (id) => {
+  onChangeActiveFilm: (id) => {
     dispatch(ActionCreator.changeActiveFilm(id));
   },
-  loadFavoriteFilmsHandler: () => {
+  onLoadFavoriteFilms: () => {
     dispatch(Operation.loadFavoriteFilms());
   },
-  openCloseFilm: (status) => {
-    dispatch(ActionCreator.openCloseFilm(status));
+  onOpenCloseFilm: (status) => {
+    dispatch(ActionCreator.onOpenCloseFilm(status));
   },
-  loadCommentsHandler: (id) => {
+  onLoadComments: (id) => {
     dispatch(Operation.loadComments(id));
   },
 });

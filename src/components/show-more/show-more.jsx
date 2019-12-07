@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const ShowMore = (props) => {
-  const {clickHandlerMore} = props;
+  const {onClickMore} = props;
 
   return (
     <div className="catalog__more">
       <button
-        onClick={clickHandlerMore}
+        onClick={onClickMore}
         className="catalog__button"
         type="button">
           Show more
@@ -17,7 +17,7 @@ const ShowMore = (props) => {
 };
 
 ShowMore.propTypes = {
-  clickHandlerMore: PropTypes.func.isRequired
+  onClickMore: PropTypes.func.isRequired
 };
 
 export default ShowMore;

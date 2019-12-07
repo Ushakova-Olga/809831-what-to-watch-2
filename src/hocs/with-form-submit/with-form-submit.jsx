@@ -108,7 +108,6 @@ const withFormSubmit = (Component) => {
   WithFormSubmit.propTypes = {
     id: PropTypes.number.isRequired,
     uploadReview: PropTypes.func.isRequired,
-    loadComments: PropTypes.func.isRequired,
     errorLoadingReview: PropTypes.string.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func
@@ -123,7 +122,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   uploadReview: bindActionCreators(Operation.uploadReview, dispatch),
-  // loadComments: bindActionCreators(ActionCreator.loadComments, dispatch),
 });
 
 export {withFormSubmit};

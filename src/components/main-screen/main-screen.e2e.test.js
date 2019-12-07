@@ -11,11 +11,11 @@ it(`Main screen correctly pressed header`, () => {
   const componentMainScreen = shallow(<MainScreen
     films={films}
     initialFilms={films}
-    countFilms={8}
-    clickFavoriteHandler={clickFavoriteHandler}
+    filmsCount={8}
+    onClickFavorite={clickFavoriteHandler}
     promoFilm = {films[0]}
     currentGenre={`All genres`}
-    clickHandlerMore={jest.fn()}
+    onClickMore={jest.fn()}
     userData = {{
       id: 1,
       name: `Olga`,

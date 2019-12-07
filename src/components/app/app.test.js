@@ -23,10 +23,9 @@ const state = {
   isFavoriteActually: false,
   errorLoadingReview: ``,
   promoFilm: {},
-  clickFavoriteHandler: () => {},
-  clickHandlerMore: () => {},
-  clickMoreButton: () => {},
-  changeFavoriteHandler: () => {},
+  onClickFavorite: () => {},
+  onClickMore: () => {},
+  onChangeFavorite: () => {},
 };
 
 const store = mockStore(state);
@@ -37,7 +36,7 @@ it(`App component correctly renders`, () => {
       <Provider store={store}>
         <App
           currentGenre={`All genres`}
-          countFilms={8}
+          filmsCount={8}
           initialFilms={films}
           isAuthorizationRequired={true}
           userData={{}}
@@ -48,10 +47,9 @@ it(`App component correctly renders`, () => {
           isFavoriteActually={false}
           errorLoadingReview={``}
           promoFilm={{}}
-          clickFavoriteHandler={() => {}}
-          clickHandlerMore={() => {}}
-          clickMoreButton={() => {}}
-          changeFavoriteHandler={() => {}}
+          onClickFavorite={() => {}}
+          onClickMore={() => {}}
+          onChangeFavorite={() => {}}
         />
       </Provider>
     </BrowserRouter>)

@@ -11,11 +11,10 @@ it(`FavoriteList component renders correctly`, () => {
       <Details
         activeFilmId={1}
         films={films}
-        clickHandler={() => {}}
         isAuthorizationRequired={true}
-        clickFavoriteHandler={() => {}}
+        onClickFavorite={() => {}}
         userData={{id: 1, name: `fake`, email: `test@mail.ru`, avatarUrl: ``}}
-        openCloseFilm={() => {}}
+        onOpenCloseFilm={() => {}}
         comments={comments}
         history={{push: () => {}}}
       >

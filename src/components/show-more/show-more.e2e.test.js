@@ -6,11 +6,11 @@ import ShowMore from "../show-more/show-more";
 Enzyme.configure({adapter: new Adapter()});
 
 it(`Show more button correctly pressed button`, () => {
-  const clickHandlerMore = jest.fn();
+  const onClickMore = jest.fn();
   const componentShowMore = shallow(<ShowMore
-    clickHandlerMore={clickHandlerMore}
+    onClickMore={onClickMore}
   />);
 
   componentShowMore.find(`button`).simulate(`click`);
-  expect(clickHandlerMore).toHaveBeenCalledTimes(1);
+  expect(onClickMore).toHaveBeenCalledTimes(1);
 });

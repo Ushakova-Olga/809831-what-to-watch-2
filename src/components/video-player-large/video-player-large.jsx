@@ -19,7 +19,7 @@ class VideoPlayerLarge extends React.PureComponent {
       runTime,
       onPlayButtonClick,
       onFullScreenButtonClick,
-      openCloseFilm,
+      onOpenCloseFilm,
       information
     } = this.props;
 
@@ -32,7 +32,7 @@ class VideoPlayerLarge extends React.PureComponent {
         </video>
 
         <button type="button" className="player__exit" onClick={() => {
-          openCloseFilm(false);
+          onOpenCloseFilm(false);
         }}>Exit</button>
 
         <div className="player__controls">
@@ -127,7 +127,7 @@ VideoPlayerLarge.propTypes = {
     PropTypes.func,
     PropTypes.shape({current: PropTypes.instanceOf(Element)}),
   ]),
-  openCloseFilm: PropTypes.func,
+  onOpenCloseFilm: PropTypes.func,
 };
 
 export default VideoPlayerLarge;

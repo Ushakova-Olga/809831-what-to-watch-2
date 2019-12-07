@@ -102,7 +102,7 @@ const ActionCreator = {
     type: `CHANGE_FAVORITE`,
     payload: id,
   }),
-  openCloseFilm: (status) => ({
+  onOpenCloseFilm: (status) => ({
     type: `CHANGE_ACTIVE_STATUS`,
     payload: status,
   }),

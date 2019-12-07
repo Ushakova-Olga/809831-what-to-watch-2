@@ -9,16 +9,15 @@ const MainScreen = (props) => {
   const {
     films,
     initialFilms,
-    clickHandler,
-    clickFilterHandler,
-    clickHandlerMore,
-    countFilms,
+    onClickFilter,
+    onClickMore,
+    filmsCount,
     currentGenre,
     isAuthorizationRequired,
     userData,
-    clickFavoriteHandler,
+    onClickFavorite,
     promoFilm,
-    openCloseFilm,
+    onOpenCloseFilm,
     history,
   } = props;
 
@@ -49,7 +48,7 @@ const MainScreen = (props) => {
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title" onClick={clickHandler}>{promoFilm.name}</h2>
+              <h2 className="movie-card__title">{promoFilm.name}</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">{promoFilm.genre}</span>
                 <span className="movie-card__year">{promoFilm.released}</span>
@@ -57,7 +56,7 @@ const MainScreen = (props) => {
 
               <div className="movie-card__buttons">
                 <button className="btn btn--play movie-card__button" type="button" onClick={() => {
-                  openCloseFilm(true);
+                  onOpenCloseFilm(true);
                 }}>
                   <svg viewboxname="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -68,7 +67,7 @@ const MainScreen = (props) => {
                   promoFilm.isFavorite ?
                     <button className="btn btn--list movie-card__button" type="button" onClick={() => {
                       if (!isAuthorizationRequired) {
-                        clickFavoriteHandler(promoFilm.id, !promoFilm.isFavorite);
+                        onClickFavorite(promoFilm.id, !promoFilm.isFavorite);
                       } else {
                         history.push(`/login`);
                       }
@@ -80,7 +79,7 @@ const MainScreen = (props) => {
                     </button>
                     : <button className="btn btn--list movie-card__button" type="button" onClick={() => {
                       if (!isAuthorizationRequired) {
-                        clickFavoriteHandler(promoFilm.id, !promoFilm.isFavorite);
+                        onClickFavorite(promoFilm.id, !promoFilm.isFavorite);
                       } else {
                         history.push(`/login`);
                       }
@@ -102,11 +101,11 @@ const MainScreen = (props) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ListGenres initialFilms={initialFilms} clickFilterHandler={clickFilterHandler} currentGenre={currentGenre} />
+          <ListGenres initialFilms={initialFilms} onClickFilter={onClickFilter} currentGenre={currentGenre} />
 
-          <ListFilms films={films} countFilms={countFilms} clickHandler={clickHandler} />
+          <ListFilms films={films} filmsCount={filmsCount} />
 
-          {films.length > countFilms ? <ShowMore clickHandlerMore={clickHandlerMore} /> : ``}
+          {films.length > filmsCount ? <ShowMore onClickMore={onClickMore} /> : ``}
         </section>
 
         <footer className="page-footer">
@@ -165,10 +164,9 @@ MainScreen.propTypes = {
         isFavorite: PropTypes.bool.isRequired,
         id: PropTypes.number.isRequired
       }).isRequired).isRequired,
-  clickHandler: PropTypes.func,
-  clickFilterHandler: PropTypes.func,
-  countFilms: PropTypes.number.isRequired,
-  clickHandlerMore: PropTypes.func.isRequired,
+  onClickFilter: PropTypes.func,
+  filmsCount: PropTypes.number.isRequired,
+  onClickMore: PropTypes.func.isRequired,
   currentGenre: PropTypes.string.isRequired,
   isAuthorizationRequired: PropTypes.bool.isRequired,
   userData: PropTypes.shape({
@@ -177,7 +175,7 @@ MainScreen.propTypes = {
     email: PropTypes.string,
     avatarUrl: PropTypes.string,
   }),
-  clickFavoriteHandler: PropTypes.func.isRequired,
+  onClickFavorite: PropTypes.func.isRequired,
   promoFilm: PropTypes.shape({
     name: PropTypes.string,
     previewImage: PropTypes.string,
@@ -196,7 +194,7 @@ MainScreen.propTypes = {
     isFavorite: PropTypes.bool,
     id: PropTypes.number,
   }).isRequired,
-  openCloseFilm: PropTypes.func,
+  onOpenCloseFilm: PropTypes.func,
   history: PropTypes.shape({
     push: PropTypes.func
   }),

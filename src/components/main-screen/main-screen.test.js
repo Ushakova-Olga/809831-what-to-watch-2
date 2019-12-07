@@ -10,8 +10,8 @@ it(`Main screen correctly renders`, () => {
     .create(<BrowserRouter><MainScreen
       films={films}
       initialFilms={films}
-      countFilms={8}
-      clickHandlerMore={() => {}}
+      filmsCount={8}
+      onClickMore={() => {}}
       currentGenre={`All genres`}
       userData = {{
         id: 1,
@@ -20,7 +20,7 @@ it(`Main screen correctly renders`, () => {
         avatarUrl: `avatar`
       }}
       isAuthorizationRequired={false}
-      clickFavoriteHandler={() => {}}
+      onClickFavorite={() => {}}
       promoFilm = {films[0]}
     /></BrowserRouter>)
   .toJSON();

@@ -4,7 +4,7 @@ import {Redirect} from "react-router-dom";
 import {Link} from "react-router-dom";
 
 const SignIn = (props) => {
-  const {isAuthorizationRequired, submitHandler} = props;
+  const {isAuthorizationRequired, onSubmit} = props;
 
   return isAuthorizationRequired ? <div className="user-page">
     <header className="page-header user-page__head">
@@ -25,7 +25,7 @@ const SignIn = (props) => {
           evt.preventDefault();
           const email = evt.target.querySelector(`#user-email`).value;
           const password = evt.target.querySelector(`#user-password`).value;
-          submitHandler(email, password);
+          onSubmit(email, password);
         }
       }>
         <div className="sign-in__fields">
@@ -61,7 +61,7 @@ const SignIn = (props) => {
 };
 
 SignIn.propTypes = {
-  submitHandler: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   isAuthorizationRequired: PropTypes.bool.isRequired,
 };
 

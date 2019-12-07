@@ -12,11 +12,10 @@ const Details = (props) => {
   const {
     activeFilmId,
     films,
-    clickHandler,
     isAuthorizationRequired,
-    clickFavoriteHandler,
+    onClickFavorite,
     userData,
-    openCloseFilm,
+    onOpenCloseFilm,
     comments,
     history,
   } = props;
@@ -81,7 +80,7 @@ const Details = (props) => {
 
               <div className="movie-card__buttons">
                 <button className="btn btn--play movie-card__button" type="button" onClick={() => {
-                  openCloseFilm(true);
+                  onOpenCloseFilm(true);
                 }}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -92,7 +91,7 @@ const Details = (props) => {
                   information.isFavorite ?
                     <button className="btn btn--list movie-card__button" type="button" onClick={() => {
                       if (!isAuthorizationRequired) {
-                        clickFavoriteHandler(activeFilmId, !information.isFavorite);
+                        onClickFavorite(activeFilmId, !information.isFavorite);
                       } else {
                         history.push(`/login`);
                       }
@@ -104,7 +103,7 @@ const Details = (props) => {
                     </button>
                     : <button className="btn btn--list movie-card__button" type="button" onClick={() => {
                       if (!isAuthorizationRequired) {
-                        clickFavoriteHandler(activeFilmId, !information.isFavorite);
+                        onClickFavorite(activeFilmId, !information.isFavorite);
                       } else {
                         history.push(`/login`);
                       }
@@ -138,7 +137,7 @@ const Details = (props) => {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__movies-list">
-            <ListFilms films={films.filter((it) => it.genre === genre)} countFilms={8} clickHandler={clickHandler} />
+            <ListFilms films={films.filter((it) => it.genre === genre)} filmsCount={8} />
           </div>
         </section>
 
@@ -198,18 +197,17 @@ Details.propTypes = {
         isFavorite: PropTypes.bool.isRequired,
         id: PropTypes.number.isRequired
       }).isRequired).isRequired,
-  clickHandler: PropTypes.func,
   isAuthorizationRequired: PropTypes.bool.isRequired,
   activeFilmId: PropTypes.number.isRequired,
-  clickFilterHandler: PropTypes.func,
-  clickFavoriteHandler: PropTypes.func,
+  onClickFilter: PropTypes.func,
+  onClickFavorite: PropTypes.func,
   userData: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
     email: PropTypes.string,
     avatarUrl: PropTypes.string,
   }),
-  openCloseFilm: PropTypes.func,
+  onOpenCloseFilm: PropTypes.func,
   comments: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,

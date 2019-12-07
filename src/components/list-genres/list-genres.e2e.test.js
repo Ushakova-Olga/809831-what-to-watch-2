@@ -11,7 +11,7 @@ it(`Linc clicked`, () => {
   const componentListLinksGenre = shallow(<ListGenres
     films={films}
     initialFilms={films}
-    clickFilterHandler={clickFilterHandler}
+    onClickFilter={clickFilterHandler}
     currentGenre={`All genres`} />);
 
   componentListLinksGenre.find(`.catalog__genres-link`).at(0).simulate(`click`, {
