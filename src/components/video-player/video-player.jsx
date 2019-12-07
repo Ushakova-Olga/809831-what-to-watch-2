@@ -7,25 +7,6 @@ class VideoPlayer extends React.PureComponent {
     this._videoRef = React.createRef();
   }
 
-  render() {
-    const {previewVideoLink, previewImage} = this.props;
-    const format = previewVideoLink.match(/\w+$/);
-
-    return (
-      <video
-        muted
-        poster={previewImage}
-        width="100%"
-        height="100%"
-        ref={this._videoRef}>
-        <source
-          src={previewVideoLink}
-          type={`video/${format}`}
-        ></source>
-      </video>
-    );
-  }
-
   componentDidMount() {
     const {previewVideoLink} = this.props;
     const video = this._videoRef.current;
@@ -52,6 +33,25 @@ class VideoPlayer extends React.PureComponent {
   componentWillUnmount() {
     const video = this._videoRef.current;
     video.src = ``;
+  }
+
+  render() {
+    const {previewVideoLink, previewImage} = this.props;
+    const format = previewVideoLink.match(/\w+$/);
+
+    return (
+      <video
+        muted
+        poster={previewImage}
+        width="100%"
+        height="100%"
+        ref={this._videoRef}>
+        <source
+          src={previewVideoLink}
+          type={`video/${format}`}
+        ></source>
+      </video>
+    );
   }
 }
 

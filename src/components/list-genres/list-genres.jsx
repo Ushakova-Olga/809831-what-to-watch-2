@@ -9,23 +9,6 @@ class ListGenres extends React.PureComponent {
     this._handleFilterClick = this._handleFilterClick.bind(this);
   }
 
-  render() {
-    return (
-      <ul className="catalog__genres-list">
-        {this._handleListGenres().map((it) => {
-          const nameClass = this.props.currentGenre.toLowerCase() === it.toLowerCase() ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`;
-          return (
-            <li
-              className={nameClass}
-              key={it}>
-              <a href="#" className="catalog__genres-link" onClick={this._handleFilterClick}>{it}</a>
-            </li>
-          );
-        })}
-      </ul>
-    );
-  }
-
   _handleFilterClick(evt) {
     const {onClickFilter} = this.props;
     evt.preventDefault();
@@ -42,6 +25,23 @@ class ListGenres extends React.PureComponent {
 
     const set = new Set(list);
     return [...set].slice(0, FILTERS_COUNT);
+  }
+
+  render() {
+    return (
+      <ul className="catalog__genres-list">
+        {this._handleListGenres().map((it) => {
+          const nameClass = this.props.currentGenre.toLowerCase() === it.toLowerCase() ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`;
+          return (
+            <li
+              className={nameClass}
+              key={it}>
+              <a href="#" className="catalog__genres-link" onClick={this._handleFilterClick}>{it}</a>
+            </li>
+          );
+        })}
+      </ul>
+    );
   }
 }
 

@@ -24,35 +24,6 @@ const withFormSubmit = (Component) => {
       };
     }
 
-    render() {
-      const {isFormValid, error, isBlocking} = this.state;
-      const {errorLoadingReview} = this.props;
-
-      return <Component
-        {...this.props}
-        error={error}
-        isFormValid={isFormValid}
-        onChange={this._handleFormChange}
-        onSubmit={this._handleFormSubmit}
-        errorLoadingReview={errorLoadingReview}
-        isBlocking={isBlocking}
-      />;
-    }
-
-    _handleFormChange(rating, text) {
-      this.setState(() => {
-        let valid = false;
-
-        if (text.length >= TEXT_LENGHT_MIN && text.length <= TEXT_LENGHT_MAX) {
-          valid = true;
-        }
-
-        return {
-          isFormValid: valid
-        };
-      });
-    }
-
     componentDidMount() {
       this.setState({
         error: ``,
@@ -70,6 +41,20 @@ const withFormSubmit = (Component) => {
       });
       this._onChange = null;
       this._onSubmit = null;
+    }
+
+    _handleFormChange(rating, text) {
+      this.setState(() => {
+        let valid = false;
+
+        if (text.length >= TEXT_LENGHT_MIN && text.length <= TEXT_LENGHT_MAX) {
+          valid = true;
+        }
+
+        return {
+          isFormValid: valid
+        };
+      });
     }
 
     _handleFormSubmit(rating, comment) {
@@ -102,6 +87,21 @@ const withFormSubmit = (Component) => {
             return;
           });
       }
+    }
+
+    render() {
+      const {isFormValid, error, isBlocking} = this.state;
+      const {errorLoadingReview} = this.props;
+
+      return <Component
+        {...this.props}
+        error={error}
+        isFormValid={isFormValid}
+        onChange={this._handleFormChange}
+        onSubmit={this._handleFormSubmit}
+        errorLoadingReview={errorLoadingReview}
+        isBlocking={isBlocking}
+      />;
     }
   }
 

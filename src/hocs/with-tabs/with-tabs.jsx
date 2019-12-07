@@ -12,15 +12,15 @@ const withTabs = (Component) => {
       this._handlerMouseClickChild = this._handlerMouseClickChild.bind(this);
     }
 
+    componentWillUnmount() {
+      this.currentTab = 0;
+      this.onMouseClickChild = null;
+    }
+
     _handlerMouseClickChild(id) {
       this.setState({
         currentTab: id,
       });
-    }
-
-    componentWillUnmount() {
-      this.currentTab = 0;
-      this.onMouseClickChild = null;
     }
 
     render() {
@@ -30,7 +30,6 @@ const withTabs = (Component) => {
         onMouseClickChild={this._handlerMouseClickChild}
       />;
     }
-
   }
 
   WithTabs.propTypes = {};

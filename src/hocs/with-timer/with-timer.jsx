@@ -16,19 +16,6 @@ const withTimer = (Component) => {
       this._handleMouseLeave = this._handleMouseLeave.bind(this);
     }
 
-    _handleMouseEnter() {
-      this.setState({
-        timerId: setTimeout(this.props.onMouseEnter, TIME_TO_PLAY_PREVIEW),
-      });
-    }
-    _handleMouseLeave() {
-      clearTimeout(this.state.timerId);
-      this.setState({
-        timerId: null,
-      });
-      this.props.onMouseLeave();
-    }
-
     componentWillUnmount() {
       this._handleMouseEnter = null;
       this._handleMouseLeave = null;
@@ -36,6 +23,20 @@ const withTimer = (Component) => {
       this.setState({
         timerId: null,
       });
+    }
+
+    _handleMouseEnter() {
+      this.setState({
+        timerId: setTimeout(this.props.onMouseEnter, TIME_TO_PLAY_PREVIEW),
+      });
+    }
+
+    _handleMouseLeave() {
+      clearTimeout(this.state.timerId);
+      this.setState({
+        timerId: null,
+      });
+      this.props.onMouseLeave();
     }
 
     render() {
