@@ -9,7 +9,7 @@ it(`Main screen correctly renders`, () => {
   const tree = renderer
     .create(<BrowserRouter><MainScreen
       films={films}
-      filmsInitial={films}
+      initialFilms={films}
       countFilms={8}
       clickHandlerMore={() => {}}
       currentGenre={`All genres`}

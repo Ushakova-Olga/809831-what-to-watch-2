@@ -3,9 +3,8 @@ const FILMS_COUNT_ADD = 20;
 
 const initialState = {
   genre: `All genres`,
-  // films: [],
   filmsCount: FILMS_COUNT,
-  filmsInitial: [],
+  initialFilms: [],
   isAuthorizationRequired: true,
   userData: {},
   activeFilm: 0,
@@ -203,7 +202,7 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case `LOAD_FILMS`:
       return Object.assign({}, state, {
-        filmsInitial: action.payload,
+        initialFilms: action.payload,
       });
     case `LOAD_COMMENTS`:
       return Object.assign({}, state, {
@@ -243,7 +242,7 @@ const reducer = (state = initialState, action) => {
       });
     case `CHANGE_FAVORITE`:
       return Object.assign({}, state, {
-        filmsInitial: changeFavoriteId(state.filmsInitial, action.payload),
+        initialFilms: changeFavoriteId(state.initialFilms, action.payload),
         promoFilm: changeFavoriteId([state.promoFilm], action.payload)[0],
         isFavoriteActually: false,
       });

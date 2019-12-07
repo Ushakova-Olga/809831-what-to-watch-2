@@ -9,7 +9,7 @@ it(`Reducer correctly set a genre`, () => {
           {
             genre: `All genres`,
             films: FILMS,
-            filmsInitial: FILMS
+            initialFilms: FILMS
           },
           {
             type: `SET_GENRE`,
@@ -19,7 +19,7 @@ it(`Reducer correctly set a genre`, () => {
   ).toEqual({
     genre: `drama`,
     films: FILMS,
-    filmsInitial: FILMS
+    initialFilms: FILMS
   });
 });
 
@@ -29,7 +29,7 @@ it(`Reducer correctly return filtered films`, () => {
           {
             genre: `All genres`,
             films: FILMS,
-            filmsInitial: FILMS
+            initialFilms: FILMS
           },
           {
             type: `FILMS_FILTER`,
@@ -39,7 +39,7 @@ it(`Reducer correctly return filtered films`, () => {
   ).toEqual({
     genre: `All genres`,
     films: FILMS,
-    filmsInitial: FILMS
+    initialFilms: FILMS
   });
 });
 

@@ -10,7 +10,7 @@ it(`Linc clicked`, () => {
   const clickFilterHandler = jest.fn();
   const componentListLinksGenre = shallow(<ListGenres
     films={films}
-    filmsInitial={films}
+    initialFilms={films}
     clickFilterHandler={clickFilterHandler}
     currentGenre={`All genres`} />);
 

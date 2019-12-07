@@ -8,7 +8,7 @@ import UserBlock from "../../components/user-block/user-block.jsx";
 const MainScreen = (props) => {
   const {
     films,
-    filmsInitial,
+    initialFilms,
     clickHandler,
     clickFilterHandler,
     clickHandlerMore,
@@ -102,7 +102,7 @@ const MainScreen = (props) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ListGenres filmsInitial={filmsInitial} clickFilterHandler={clickFilterHandler} currentGenre={currentGenre} />
+          <ListGenres initialFilms={initialFilms} clickFilterHandler={clickFilterHandler} currentGenre={currentGenre} />
 
           <ListFilms films={films} countFilms={countFilms} clickHandler={clickHandler} />
 
@@ -146,7 +146,7 @@ MainScreen.propTypes = {
         isFavorite: PropTypes.bool.isRequired,
         id: PropTypes.number.isRequired
       }).isRequired).isRequired,
-  filmsInitial: PropTypes.arrayOf(
+  initialFilms: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
         previewImage: PropTypes.string.isRequired,

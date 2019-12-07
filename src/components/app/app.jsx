@@ -26,7 +26,7 @@ const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
 
 const getPageScreen = (props) => {
   const {
-    filmsInitial,
+    initialFilms,
     clickFilterHandler,
     countFilms,
     clickMoreButton,
@@ -50,8 +50,8 @@ const getPageScreen = (props) => {
   return <Switch>
     <Route path="/" exact render={() => {
       return !isFilmPlaying ? <MainScreen
-        films={getFilms(currentGenre, filmsInitial)}
-        filmsInitial={filmsInitial}
+        films={getFilms(currentGenre, initialFilms)}
+        initialFilms={initialFilms}
         countFilms={countFilms}
         currentGenre={currentGenre}
         clickHandler={() => {}}
@@ -78,7 +78,7 @@ const getPageScreen = (props) => {
         loadCommentsHandler(id);
       }
 
-      const result = filmsInitial.filter((it) => it.id === activeFilm);
+      const result = initialFilms.filter((it) => it.id === activeFilm);
       let information = {};
       information = result.length > 0 ? result[0] : {
         id: 0,
@@ -90,7 +90,7 @@ const getPageScreen = (props) => {
 
       return !isFilmPlaying ? <Details
         activeFilm={id}
-        films={filmsInitial}
+        films={initialFilms}
         clickHandler={() => {}}
         userData={userData}
         isAuthorizationRequired={isAuthorizationRequired}
@@ -105,10 +105,10 @@ const getPageScreen = (props) => {
       const AddReviewWrapped = withLogin(withFormSubmit(AddReview));
       const id = parseInt(routerProps.match.params.id, 10);
       changeActiveFilmHandler(id);
-      const films = getFilms(currentGenre, filmsInitial);
+      const films = getFilms(currentGenre, initialFilms);
       return <AddReviewWrapped
         films={films}
-        filmsInitial={filmsInitial}
+        initialFilms={initialFilms}
         userData={userData} id={id}
         history={history}
       />;
@@ -137,7 +137,7 @@ const App = (props) => {
 };
 
 getPageScreen.propTypes = {
-  filmsInitial: PropTypes.arrayOf(
+  initialFilms: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
         previewImage: PropTypes.string.isRequired,
@@ -233,7 +233,7 @@ const mapStateToProps = (state) => ({
   currentGenre: state.genre,
   films: state.films,
   countFilms: state.filmsCount,
-  filmsInitial: state.filmsInitial,
+  initialFilms: state.initialFilms,
   isAuthorizationRequired: state.isAuthorizationRequired,
   userData: state.userData,
   activeFilm: state.activeFilm,

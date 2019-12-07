@@ -13,7 +13,7 @@ const mockStore = configureMockStore(middleware);
 const state = {
   currentGenre: `All genres`,
   filmsCount: 8,
-  filmsInitial: films,
+  initialFilms: films,
   isAuthorizationRequired: true,
   userData: {},
   activeFilm: 1,
@@ -38,7 +38,7 @@ it(`App component correctly renders`, () => {
         <App
           currentGenre={`All genres`}
           countFilms={8}
-          filmsInitial={films}
+          initialFilms={films}
           isAuthorizationRequired={true}
           userData={{}}
           activeFilm={1}

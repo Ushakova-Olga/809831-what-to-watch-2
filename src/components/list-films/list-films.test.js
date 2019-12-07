@@ -7,7 +7,7 @@ import {BrowserRouter} from "react-router-dom";
 it(`List films correctly renders`, () => {
 
   const tree = renderer
-    .create(<BrowserRouter><ListFilms films={films} filmsInitial={films} countFilms={8} /></BrowserRouter>)
+    .create(<BrowserRouter><ListFilms films={films} initialFilms={films} countFilms={8} /></BrowserRouter>)
   .toJSON();
   expect(tree).toMatchSnapshot();
 });

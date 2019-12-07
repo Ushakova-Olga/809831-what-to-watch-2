@@ -7,7 +7,7 @@ it(`AddReview renders correctly`, () => {
   const tree = renderer.create(
       <AddReview
         films={films}
-        filmsInitial={films}
+        initialFilms={films}
         userData={{
           id: 0,
           name: `test`,
