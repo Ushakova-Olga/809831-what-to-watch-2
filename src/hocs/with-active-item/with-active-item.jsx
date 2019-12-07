@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {PureComponent} from "react";
 
 const withActiveItem = (Component) => {
   class WithActiveItem extends PureComponent {
@@ -8,21 +8,36 @@ const withActiveItem = (Component) => {
       this.state = {
         isActive: false,
       };
+      this._isMounted = false;
 
-      this.overMouseHandler = this.overMouseHandler.bind(this);
-      this.leaveMouseHandler = this.leaveMouseHandler.bind(this);
+      this._handleMouseOver = this._handleMouseOver.bind(this);
+      this._handleMouseLeave = this._handleMouseLeave.bind(this);
     }
 
-    overMouseHandler() {
-      this.setState({
-        isActive: true,
-      });
+    componentDidMount() {
+      this._isMounted = true;
     }
 
-    leaveMouseHandler() {
-      this.setState({
-        isActive: false
-      });
+    componentWillUnmount() {
+      this._isMounted = false;
+      this._handleMouseOver = null;
+      this._handleMouseLeave = null;
+    }
+
+    _handleMouseOver() {
+      if (this._isMounted) {
+        this.setState({
+          isActive: true,
+        });
+      }
+    }
+
+    _handleMouseLeave() {
+      if (this._isMounted) {
+        this.setState({
+          isActive: false
+        });
+      }
     }
 
     render() {
@@ -30,8 +45,8 @@ const withActiveItem = (Component) => {
         {...this.props}
         isActive={this.state.isActive}
         activeItem={this.state.activeItem}
-        onMouseEnter={this.overMouseHandler}
-        onMouseLeave={this.leaveMouseHandler}
+        onMouseEnter={this._handleMouseOver}
+        onMouseLeave={this._handleMouseLeave}
       />;
     }
 

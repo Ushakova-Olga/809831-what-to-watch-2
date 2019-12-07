@@ -2,7 +2,150 @@
 
 exports[`Main screen correctly renders 1`] = `
 Array [
-  "",
+  <section
+    className="movie-card"
+  >
+    <div
+      className="movie-card__bg"
+    >
+      <img
+        alt="Fantastic Beasts: The Crimes of Grindelwald"
+        src="fantastic-beasts-the-crimes-of-grindelwald.jpg"
+      />
+    </div>
+    <h1
+      className="visually-hidden"
+    >
+      WTW
+    </h1>
+    <header
+      className="page-header"
+    >
+      <div
+        className="logo"
+      >
+        <a
+          className="logo__link"
+        >
+          <span
+            className="logo__letter logo__letter--1"
+          >
+            W
+          </span>
+          <span
+            className="logo__letter logo__letter--2"
+          >
+            T
+          </span>
+          <span
+            className="logo__letter logo__letter--3"
+          >
+            W
+          </span>
+        </a>
+      </div>
+      <div
+        className="user-block"
+      >
+        <a
+          href="/mylist"
+          onClick={[Function]}
+        >
+          <div
+            className="user-block__avatar"
+          >
+            <img
+              alt="User avatar"
+              height="63"
+              src="https://htmlacademy-react-2.appspot.comavatar"
+              width="63"
+            />
+          </div>
+        </a>
+      </div>
+    </header>
+    <div
+      className="movie-card__wrap"
+    >
+      <div
+        className="movie-card__info"
+      >
+        <div
+          className="movie-card__poster"
+        >
+          <img
+            alt="Fantastic Beasts: The Crimes of Grindelwald"
+            height="327"
+            src="the-grand-budapest-hotel-poster.jpg"
+            width="218"
+          />
+        </div>
+        <div
+          className="movie-card__desc"
+        >
+          <h2
+            className="movie-card__title"
+          >
+            Fantastic Beasts: The Crimes of Grindelwald
+          </h2>
+          <p
+            className="movie-card__meta"
+          >
+            <span
+              className="movie-card__genre"
+            >
+              Drama
+            </span>
+            <span
+              className="movie-card__year"
+            >
+              2014
+            </span>
+          </p>
+          <div
+            className="movie-card__buttons"
+          >
+            <button
+              className="btn btn--play movie-card__button"
+              onClick={[Function]}
+              type="button"
+            >
+              <svg
+                height="19"
+                viewboxname="0 0 19 19"
+                width="19"
+              >
+                <use
+                  xlinkHref="#play-s"
+                />
+              </svg>
+              <span>
+                Play
+              </span>
+            </button>
+            <button
+              className="btn btn--list movie-card__button"
+              onClick={[Function]}
+              type="button"
+            >
+              <svg
+                height="20"
+                viewBox="0 0 19 20"
+                width="19"
+              >
+                <use
+                  xlinkHref="#add"
+                />
+              </svg>
+              <span>
+                My list
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>,
   <div
     className="page-content"
   >
@@ -67,31 +210,36 @@ Array [
       >
         <article
           className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <div
-            className="small-movie-card__image"
+          <a
+            href="/films/0"
+            onClick={[Function]}
           >
-            <video
-              height="100%"
-              muted={true}
-              poster="fantastic-beasts-the-crimes-of-grindelwald.jpg"
-              width="100%"
+            <div
+              className="small-movie-card__image"
             >
-              <source
-                src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
-                type="video/mp4"
-              />
-            </video>
-          </div>
+              <video
+                height="100%"
+                muted={true}
+                poster="fantastic-beasts-the-crimes-of-grindelwald.jpg"
+                width="100%"
+              >
+                <source
+                  src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+          </a>
           <h3
             className="small-movie-card__title"
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/0"
+              onClick={[Function]}
             >
               Fantastic Beasts: The Crimes of Grindelwald
             </a>
@@ -99,31 +247,36 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <div
-            className="small-movie-card__image"
+          <a
+            href="/films/1"
+            onClick={[Function]}
           >
-            <video
-              height="100%"
-              muted={true}
-              poster="bohemian-rhapsody.jpg"
-              width="100%"
+            <div
+              className="small-movie-card__image"
             >
-              <source
-                src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
-                type="video/webm"
-              />
-            </video>
-          </div>
+              <video
+                height="100%"
+                muted={true}
+                poster="bohemian-rhapsody.jpg"
+                width="100%"
+              >
+                <source
+                  src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+                  type="video/webm"
+                />
+              </video>
+            </div>
+          </a>
           <h3
             className="small-movie-card__title"
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/1"
+              onClick={[Function]}
             >
               Fantastic Beasts
             </a>
@@ -131,31 +284,36 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <div
-            className="small-movie-card__image"
+          <a
+            href="/films/2"
+            onClick={[Function]}
           >
-            <video
-              height="100%"
-              muted={true}
-              poster="macbeth.jpg"
-              width="100%"
+            <div
+              className="small-movie-card__image"
             >
-              <source
-                src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
-                type="video/mp4"
-              />
-            </video>
-          </div>
+              <video
+                height="100%"
+                muted={true}
+                poster="macbeth.jpg"
+                width="100%"
+              >
+                <source
+                  src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+          </a>
           <h3
             className="small-movie-card__title"
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/2"
+              onClick={[Function]}
             >
               Macbeth
             </a>
@@ -163,31 +321,36 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <div
-            className="small-movie-card__image"
+          <a
+            href="/films/3"
+            onClick={[Function]}
           >
-            <video
-              height="100%"
-              muted={true}
-              poster="aviator.jpg"
-              width="100%"
+            <div
+              className="small-movie-card__image"
             >
-              <source
-                src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
-                type="video/webm"
-              />
-            </video>
-          </div>
+              <video
+                height="100%"
+                muted={true}
+                poster="aviator.jpg"
+                width="100%"
+              >
+                <source
+                  src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+                  type="video/webm"
+                />
+              </video>
+            </div>
+          </a>
           <h3
             className="small-movie-card__title"
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/3"
+              onClick={[Function]}
             >
               Aviator
             </a>
@@ -195,31 +358,36 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <div
-            className="small-movie-card__image"
+          <a
+            href="/films/4"
+            onClick={[Function]}
           >
-            <video
-              height="100%"
-              muted={true}
-              poster="we-need-to-talk-about-kevin.jpg"
-              width="100%"
+            <div
+              className="small-movie-card__image"
             >
-              <source
-                src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
-                type="video/mp4"
-              />
-            </video>
-          </div>
+              <video
+                height="100%"
+                muted={true}
+                poster="we-need-to-talk-about-kevin.jpg"
+                width="100%"
+              >
+                <source
+                  src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+          </a>
           <h3
             className="small-movie-card__title"
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/4"
+              onClick={[Function]}
             >
               We need to talk about Kevin
             </a>
@@ -227,31 +395,36 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <div
-            className="small-movie-card__image"
+          <a
+            href="/films/5"
+            onClick={[Function]}
           >
-            <video
-              height="100%"
-              muted={true}
-              poster="the-grand-budapest-hotel-poster.jpg"
-              width="100%"
+            <div
+              className="small-movie-card__image"
             >
-              <source
-                src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
-                type="video/webm"
-              />
-            </video>
-          </div>
+              <video
+                height="100%"
+                muted={true}
+                poster="the-grand-budapest-hotel-poster.jpg"
+                width="100%"
+              >
+                <source
+                  src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+                  type="video/webm"
+                />
+              </video>
+            </div>
+          </a>
           <h3
             className="small-movie-card__title"
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/5"
+              onClick={[Function]}
             >
               The Grand Budapest Hotel
             </a>
@@ -259,31 +432,36 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <div
-            className="small-movie-card__image"
+          <a
+            href="/films/6"
+            onClick={[Function]}
           >
-            <video
-              height="100%"
-              muted={true}
-              poster="fantastic-beasts-the-crimes-of-grindelwald.jpg"
-              width="100%"
+            <div
+              className="small-movie-card__image"
             >
-              <source
-                src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
-                type="video/mp4"
-              />
-            </video>
-          </div>
+              <video
+                height="100%"
+                muted={true}
+                poster="fantastic-beasts-the-crimes-of-grindelwald.jpg"
+                width="100%"
+              >
+                <source
+                  src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+          </a>
           <h3
             className="small-movie-card__title"
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/6"
+              onClick={[Function]}
             >
               Fantastic Beasts: The Crimes of Grindelwald
             </a>
@@ -291,31 +469,36 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <div
-            className="small-movie-card__image"
+          <a
+            href="/films/7"
+            onClick={[Function]}
           >
-            <video
-              height="100%"
-              muted={true}
-              poster="bohemian-rhapsody.jpg"
-              width="100%"
+            <div
+              className="small-movie-card__image"
             >
-              <source
-                src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
-                type="video/webm"
-              />
-            </video>
-          </div>
+              <video
+                height="100%"
+                muted={true}
+                poster="bohemian-rhapsody.jpg"
+                width="100%"
+              >
+                <source
+                  src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+                  type="video/webm"
+                />
+              </video>
+            </div>
+          </a>
           <h3
             className="small-movie-card__title"
           >
             <a
               className="small-movie-card__link"
-              href="movie-page.html"
+              href="/films/7"
+              onClick={[Function]}
             >
               Fantastic Beasts
             </a>

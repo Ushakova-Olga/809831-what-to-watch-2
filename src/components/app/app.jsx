@@ -1,54 +1,138 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import SignIn from "../../components/sign-in/sign-in.jsx";
 import MainScreen from "../../components/main-screen/main-screen.jsx";
-// import Details from "../../components/details/details.jsx";
-// import AddReview from "../../components/add-review/add-review.jsx";
+import Details from "../../components/details/details.jsx";
+import AddReview from "../../components/add-review/add-review.jsx";
+import FavoriteList from "../../components/favorite-list/favorite-list.jsx";
 import {connect} from "react-redux";
-import {LoadFromServer, ActionCreator} from "../../reducer/reducer";
-import {Switch, Route} from 'react-router-dom';
+import {Operation, ActionCreator} from "../../reducer/reducer";
+import {Switch, Route} from "react-router-dom";
+import withLogin from "../../hocs/with-login/with-login.jsx";
+import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";
+import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-player-large.jsx';
+import withFormSubmit from '../../hocs/with-form-submit/with-form-submit.jsx';
 
-// import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";
-// import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-player-large.jsx';
+const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
 
+const getFilms = (genre, filmsList) => {
+  if (genre.toLowerCase() === `all genres`) {
+    return filmsList;
+  }
 
-// const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
+  return filmsList.filter((it) => it.genre.toLowerCase() === genre.toLowerCase());
+};
 
 const getPageScreen = (props) => {
-  const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre, isAuthorizationRequired, submitHandler, userData, activeFilm, changeFavoriteHandler} = props;
+  const {
+    initialFilms,
+    onClickFilter,
+    filmsCount,
+    onClickMore,
+    currentGenre,
+    isAuthorizationRequired,
+    onSubmit,
+    userData,
+    activeFilmId,
+    onChangeFavorite,
+    onChangeActiveFilm,
+    onLoadFavoriteFilms,
+    favoriteFilms,
+    onOpenCloseFilm,
+    isFilmPlaying,
+    comments,
+    onLoadComments,
+    isFavoriteActually,
+    promoFilm,
+    history,
+  } = props;
   return <Switch>
     <Route path="/" exact render={() => {
-      return <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} userData={userData} isAuthorizationRequired={isAuthorizationRequired} activeFilm={activeFilm} clickPlayHandler={() => {}} clickFavoriteHandler={changeFavoriteHandler} />;
+      return !isFilmPlaying ? <MainScreen
+        films={getFilms(currentGenre, initialFilms)}
+        initialFilms={initialFilms}
+        filmsCount={filmsCount}
+        currentGenre={currentGenre}
+        onClickFilter={onClickFilter}
+        onClickMore={onClickMore}
+        userData={userData}
+        isAuthorizationRequired={isAuthorizationRequired}
+        promoFilm={promoFilm}
+        onClickFavorite={onChangeFavorite}
+        onOpenCloseFilm={onOpenCloseFilm}
+        history={history} /> :
+        <VideoPlayerLargeWrapped information={promoFilm} onOpenCloseFilm={onOpenCloseFilm} />;
     }}
     />
     <Route path="/login" exact render={() => {
-      return <SignIn submitHandler={submitHandler} isAuthorizationRequired={isAuthorizationRequired} />;
+      return <SignIn onSubmit={onSubmit} isAuthorizationRequired={isAuthorizationRequired} />;
+    }}
+    />
+    <Route path="/films/:id" exact render={(routerProps) => {
+      const id = parseInt(routerProps.match.params.id, 10);
+      onChangeActiveFilm(id);
+      if ((activeFilmId !== id) || (comments.length === 0)) {
+        onLoadComments(id);
+      }
+
+      const result = initialFilms.filter((it) => it.id === activeFilmId);
+      let information = {};
+      information = result.length > 0 ? result[0] : {
+        id: 0,
+        name: ``,
+        previewImage: ``,
+        previewVideoLink: ``,
+        videoLink: ``,
+      };
+
+      return !isFilmPlaying ? <Details
+        activeFilmId={id}
+        films={initialFilms}
+        userData={userData}
+        isAuthorizationRequired={isAuthorizationRequired}
+        onClickFavorite={onChangeFavorite}
+        onOpenCloseFilm={onOpenCloseFilm}
+        comments={comments}
+        history={history} /> :
+        <VideoPlayerLargeWrapped information={information} onOpenCloseFilm={onOpenCloseFilm} />;
+    }}
+    />
+    <Route path="/films/:id/review" exact render={(routerProps) => {
+      const AddReviewWrapped = withLogin(withFormSubmit(AddReview));
+      const id = parseInt(routerProps.match.params.id, 10);
+      onChangeActiveFilm(id);
+      const films = getFilms(currentGenre, initialFilms);
+      return <AddReviewWrapped
+        films={films}
+        initialFilms={initialFilms}
+        userData={userData} id={id}
+        history={history}
+      />;
+    }}
+    />
+    <Route path="/mylist" exact render={() => {
+      const FavoriteListWrapped = withLogin(FavoriteList);
+      if (!isFavoriteActually) {
+        onLoadFavoriteFilms();
+      }
+      return <FavoriteListWrapped
+        isAuthorizationRequired={isAuthorizationRequired}
+        userData={userData}
+        films={favoriteFilms}
+        filmsCount={filmsCount}
+        onOpenCloseFilm={onOpenCloseFilm}
+      />;
     }}
     />
   </Switch>;
 };
-/* const getPageScreen = (props) => {
-  const {films, filmsInitial, clickFilterHandler, countFilms, clickMoreButton, currentGenre, isAuthorizationRequired, submitHandler, userData} = props;
-
-  switch (location.pathname) {
-    case `/`:
-      return isAuthorizationRequired ? <SignIn submitHandler={submitHandler} isAuthorizationRequired={isAuthorizationRequired} /> : <MainScreen films={films} filmsInitial={filmsInitial} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickFilterHandler={clickFilterHandler} clickHandlerMore={clickMoreButton} userData={userData} isAuthorizationRequired={isAuthorizationRequired}/>;
-    case `/details`:
-      return <Details information={films[0]} films={films} clickHandler={() => {}} isAuthorizationRequired={isAuthorizationRequired} />;
-    case `/film`:
-      return <VideoPlayerLargeWrapped information={films[0]} />;
-    case `/review`:
-      return isAuthorizationRequired ? <SignIn submitHandler={submitHandler} isAuthorizationRequired={isAuthorizationRequired} /> : <AddReview films={films} filmsInitial={filmsInitial} userData={userData} id={films[0].id} submitHandler={()=> {}} />;
-  }
-  return <MainScreen filmsInitial={filmsInitial} films={films} countFilms={countFilms} currentGenre={currentGenre} clickHandler={() => {}} clickHandlerMore={clickMoreButton} userData={userData} />;
-};*/
 
 const App = (props) => {
   return <React.Fragment>{getPageScreen(props)}</React.Fragment>;
 };
 
 getPageScreen.propTypes = {
-  films: PropTypes.arrayOf(
+  initialFilms: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
         previewImage: PropTypes.string.isRequired,
@@ -67,28 +151,9 @@ getPageScreen.propTypes = {
         isFavorite: PropTypes.bool.isRequired,
         id: PropTypes.number.isRequired
       }).isRequired).isRequired,
-  filmsInitial: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        previewImage: PropTypes.string.isRequired,
-        genre: PropTypes.string.isRequired,
-        released: PropTypes.number.isRequired,
-        posterImage: PropTypes.string.isRequired,
-        backgroundImage: PropTypes.string.isRequired,
-        previewVideoLink: PropTypes.string.isRequired,
-        scoresCount: PropTypes.number.isRequired,
-        description: PropTypes.string.isRequired,
-        starring: PropTypes.array.isRequired,
-        director: PropTypes.string.isRequired,
-        runTime: PropTypes.number.isRequired,
-        rating: PropTypes.number.isRequired,
-        videoLink: PropTypes.string.isRequired,
-        isFavorite: PropTypes.bool.isRequired,
-        id: PropTypes.number.isRequired
-      }).isRequired).isRequired,
-  clickFilterHandler: PropTypes.func,
-  countFilms: PropTypes.number.isRequired,
-  clickMoreButton: PropTypes.func.isRequired,
+  onClickFilter: PropTypes.func,
+  filmsCount: PropTypes.number.isRequired,
+  onClickMore: PropTypes.func.isRequired,
   currentGenre: PropTypes.string.isRequired,
   isAuthorizationRequired: PropTypes.bool.isRequired,
   userData: PropTypes.shape({
@@ -97,34 +162,107 @@ getPageScreen.propTypes = {
     email: PropTypes.string,
     avatarUrl: PropTypes.string,
   }),
-  submitHandler: PropTypes.func.isRequired,
-  activeFilm: PropTypes.number.isRequired,
-  changeFavoriteHandler: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  activeFilmId: PropTypes.number.isRequired,
+  onChangeFavorite: PropTypes.func.isRequired,
+  onChangeActiveFilm: PropTypes.func.isRequired,
+  onLoadFavoriteFilms: PropTypes.func.isRequired,
+  favoriteFilms: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        previewImage: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        released: PropTypes.number.isRequired,
+        posterImage: PropTypes.string.isRequired,
+        backgroundImage: PropTypes.string.isRequired,
+        previewVideoLink: PropTypes.string.isRequired,
+        scoresCount: PropTypes.number.isRequired,
+        description: PropTypes.string.isRequired,
+        starring: PropTypes.array.isRequired,
+        director: PropTypes.string.isRequired,
+        runTime: PropTypes.number.isRequired,
+        rating: PropTypes.number.isRequired,
+        videoLink: PropTypes.string.isRequired,
+        isFavorite: PropTypes.bool.isRequired,
+        id: PropTypes.number.isRequired
+      }).isRequired).isRequired,
+  comments: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        user: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+        }).isRequired,
+        rating: PropTypes.number.isRequired,
+        comment: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+      }).isRequired).isRequired,
+  onOpenCloseFilm: PropTypes.func,
+  isFilmPlaying: PropTypes.bool.isRequired,
+  onLoadComments: PropTypes.func,
+  isFavoriteActually: PropTypes.bool.isRequired,
+  promoFilm: PropTypes.shape({
+    name: PropTypes.string,
+    previewImage: PropTypes.string,
+    genre: PropTypes.string,
+    released: PropTypes.number,
+    posterImage: PropTypes.string,
+    backgroundImage: PropTypes.string,
+    previewVideoLink: PropTypes.string,
+    scoresCount: PropTypes.number,
+    description: PropTypes.string,
+    starring: PropTypes.array,
+    director: PropTypes.string,
+    runTime: PropTypes.number,
+    rating: PropTypes.number,
+    videoLink: PropTypes.string,
+    isFavorite: PropTypes.bool,
+    id: PropTypes.number,
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }),
 };
 
 const mapStateToProps = (state) => ({
   currentGenre: state.genre,
   films: state.films,
-  countFilms: state.filmsCount,
-  filmsInitial: state.filmsInitial,
+  filmsCount: state.filmsCount,
+  initialFilms: state.initialFilms,
   isAuthorizationRequired: state.isAuthorizationRequired,
   userData: state.userData,
-  activeFilm: state.activeFilm,
+  activeFilmId: state.activeFilmId,
+  favoriteFilms: state.favoriteFilms,
+  isFilmPlaying: state.isFilmPlaying,
+  comments: state.comments,
+  isFavoriteActually: state.isFavoriteActually,
+  promoFilm: state.promoFilm,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  clickFilterHandler: (genre) => {
+  onClickFilter: (genre) => {
     dispatch(ActionCreator.setNewFilmsGenre(genre));
-    dispatch(ActionCreator.getFilmsListOnGenre(genre));
   },
-  clickMoreButton: () => {
+  onClickMore: () => {
     dispatch(ActionCreator.addCountFilms());
   },
-  submitHandler: (email, password) => {
-    dispatch(LoadFromServer.logIn(email, password));
+  onSubmit: (email, password) => {
+    dispatch(Operation.logIn(email, password));
   },
-  changeFavoriteHandler: (id, isFavorite) => {
-    dispatch(LoadFromServer.changeFavorite(id, isFavorite));
+  onChangeFavorite: (id, isFavorite) => {
+    dispatch(Operation.changeFavorite(id, isFavorite));
+  },
+  onChangeActiveFilm: (id) => {
+    dispatch(ActionCreator.changeActiveFilm(id));
+  },
+  onLoadFavoriteFilms: () => {
+    dispatch(Operation.loadFavoriteFilms());
+  },
+  onOpenCloseFilm: (status) => {
+    dispatch(ActionCreator.onOpenCloseFilm(status));
+  },
+  onLoadComments: (id) => {
+    dispatch(Operation.loadComments(id));
   },
 });
 

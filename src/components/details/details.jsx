@@ -1,10 +1,45 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import Tabs from "../tabs/tabs.jsx";
 import ListFilms from "../../components/list-films/list-films.jsx";
+import UserBlock from "../../components/user-block/user-block.jsx";
+import {Link} from "react-router-dom";
+import withTabs from "../../hocs/with-tabs/with-tabs.jsx";
+
+const TabsWrapped = withTabs(Tabs);
 
 const Details = (props) => {
-  const {information, films, clickHandler, isAuthorizationRequired} = props;
+  const {
+    activeFilmId,
+    films,
+    isAuthorizationRequired,
+    onClickFavorite,
+    userData,
+    onOpenCloseFilm,
+    comments,
+    history,
+  } = props;
+
+  const result = films.filter((it) => it.id === activeFilmId);
+  let information = {};
+  information = result.length > 0 ? result[0] : {
+    id: 0,
+    name: ``,
+    previewImage: ``,
+    genre: ``,
+    released: 0,
+    posterImage: ``,
+    backgroundImage: ``,
+    previewVideoLink: ``,
+    videoLink: ``,
+    rating: 0,
+    scoresCount: 0,
+    director: ``,
+    starring: [],
+    runTime: 0,
+    description: ``,
+    isFavorite: false,
+  };
 
   const {
     name,
@@ -23,21 +58,17 @@ const Details = (props) => {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header movie-card__head">
+          <header className="page-header">
             <div className="logo">
-              <a href="main.html" className="logo__link">
+              <Link className="logo__link" to="/">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
-              </a>
+              </Link>
             </div>
-
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </div>
+            <UserBlock isAuthorizationRequired={isAuthorizationRequired} userData={userData} />
           </header>
+
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
@@ -49,20 +80,41 @@ const Details = (props) => {
 
               <div className="movie-card__buttons">
                 <button className="btn btn--play movie-card__button" type="button" onClick={() => {
-                  window.location.href = `/film`;
+                  onOpenCloseFilm(true);
                 }}>
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
-                {isAuthorizationRequired ? `` : <a href="add-review.html" className="btn movie-card__button">Add review</a>}
+                {
+                  information.isFavorite ?
+                    <button className="btn btn--list movie-card__button" type="button" onClick={() => {
+                      if (!isAuthorizationRequired) {
+                        onClickFavorite(activeFilmId, !information.isFavorite);
+                      } else {
+                        history.push(`/login`);
+                      }
+                    }}>
+                      <svg viewBox="0 0 18 14" width="18" height="14">
+                        <use xlinkHref="#in-list"></use>
+                      </svg>
+                      <span>My list</span>
+                    </button>
+                    : <button className="btn btn--list movie-card__button" type="button" onClick={() => {
+                      if (!isAuthorizationRequired) {
+                        onClickFavorite(activeFilmId, !information.isFavorite);
+                      } else {
+                        history.push(`/login`);
+                      }
+                    }}>
+                      <svg viewBox="0 0 19 20" width="19" height="20">
+                        <use xlinkHref="#add"></use>
+                      </svg>
+                      <span>My list</span>
+                    </button>
+                }
+                {isAuthorizationRequired ? `` : <Link className="btn movie-card__button" to={`/films/${activeFilmId}/review`}>Add review</Link>}
               </div>
             </div>
           </div>
@@ -74,7 +126,7 @@ const Details = (props) => {
               <img src={posterImage} alt={name} width="218" height="327" />
             </div>
 
-            <Tabs information={information} />
+            <TabsWrapped information={information} comments={comments} />
 
           </div>
         </div>
@@ -85,17 +137,17 @@ const Details = (props) => {
           <h2 className="catalog__title">More like this</h2>
 
           <div className="catalog__movies-list">
-            <ListFilms films={films.filter((it) => it.genre === genre)} countFilms={8} clickHandler={clickHandler} />
+            <ListFilms films={films.filter((it) => it.genre === genre)} filmsCount={8} />
           </div>
         </section>
 
         <footer className="page-footer">
           <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
+            <Link className="logo__link logo__link--light" to="/">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <div className="copyright">
@@ -104,6 +156,7 @@ const Details = (props) => {
         </footer>
       </div>
   </>;
+
 };
 
 Details.propTypes = {
@@ -124,7 +177,7 @@ Details.propTypes = {
     videoLink: PropTypes.string.isRequired,
     isFavorite: PropTypes.bool.isRequired,
     id: PropTypes.number.isRequired
-  }).isRequired,
+  }),
   films: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
@@ -144,8 +197,31 @@ Details.propTypes = {
         isFavorite: PropTypes.bool.isRequired,
         id: PropTypes.number.isRequired
       }).isRequired).isRequired,
-  clickHandler: PropTypes.func,
-  isAuthorizationRequired: PropTypes.bool.func,
+  isAuthorizationRequired: PropTypes.bool.isRequired,
+  activeFilmId: PropTypes.number.isRequired,
+  onClickFilter: PropTypes.func,
+  onClickFavorite: PropTypes.func,
+  userData: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    email: PropTypes.string,
+    avatarUrl: PropTypes.string,
+  }),
+  onOpenCloseFilm: PropTypes.func,
+  comments: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        user: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          name: PropTypes.string.isRequired,
+        }).isRequired,
+        rating: PropTypes.number.isRequired,
+        comment: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+      }).isRequired).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }),
 };
 
 export default Details;

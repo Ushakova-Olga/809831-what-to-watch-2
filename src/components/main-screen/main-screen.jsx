@@ -3,72 +3,60 @@ import ListFilms from "../../components/list-films/list-films.jsx";
 import ListGenres from "../../components/list-genres/list-genres.jsx";
 import ShowMore from "../../components/show-more/show-more.jsx";
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
+import UserBlock from "../../components/user-block/user-block.jsx";
 
 const MainScreen = (props) => {
-  const {films, filmsInitial, clickHandler, clickFilterHandler, clickHandlerMore, countFilms, currentGenre, isAuthorizationRequired, userData, clickFavoriteHandler, activeFilm} = props;
-  let currentFilm = {};
-  const result = filmsInitial.filter((it) => it.id === activeFilm);
-  currentFilm = result.length > 0 ? result[0] : {};
+  const {
+    films,
+    initialFilms,
+    onClickFilter,
+    onClickMore,
+    filmsCount,
+    currentGenre,
+    isAuthorizationRequired,
+    userData,
+    onClickFavorite,
+    promoFilm,
+    onOpenCloseFilm,
+    history,
+  } = props;
 
   return <>
-      {activeFilm > 0 ? <section className="movie-card">
+      {promoFilm ? <section className="movie-card">
         <div className="movie-card__bg">
-          <img src={currentFilm.previewImage} alt={currentFilm.name} />
+          <img src={promoFilm.previewImage} alt={promoFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
 
-        {isAuthorizationRequired ?
-          <header className="page-header">
-            <div className="logo">
-              <a className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
+        <header className="page-header">
+          <div className="logo">
+            <a className="logo__link">
+              <span className="logo__letter logo__letter--1">W</span>
+              <span className="logo__letter logo__letter--2">T</span>
+              <span className="logo__letter logo__letter--3">W</span>
+            </a>
+          </div>
 
-            <div className="user-block">
-              <Link to={`/login`} className="user-block__link">Sign in</Link>
-            </div>
-          </header>
-          :
-          <header className="page-header movie-card__head">
-            <div className="logo">
-              <a className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <div className="user-block">
-              <Link to={`/mylist`}>
-                <div className="user-block__avatar">
-                  <img src={`https://htmlacademy-react-2.appspot.com${userData.avatarUrl}`} alt="User avatar" width="63" height="63" />
-                </div>
-              </Link>
-            </div>
-          </header>
-        }
+          <UserBlock isAuthorizationRequired={isAuthorizationRequired} userData={userData} />
+        </header>
 
         <div className="movie-card__wrap">
           <div className="movie-card__info">
             <div className="movie-card__poster">
-              <img src={currentFilm.posterImage} alt={currentFilm.name} width="218" height="327" />
+              <img src={promoFilm.posterImage} alt={promoFilm.name} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
-              <h2 className="movie-card__title" onClick={clickHandler}>{currentFilm.name}</h2>
+              <h2 className="movie-card__title">{promoFilm.name}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{currentFilm.genre}</span>
-                <span className="movie-card__year">{currentFilm.year}</span>
+                <span className="movie-card__genre">{promoFilm.genre}</span>
+                <span className="movie-card__year">{promoFilm.released}</span>
               </p>
 
               <div className="movie-card__buttons">
                 <button className="btn btn--play movie-card__button" type="button" onClick={() => {
-                  window.location.href = `/film:${activeFilm}`;
+                  onOpenCloseFilm(true);
                 }}>
                   <svg viewboxname="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
@@ -76,9 +64,13 @@ const MainScreen = (props) => {
                   <span>Play</span>
                 </button>
                 {
-                  currentFilm.isFavorite ?
+                  promoFilm.isFavorite ?
                     <button className="btn btn--list movie-card__button" type="button" onClick={() => {
-                      clickFavoriteHandler(activeFilm, !currentFilm.isFavorite);
+                      if (!isAuthorizationRequired) {
+                        onClickFavorite(promoFilm.id, !promoFilm.isFavorite);
+                      } else {
+                        history.push(`/login`);
+                      }
                     }}>
                       <svg viewBox="0 0 18 14" width="18" height="14">
                         <use xlinkHref="#in-list"></use>
@@ -86,7 +78,11 @@ const MainScreen = (props) => {
                       <span>My list</span>
                     </button>
                     : <button className="btn btn--list movie-card__button" type="button" onClick={() => {
-                      clickFavoriteHandler(activeFilm, !currentFilm.isFavorite);
+                      if (!isAuthorizationRequired) {
+                        onClickFavorite(promoFilm.id, !promoFilm.isFavorite);
+                      } else {
+                        history.push(`/login`);
+                      }
                     }}>
                       <svg viewBox="0 0 19 20" width="19" height="20">
                         <use xlinkHref="#add"></use>
@@ -105,11 +101,11 @@ const MainScreen = (props) => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ListGenres filmsInitial={filmsInitial} clickFilterHandler={clickFilterHandler} currentGenre={currentGenre} />
+          <ListGenres initialFilms={initialFilms} onClickFilter={onClickFilter} currentGenre={currentGenre} />
 
-          <ListFilms films={films} countFilms={countFilms} clickHandler={clickHandler} />
+          <ListFilms films={films} filmsCount={filmsCount} />
 
-          <ShowMore clickHandlerMore={clickHandlerMore} />
+          {films.length > filmsCount ? <ShowMore onClickMore={onClickMore} /> : ``}
         </section>
 
         <footer className="page-footer">
@@ -149,7 +145,7 @@ MainScreen.propTypes = {
         isFavorite: PropTypes.bool.isRequired,
         id: PropTypes.number.isRequired
       }).isRequired).isRequired,
-  filmsInitial: PropTypes.arrayOf(
+  initialFilms: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
         previewImage: PropTypes.string.isRequired,
@@ -168,10 +164,9 @@ MainScreen.propTypes = {
         isFavorite: PropTypes.bool.isRequired,
         id: PropTypes.number.isRequired
       }).isRequired).isRequired,
-  clickHandler: PropTypes.func,
-  clickFilterHandler: PropTypes.func,
-  countFilms: PropTypes.number.isRequired,
-  clickHandlerMore: PropTypes.func.isRequired,
+  onClickFilter: PropTypes.func,
+  filmsCount: PropTypes.number.isRequired,
+  onClickMore: PropTypes.func.isRequired,
   currentGenre: PropTypes.string.isRequired,
   isAuthorizationRequired: PropTypes.bool.isRequired,
   userData: PropTypes.shape({
@@ -180,8 +175,29 @@ MainScreen.propTypes = {
     email: PropTypes.string,
     avatarUrl: PropTypes.string,
   }),
-  clickFavoriteHandler: PropTypes.func.isRequired,
-  activeFilm: PropTypes.number.isRequired,
+  onClickFavorite: PropTypes.func.isRequired,
+  promoFilm: PropTypes.shape({
+    name: PropTypes.string,
+    previewImage: PropTypes.string,
+    genre: PropTypes.string,
+    released: PropTypes.number,
+    posterImage: PropTypes.string,
+    backgroundImage: PropTypes.string,
+    previewVideoLink: PropTypes.string,
+    scoresCount: PropTypes.number,
+    description: PropTypes.string,
+    starring: PropTypes.array,
+    director: PropTypes.string,
+    runTime: PropTypes.number,
+    rating: PropTypes.number,
+    videoLink: PropTypes.string,
+    isFavorite: PropTypes.bool,
+    id: PropTypes.number,
+  }).isRequired,
+  onOpenCloseFilm: PropTypes.func,
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }),
 };
 
 export default MainScreen;

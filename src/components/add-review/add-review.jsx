@@ -1,12 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 const AddReview = (props) => {
-  const {films, submitHandler, id, userData} = props;
-
+  const {films, id, userData, error, isFormValid, onChange, onSubmit, errorLoadingReview, isBlocking} = props;
   const information = films.find((it) => it.id === id);
 
-  return <section className="movie-card movie-card--full">
+  return information ? <section className="movie-card movie-card--full">
     <div className="movie-card__header">
       <div className="movie-card__bg">
         <img src={information.backgroundImage} alt={information.name} />
@@ -51,36 +50,50 @@ const AddReview = (props) => {
         evt.preventDefault();
         const text = evt.target.querySelector(`#review-text`).value;
         const rating = evt.target.querySelector(`.rating__input:checked`).value;
-        submitHandler(text, rating);
+        onSubmit(rating, text);
+      }}
+      onChange={(evt) => {
+        let text = ``;
+        let rating = 0;
+        if (evt.target.classList.contains(`add-review__textarea`)) {
+          rating = document.querySelector(`.rating__input:checked`).value;
+          text = evt.target.value;
+        } else {
+          text = document.querySelector(`#review-text`).value;
+          rating = evt.target.value;
+        }
+        onChange(rating, text);
       }}>
         <div className="rating">
           <div className="rating__stars">
-            <input className="rating__input" id="star-1" type="radio" name="rating" value="1"/>
+            <input className="rating__input" id="star-1" type="radio" name="rating" value="1" disabled={isBlocking}/>
             <label className="rating__label" htmlFor="star-1">Rating 1</label>
 
-            <input className="rating__input" id="star-2" type="radio" name="rating" value="2" />
+            <input className="rating__input" id="star-2" type="radio" name="rating" value="2" disabled={isBlocking}/>
             <label className="rating__label" htmlFor="star-2">Rating 2</label>
 
-            <input className="rating__input" id="star-3" type="radio" name="rating" value="3" defaultChecked />
+            <input className="rating__input" id="star-3" type="radio" name="rating" value="3" defaultChecked disabled={isBlocking}/>
             <label className="rating__label" htmlFor="star-3">Rating 3</label>
 
-            <input className="rating__input" id="star-4" type="radio" name="rating" value="4" />
+            <input className="rating__input" id="star-4" type="radio" name="rating" value="4" disabled={isBlocking}/>
             <label className="rating__label" htmlFor="star-4">Rating 4</label>
 
-            <input className="rating__input" id="star-5" type="radio" name="rating" value="5" />
+            <input className="rating__input" id="star-5" type="radio" name="rating" value="5" disabled={isBlocking}/>
             <label className="rating__label" htmlFor="star-5">Rating 5</label>
           </div>
         </div>
 
         <div className="add-review__text">
-          <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"></textarea>
+          <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" disabled={isBlocking}></textarea>
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit">Post</button>
+            <button className="add-review__btn" type="submit" disabled={!isFormValid}>Post</button>
           </div>
         </div>
       </form>
+      {error}
+      {errorLoadingReview}
     </div>
-  </section>;
+  </section> : ``;
 };
 
 AddReview.propTypes = {
@@ -101,7 +114,6 @@ AddReview.propTypes = {
         rating: PropTypes.number.isRequired,
         videoLink: PropTypes.string.isRequired,
       }).isRequired).isRequired,
-  clickHandler: PropTypes.func,
   userData: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
@@ -109,7 +121,12 @@ AddReview.propTypes = {
     avatarUrl: PropTypes.string,
   }),
   id: PropTypes.number.isRequired,
-  submitHandler: PropTypes.func.isRequired,
+  error: PropTypes.string.isRequired,
+  isFormValid: PropTypes.bool.isRequired,
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func,
+  errorLoadingReview: PropTypes.string.isRequired,
+  isBlocking: PropTypes.bool.isRequired,
 };
 
 export default AddReview;

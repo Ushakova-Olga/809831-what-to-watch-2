@@ -3,17 +3,29 @@ const FILMS_COUNT_ADD = 20;
 
 const initialState = {
   genre: `All genres`,
-  films: [],
   filmsCount: FILMS_COUNT,
-  filmsInitial: [],
+  initialFilms: [],
   isAuthorizationRequired: true,
   userData: {},
-  activeFilm: 0,
+  activeFilmId: 0,
+  favoriteFilms: [],
+  isFilmPlaying: false,
+  comments: [],
+  isFavoriteActually: false,
+  errorLoadingReview: ``,
+  promoFilm: {},
 };
 
 const convertKey = (key) => {
   const arr = key.split(`_`).map((word, ind) => ind === 0 ? word : word[0].toUpperCase() + word.slice(1));
   return arr.join(``);
+};
+
+const getId = (film) => {
+  if (film.id) {
+    return film.id;
+  }
+  return 0;
 };
 
 const changeFavoriteId = (films, id) => {
@@ -46,36 +58,7 @@ const convertItem = (obj) => {
     }
   }
 
-  /* newObj = {
-    img: obj.previewImage,
-    name: obj.name,
-    genre: obj.genre,
-    year: obj.released,
-    posterlarge: obj.poster_image,
-    cover: obj.background_image,
-    src: obj.previewVideoLink,
-    rating: obj.scores_count,
-    ratingCount: obj.scores_count,
-    description: obj.description,
-    actors: obj.starring,
-    description
-    director
-    runTime
-    rating
-    videoLink
-    isFavorite
-    id
-  };*/
-
   return newObj;
-};
-
-const getFilms = (genre, filmsList) => {
-  if (genre === `All genres`) {
-    return filmsList;
-  }
-
-  return filmsList.filter((it) => it.genre.toLowerCase() === genre.toLowerCase());
 };
 
 const ActionCreator = {
@@ -83,7 +66,18 @@ const ActionCreator = {
     type: `LOAD_FILMS`,
     payload: films,
   }),
-
+  loadPromoFilm: (film) => ({
+    type: `LOAD_PROMO_FILM`,
+    payload: film,
+  }),
+  loadComments: (comments) => ({
+    type: `LOAD_COMMENTS`,
+    payload: comments,
+  }),
+  loadFavoriteFilms: (favoriteFilms) => ({
+    type: `LOAD_FAVORITE_FILMS`,
+    payload: favoriteFilms,
+  }),
   changeIsAuthorizationRequired: (bool) => ({
     type: `CHANGE_IS_AUTHORIZATION_REQUIRED`,
     payload: bool,
@@ -92,46 +86,54 @@ const ActionCreator = {
     type: `ENTER_USER`,
     payload: userData,
   }),
-
-  // изменение фильтра по жанрам
   setNewFilmsGenre: (genre) => ({
     type: `SET_GENRE`,
     payload: genre
   }),
-
-  // получение списка фильмов в соответствии с выбранным жанром
-  getFilmsListOnGenre: (genre) => {
-    return {
-      type: `FILMS_FILTER`,
-      payload: genre
-    };
-  },
-
-  // количество фильмов для просмотра увеличить на 20
   addCountFilms: () => ({
     type: `ADD_COUNT_FILMS`,
     payload: FILMS_COUNT_ADD,
   }),
-
-  //
   changeActiveFilm: (id) => ({
     type: `CHANGE_ACTIVE_FILM`,
     payload: id,
   }),
-
-  //
   changeFavorite: (id) => ({
     type: `CHANGE_FAVORITE`,
     payload: id,
   }),
+  onOpenCloseFilm: (status) => ({
+    type: `CHANGE_ACTIVE_STATUS`,
+    payload: status,
+  }),
+  uploadReview: (id, error) => ({
+    type: `UPLOAD_RIVIEW`,
+    payload: error
+  }),
 };
 
-const LoadFromServer = {
+const Operation = {
   loadFilms: () => (dispatch, _, api) => {
     return api.get(`films`)
       .then((response) => {
         const convertedData = response.data.map((item) => convertItem(item));
         dispatch(ActionCreator.loadFilms(convertedData));
+      });
+  },
+  loadComments: (id) => (dispatch, _, api) => {
+    return api.get(`comments/${id}`)
+      .then((response) => {
+        if (response.data) {
+          const convertedData = response.data.map((item) => convertItem(item));
+          dispatch(ActionCreator.loadComments(convertedData));
+        }
+      });
+  },
+  loadFavoriteFilms: () => (dispatch, _, api) => {
+    return api.get(`favorite`)
+      .then((response) => {
+        const convertedData = response.data.map((item) => convertItem(item));
+        dispatch(ActionCreator.loadFavoriteFilms(convertedData));
       });
   },
   logIn: (email, password) => (dispatch, _, api) => {
@@ -153,16 +155,53 @@ const LoadFromServer = {
       })
       .catch((_err) => {});
   },
+  uploadReview: (id, data) => (dispatch, _, api) => {
+    return api.post(`/comments/${id}`, data)
+      .then((response) => {
+        if (response.data) {
+          dispatch(ActionCreator.loadComments(response.data));
+          return response;
+        } else {
+          return response;
+        }
+      })
+      .catch((error) => {
+        throw new Error(error);
+      });
+  },
+
+  loadPromoFilm: () => (dispatch, _, api) => {
+    return api.get(`films/promo`)
+      .then((response) => {
+        const convertedData = convertItem(response.data);
+        dispatch(ActionCreator.loadPromoFilm(convertedData));
+      })
+      .catch((_err) => {});
+  },
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case `LOAD_FILMS`:
       return Object.assign({}, state, {
-        films: action.payload,
-        filmsInitial: action.payload,
-        activeFilm: action.payload[0] ? 1 : 0,
+        initialFilms: action.payload,
       });
+    case `LOAD_COMMENTS`:
+      return Object.assign({}, state, {
+        comments: action.payload,
+      });
+    case `LOAD_FAVORITE_FILMS`:
+      return Object.assign({}, state, {
+        favoriteFilms: action.payload,
+        isFavoriteActually: true,
+      });
+
+    case `LOAD_PROMO_FILM`:
+      return Object.assign({}, state, {
+        promoFilm: action.payload,
+        activeFilmId: getId(action.payload),
+      });
+
     case `CHANGE_IS_AUTHORIZATION_REQUIRED`:
       return Object.assign({}, state, {
         isAuthorizationRequired: action.payload,
@@ -175,26 +214,30 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         genre: action.payload
       });
-    case `FILMS_FILTER`:
-      return Object.assign({}, state, {
-        films: getFilms(action.payload, state.filmsInitial),
-        filmsInitial: state.filmsInitial
-      });
     case `ADD_COUNT_FILMS`:
       return Object.assign({}, state, {
         filmsCount: state.filmsCount + action.payload
       });
     case `CHANGE_ACTIVE_FILM`:
       return Object.assign({}, state, {
-        activeFilm: action.payload
+        activeFilmId: action.payload
       });
     case `CHANGE_FAVORITE`:
       return Object.assign({}, state, {
-        films: changeFavoriteId(state.films, action.payload),
-        filmsInitial: changeFavoriteId(state.filmsInitial, action.payload),
+        initialFilms: changeFavoriteId(state.initialFilms, action.payload),
+        promoFilm: changeFavoriteId([state.promoFilm], action.payload)[0],
+        isFavoriteActually: false,
+      });
+    case `CHANGE_ACTIVE_STATUS`:
+      return Object.assign({}, state, {
+        isFilmPlaying: action.payload,
+      });
+    case `UPLOAD_REVIEW`:
+      return Object.assign({}, state, {
+        errorLoadingReview: action.payload,
       });
   }
   return state;
 };
 
-export {reducer, ActionCreator, LoadFromServer};
+export {reducer, ActionCreator, Operation};

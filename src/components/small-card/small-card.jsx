@@ -1,45 +1,32 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import VideoPlayer from "../../components/video-player/video-player.jsx";
+import {Link} from "react-router-dom";
 
-class SmallCard extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.timerId = null;
-  }
+const SmallCard = (props) => {
+  const {information, onMouseEnter, onMouseLeave, isActive, id} = props;
+  const {name, previewImage, previewVideoLink} = information;
 
-  render() {
-    const {information, clickHandler, onMouseEnter, onMouseLeave, isActive, id} = this.props;
-    const {name, previewImage, previewVideoLink} = information;
-
-    return <article className="small-movie-card catalog__movies-card"
-      onClick={() => {
-        window.location.href = `/details`;
-        clickHandler();
-      }}
-      onMouseEnter={() => {
-        this.timerId = setTimeout(onMouseEnter, 1000);
-      }}
-      onMouseLeave={() => {
-        clearTimeout(this.timerId);
-        onMouseLeave();
-      }}
-    >
+  return <article className="small-movie-card catalog__movies-card"
+    onMouseEnter={onMouseEnter}
+    onMouseLeave={onMouseLeave}
+  >
+    <Link to={`/films/${id}`}>
       <div className="small-movie-card__image">
         <VideoPlayer
           previewVideoLink={previewVideoLink}
           previewImage={previewImage}
           isPlaying={isActive}
-          clickHandler={clickHandler}
           key={`v${id}`}>
         </VideoPlayer>
       </div>
-      <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href="movie-page.html" >{name}</a>
-      </h3>
-    </article>;
-  }
-}
+    </Link>
+    <h3 className="small-movie-card__title">
+      <Link to={`/films/${id}`} className="small-movie-card__link" >{name}</Link>
+    </h3>
+  </article>;
+};
+
 
 SmallCard.propTypes = {
   information: PropTypes.shape({
@@ -60,7 +47,6 @@ SmallCard.propTypes = {
     isFavorite: PropTypes.bool.isRequired,
     id: PropTypes.number.isRequired
   }).isRequired,
-  clickHandler: PropTypes.func,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
   isActive: PropTypes.bool.isRequired,

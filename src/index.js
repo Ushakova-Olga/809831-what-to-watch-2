@@ -2,15 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {createStore} from "redux";
 import {Provider} from "react-redux";
-import {reducer, LoadFromServer} from "./reducer/reducer";
-import {BrowserRouter} from 'react-router-dom';
+import {reducer, Operation} from "./reducer/reducer";
+import {Router} from "react-router-dom";
 
 import App from "./components/app/app.jsx";
 
 import thunk from "redux-thunk";
 import configureAPI from "./api";
 import {applyMiddleware} from "redux";
-import {compose} from 'recompose';
+import {compose} from "recompose";
+
+import {createBrowserHistory} from "history";
+const history = createBrowserHistory();
 
 const init = () => {
   const api = configureAPI((...args) => store.dispatch(...args));
@@ -22,13 +25,14 @@ const init = () => {
           window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
       )
   );
-  store.dispatch(LoadFromServer.loadFilms());
+  store.dispatch(Operation.loadFilms());
+  store.dispatch(Operation.loadPromoFilm());
 
   ReactDOM.render(
       <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <Router history={history}>
+          <App history={history} />
+        </Router>
       </Provider>,
       document.querySelector(`#root`)
   );

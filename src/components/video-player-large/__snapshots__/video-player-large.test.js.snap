@@ -12,6 +12,7 @@ exports[`VideoPlayerLarge renders correctly 1`] = `
   />
   <button
     className="player__exit"
+    onClick={[Function]}
     type="button"
   >
     Exit
@@ -27,7 +28,7 @@ exports[`VideoPlayerLarge renders correctly 1`] = `
       >
         <progress
           className="player__progress"
-          max="100"
+          max={100}
           value={0}
         />
         <div
@@ -71,7 +72,7 @@ exports[`VideoPlayerLarge renders correctly 1`] = `
       <div
         className="player__name"
       >
-        Transpotting
+        Fantastic Beasts: The Crimes of Grindelwald
       </div>
       <button
         className="player__full-screen"
