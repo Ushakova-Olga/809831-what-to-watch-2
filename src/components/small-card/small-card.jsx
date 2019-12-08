@@ -1,7 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import VideoPlayer from "../../components/video-player/video-player.jsx";
+import VideoPlayerSmall from "../../components/video-player-small/video-player-small.jsx";
+import withVideoPlayerSmall from "../../hocs/with-video-player-small/with-video-player-small.jsx";
 import {Link} from "react-router-dom";
+
+const VideoPlayerSmallWrapped = withVideoPlayerSmall(VideoPlayerSmall);
 
 const SmallCard = (props) => {
   const {information, onMouseEnter, onMouseLeave, isActive, id} = props;
@@ -13,12 +16,12 @@ const SmallCard = (props) => {
   >
     <Link to={`/films/${id}`}>
       <div className="small-movie-card__image">
-        <VideoPlayer
+        <VideoPlayerSmallWrapped
           previewVideoLink={previewVideoLink}
           previewImage={previewImage}
           isPlaying={isActive}
           key={`v${id}`}>
-        </VideoPlayer>
+        </VideoPlayerSmallWrapped>
       </div>
     </Link>
     <h3 className="small-movie-card__title">
