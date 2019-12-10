@@ -6,7 +6,7 @@ import films from "../../mocks/films.js";
 
 Enzyme.configure({adapter: new Adapter()});
 
-it(`Add review form onChande worked correctly`, () => {
+it(`Add review form onChande and onSubmit worked correctly`, () => {
   const handlerChangeForm = jest.fn();
   const handlerSubmitForm = jest.fn();
   const componentAddReview = shallow(<AddReview
