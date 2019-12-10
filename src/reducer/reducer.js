@@ -1,5 +1,17 @@
 const FILMS_COUNT = 8;
 const FILMS_COUNT_ADD = 20;
+const LOAD_FILMS = `LOAD_FILMS`;
+const LOAD_PROMO_FILM = `LOAD_PROMO_FILM`;
+const LOAD_COMMENTS = `LOAD_COMMENTS`;
+const LOAD_FAVORITE_FILMS = `LOAD_FAVORITE_FILMS`;
+const CHANGE_IS_AUTHORIZATION_REQUIRED = `CHANGE_IS_AUTHORIZATION_REQUIRED`;
+const ENTER_USER = `ENTER_USER`;
+const SET_GENRE = `SET_GENRE`;
+const ADD_COUNT_FILMS = `ADD_COUNT_FILMS`;
+const CHANGE_ACTIVE_FILM = `CHANGE_ACTIVE_FILM`;
+const CHANGE_FAVORITE = `CHANGE_FAVORITE`;
+const CHANGE_ACTIVE_STATUS = `CHANGE_ACTIVE_STATUS`;
+const UPLOAD_RIVIEW = `UPLOAD_RIVIEW`;
 
 const initialState = {
   genre: `All genres`,
@@ -63,51 +75,51 @@ const convertItem = (obj) => {
 
 const ActionCreator = {
   loadFilms: (films) => ({
-    type: `LOAD_FILMS`,
+    type: LOAD_FILMS,
     payload: films,
   }),
   loadPromoFilm: (film) => ({
-    type: `LOAD_PROMO_FILM`,
+    type: LOAD_PROMO_FILM,
     payload: film,
   }),
   loadComments: (comments) => ({
-    type: `LOAD_COMMENTS`,
+    type: LOAD_COMMENTS,
     payload: comments,
   }),
   loadFavoriteFilms: (favoriteFilms) => ({
-    type: `LOAD_FAVORITE_FILMS`,
+    type: LOAD_FAVORITE_FILMS,
     payload: favoriteFilms,
   }),
   changeIsAuthorizationRequired: (bool) => ({
-    type: `CHANGE_IS_AUTHORIZATION_REQUIRED`,
+    type: CHANGE_IS_AUTHORIZATION_REQUIRED,
     payload: bool,
   }),
   enterUser: (userData) => ({
-    type: `ENTER_USER`,
+    type: ENTER_USER,
     payload: userData,
   }),
   setNewFilmsGenre: (genre) => ({
-    type: `SET_GENRE`,
+    type: SET_GENRE,
     payload: genre
   }),
   addCountFilms: () => ({
-    type: `ADD_COUNT_FILMS`,
+    type: ADD_COUNT_FILMS,
     payload: FILMS_COUNT_ADD,
   }),
   changeActiveFilm: (id) => ({
-    type: `CHANGE_ACTIVE_FILM`,
+    type: CHANGE_ACTIVE_FILM,
     payload: id,
   }),
   changeFavorite: (id) => ({
-    type: `CHANGE_FAVORITE`,
+    type: CHANGE_FAVORITE,
     payload: id,
   }),
   onOpenCloseFilm: (status) => ({
-    type: `CHANGE_ACTIVE_STATUS`,
+    type: CHANGE_ACTIVE_STATUS,
     payload: status,
   }),
   uploadReview: (id, error) => ({
-    type: `UPLOAD_RIVIEW`,
+    type: UPLOAD_RIVIEW,
     payload: error
   }),
 };
@@ -182,57 +194,57 @@ const Operation = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case `LOAD_FILMS`:
+    case LOAD_FILMS:
       return Object.assign({}, state, {
         initialFilms: action.payload,
       });
-    case `LOAD_COMMENTS`:
+    case LOAD_COMMENTS:
       return Object.assign({}, state, {
         comments: action.payload,
       });
-    case `LOAD_FAVORITE_FILMS`:
+    case LOAD_FAVORITE_FILMS:
       return Object.assign({}, state, {
         favoriteFilms: action.payload,
         isFavoriteActually: true,
       });
 
-    case `LOAD_PROMO_FILM`:
+    case LOAD_PROMO_FILM:
       return Object.assign({}, state, {
         promoFilm: action.payload,
         activeFilmId: getId(action.payload),
       });
 
-    case `CHANGE_IS_AUTHORIZATION_REQUIRED`:
+    case CHANGE_IS_AUTHORIZATION_REQUIRED:
       return Object.assign({}, state, {
         isAuthorizationRequired: action.payload,
       });
-    case `ENTER_USER`:
+    case ENTER_USER:
       return Object.assign({}, state, {
         userData: action.payload,
       });
-    case `SET_GENRE`:
+    case SET_GENRE:
       return Object.assign({}, state, {
         genre: action.payload
       });
-    case `ADD_COUNT_FILMS`:
+    case ADD_COUNT_FILMS:
       return Object.assign({}, state, {
         filmsCount: state.filmsCount + action.payload
       });
-    case `CHANGE_ACTIVE_FILM`:
+    case CHANGE_ACTIVE_FILM:
       return Object.assign({}, state, {
         activeFilmId: action.payload
       });
-    case `CHANGE_FAVORITE`:
+    case CHANGE_FAVORITE:
       return Object.assign({}, state, {
         initialFilms: changeFavoriteId(state.initialFilms, action.payload),
         promoFilm: changeFavoriteId([state.promoFilm], action.payload)[0],
         isFavoriteActually: false,
       });
-    case `CHANGE_ACTIVE_STATUS`:
+    case CHANGE_ACTIVE_STATUS:
       return Object.assign({}, state, {
         isFilmPlaying: action.payload,
       });
-    case `UPLOAD_REVIEW`:
+    case UPLOAD_RIVIEW:
       return Object.assign({}, state, {
         errorLoadingReview: action.payload,
       });
