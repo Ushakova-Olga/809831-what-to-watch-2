@@ -8,156 +8,173 @@ import withTabs from "../../hocs/with-tabs/with-tabs.jsx";
 
 const TabsWrapped = withTabs(Tabs);
 
-const Details = (props) => {
-  const {
-    activeFilmId,
-    films,
-    isAuthorizationRequired,
-    onClickFavorite,
-    userData,
-    onOpenCloseFilm,
-    comments,
-    history,
-  } = props;
+class Details extends React.PureComponent {
+  constructor(props) {
+    super(props);
+  }
 
-  const result = films.filter((it) => it.id === activeFilmId);
-  let information = {};
-  information = result.length > 0 ? result[0] : {
-    id: 0,
-    name: ``,
-    previewImage: ``,
-    genre: ``,
-    released: 0,
-    posterImage: ``,
-    backgroundImage: ``,
-    previewVideoLink: ``,
-    videoLink: ``,
-    rating: 0,
-    scoresCount: 0,
-    director: ``,
-    starring: [],
-    runTime: 0,
-    description: ``,
-    isFavorite: false,
-  };
+  componentDidMount() {
+    const {onLoadComments, activeFilmId} = this.props;
+    onLoadComments(activeFilmId);
+  }
 
-  const {
-    name,
-    genre,
-    released,
-    posterImage,
-    backgroundImage,
-  } = information;
+  componentDidUpdate(prevProps) {
+    const {onLoadComments, activeFilmId} = this.props;
+    if (prevProps.activeFilmId !== activeFilmId) {
+      onLoadComments(activeFilmId);
+    }
+  }
 
-  return <>
-      <section className="movie-card movie-card--full">
-        <div className="movie-card__hero">
-          <div className="movie-card__bg">
-            <img src={backgroundImage} alt={name} />
+  render() {
+    const {
+      activeFilmId,
+      films,
+      isAuthorizationRequired,
+      onClickFavorite,
+      userData,
+      onOpenCloseFilm,
+      comments,
+      history,
+    } = this.props;
+
+    const result = films.filter((it) => it.id === activeFilmId);
+    let information = {};
+    information = result.length > 0 ? result[0] : {
+      id: 0,
+      name: ``,
+      previewImage: ``,
+      genre: ``,
+      released: 0,
+      posterImage: ``,
+      backgroundImage: ``,
+      previewVideoLink: ``,
+      videoLink: ``,
+      rating: 0,
+      scoresCount: 0,
+      director: ``,
+      starring: [],
+      runTime: 0,
+      description: ``,
+      isFavorite: false,
+    };
+
+    const {
+      name,
+      genre,
+      released,
+      posterImage,
+      backgroundImage,
+    } = information;
+
+    return <>
+        <section className="movie-card movie-card--full">
+          <div className="movie-card__hero">
+            <div className="movie-card__bg">
+              <img src={backgroundImage} alt={name} />
+            </div>
+
+            <h1 className="visually-hidden">WTW</h1>
+
+            <header className="page-header">
+              <div className="logo">
+                <Link className="logo__link" to="/">
+                  <span className="logo__letter logo__letter--1">W</span>
+                  <span className="logo__letter logo__letter--2">T</span>
+                  <span className="logo__letter logo__letter--3">W</span>
+                </Link>
+              </div>
+              <UserBlock isAuthorizationRequired={isAuthorizationRequired} userData={userData} />
+            </header>
+
+
+            <div className="movie-card__wrap">
+              <div className="movie-card__desc">
+                <h2 className="movie-card__title">{name}</h2>
+                <p className="movie-card__meta">
+                  <span className="movie-card__genre">{genre}</span>
+                  <span className="movie-card__year">{released}</span>
+                </p>
+
+                <div className="movie-card__buttons">
+                  <button className="btn btn--play movie-card__button" type="button" onClick={() => {
+                    onOpenCloseFilm(true);
+                  }}>
+                    <svg viewBox="0 0 19 19" width="19" height="19">
+                      <use xlinkHref="#play-s"></use>
+                    </svg>
+                    <span>Play</span>
+                  </button>
+                  {
+                    information.isFavorite ?
+                      <button className="btn btn--list movie-card__button" type="button" onClick={() => {
+                        if (!isAuthorizationRequired) {
+                          onClickFavorite(activeFilmId, !information.isFavorite);
+                        } else {
+                          history.push(`/login`);
+                        }
+                      }}>
+                        <svg viewBox="0 0 18 14" width="18" height="14">
+                          <use xlinkHref="#in-list"></use>
+                        </svg>
+                        <span>My list</span>
+                      </button>
+                      : <button className="btn btn--list movie-card__button" type="button" onClick={() => {
+                        if (!isAuthorizationRequired) {
+                          onClickFavorite(activeFilmId, !information.isFavorite);
+                        } else {
+                          history.push(`/login`);
+                        }
+                      }}>
+                        <svg viewBox="0 0 19 20" width="19" height="20">
+                          <use xlinkHref="#add"></use>
+                        </svg>
+                        <span>My list</span>
+                      </button>
+                  }
+                  {isAuthorizationRequired ? `` : <Link className="btn movie-card__button" to={`/films/${activeFilmId}/review`}>Add review</Link>}
+                </div>
+              </div>
+            </div>
           </div>
 
-          <h1 className="visually-hidden">WTW</h1>
+          <div className="movie-card__wrap movie-card__translate-top">
+            <div className="movie-card__info">
+              <div className="movie-card__poster movie-card__poster--big">
+                <img src={posterImage} alt={name} width="218" height="327" />
+              </div>
 
-          <header className="page-header">
+              <TabsWrapped information={information} comments={comments} />
+
+            </div>
+          </div>
+        </section>
+
+        <div className="page-content">
+          <section className="catalog catalog--like-this">
+            <h2 className="catalog__title">More like this</h2>
+
+            <div className="catalog__movies-list">
+              <ListFilms films={films.filter((it) => it.genre === genre)} filmsCount={8} />
+            </div>
+          </section>
+
+          <footer className="page-footer">
             <div className="logo">
-              <Link className="logo__link" to="/">
+              <Link className="logo__link logo__link--light" to="/">
                 <span className="logo__letter logo__letter--1">W</span>
                 <span className="logo__letter logo__letter--2">T</span>
                 <span className="logo__letter logo__letter--3">W</span>
               </Link>
             </div>
-            <UserBlock isAuthorizationRequired={isAuthorizationRequired} userData={userData} />
-          </header>
 
-
-          <div className="movie-card__wrap">
-            <div className="movie-card__desc">
-              <h2 className="movie-card__title">{name}</h2>
-              <p className="movie-card__meta">
-                <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{released}</span>
-              </p>
-
-              <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button" onClick={() => {
-                  onOpenCloseFilm(true);
-                }}>
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                {
-                  information.isFavorite ?
-                    <button className="btn btn--list movie-card__button" type="button" onClick={() => {
-                      if (!isAuthorizationRequired) {
-                        onClickFavorite(activeFilmId, !information.isFavorite);
-                      } else {
-                        history.push(`/login`);
-                      }
-                    }}>
-                      <svg viewBox="0 0 18 14" width="18" height="14">
-                        <use xlinkHref="#in-list"></use>
-                      </svg>
-                      <span>My list</span>
-                    </button>
-                    : <button className="btn btn--list movie-card__button" type="button" onClick={() => {
-                      if (!isAuthorizationRequired) {
-                        onClickFavorite(activeFilmId, !information.isFavorite);
-                      } else {
-                        history.push(`/login`);
-                      }
-                    }}>
-                      <svg viewBox="0 0 19 20" width="19" height="20">
-                        <use xlinkHref="#add"></use>
-                      </svg>
-                      <span>My list</span>
-                    </button>
-                }
-                {isAuthorizationRequired ? `` : <Link className="btn movie-card__button" to={`/films/${activeFilmId}/review`}>Add review</Link>}
-              </div>
+            <div className="copyright">
+              <p>© 2019 What to watch Ltd.</p>
             </div>
-          </div>
+          </footer>
         </div>
-
-        <div className="movie-card__wrap movie-card__translate-top">
-          <div className="movie-card__info">
-            <div className="movie-card__poster movie-card__poster--big">
-              <img src={posterImage} alt={name} width="218" height="327" />
-            </div>
-
-            <TabsWrapped information={information} comments={comments} />
-
-          </div>
-        </div>
-      </section>
-
-      <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
-
-          <div className="catalog__movies-list">
-            <ListFilms films={films.filter((it) => it.genre === genre)} filmsCount={8} />
-          </div>
-        </section>
-
-        <footer className="page-footer">
-          <div className="logo">
-            <Link className="logo__link logo__link--light" to="/">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </Link>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
-      </div>
-  </>;
-
-};
+    </>;
+  }
+}
 
 Details.propTypes = {
   information: PropTypes.shape({
@@ -201,6 +218,7 @@ Details.propTypes = {
   activeFilmId: PropTypes.number.isRequired,
   onClickFilter: PropTypes.func,
   onClickFavorite: PropTypes.func,
+  onLoadComments: PropTypes.func,
   userData: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,

@@ -3,6 +3,21 @@ import configureAPI from "../api";
 import MockAdapter from "axios-mock-adapter";
 import FILMS from "../mocks/films.js";
 
+/* const LOAD_FILMS = `LOAD_FILMS`;
+const LOAD_PROMO_FILM = `LOAD_PROMO_FILM`;
+const LOAD_COMMENTS = `LOAD_COMMENTS`;
+const LOAD_FAVORITE_FILMS = `LOAD_FAVORITE_FILMS`;
+const CHANGE_IS_AUTHORIZATION_REQUIRED = `CHANGE_IS_AUTHORIZATION_REQUIRED`;
+const ENTER_USER = `ENTER_USER`;
+const SET_GENRE = `SET_GENRE`;
+const ADD_COUNT_FILMS = `ADD_COUNT_FILMS`;
+const CHANGE_ACTIVE_FILM = `CHANGE_ACTIVE_FILM`;
+const CHANGE_FAVORITE = `CHANGE_FAVORITE`;
+const CHANGE_ACTIVE_STATUS = `CHANGE_ACTIVE_STATUS`;*/
+
+import {LOAD_FILMS, LOAD_PROMO_FILM, LOAD_COMMENTS, LOAD_FAVORITE_FILMS, CHANGE_IS_AUTHORIZATION_REQUIRED,
+  ENTER_USER, SET_GENRE, ADD_COUNT_FILMS, CHANGE_ACTIVE_FILM, CHANGE_FAVORITE, CHANGE_ACTIVE_STATUS} from "../util/constants";
+
 it(`Reducer correctly set a genre`, () => {
   expect(
       reducer(
@@ -12,7 +27,7 @@ it(`Reducer correctly set a genre`, () => {
             initialFilms: FILMS
           },
           {
-            type: `SET_GENRE`,
+            type: SET_GENRE,
             payload: `drama`
           }
       )
@@ -23,30 +38,9 @@ it(`Reducer correctly set a genre`, () => {
   });
 });
 
-it(`Reducer correctly return filtered films`, () => {
-  expect(
-      reducer(
-          {
-            genre: `All genres`,
-            films: FILMS,
-            initialFilms: FILMS
-          },
-          {
-            type: `FILMS_FILTER`,
-            payload: `All genres`
-          }
-      )
-  ).toEqual({
-    genre: `All genres`,
-    films: FILMS,
-    initialFilms: FILMS
-  });
-});
-
-
 it(`Action creator correctly set genre`, () => {
   expect(ActionCreator.setNewFilmsGenre(`drama`)).toEqual({
-    type: `SET_GENRE`,
+    type: SET_GENRE,
     payload: `drama`
   });
 });
@@ -66,7 +60,7 @@ it(`Action creator correctly load films`, () => {
     .then(() => {
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenNthCalledWith(1, {
-        type: `LOAD_FILMS`,
+        type: LOAD_FILMS,
         payload: [{fake: true}],
       });
     });
@@ -88,7 +82,7 @@ it(`Action creator correctly load comments`, () => {
     .then(() => {
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenNthCalledWith(1, {
-        type: `LOAD_COMMENTS`,
+        type: LOAD_COMMENTS,
         payload: [{fake: true}],
       });
     });
@@ -109,7 +103,7 @@ it(`Action creator correctly load favorite films`, () => {
     .then(() => {
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenNthCalledWith(1, {
-        type: `LOAD_FAVORITE_FILMS`,
+        type: LOAD_FAVORITE_FILMS,
         payload: [{fake: true}],
       });
     });
@@ -130,7 +124,7 @@ it(`Action creator correctly load promo film`, () => {
     .then(() => {
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenNthCalledWith(1, {
-        type: `LOAD_PROMO_FILM`,
+        type: LOAD_PROMO_FILM,
         payload: {0: {fake: true}},
       });
     });
@@ -143,7 +137,7 @@ it(`Reducer correctly change isAuthorizationRequired`, () => {
             isAuthorizationRequired: false,
           },
           {
-            type: `CHANGE_IS_AUTHORIZATION_REQUIRED`,
+            type: CHANGE_IS_AUTHORIZATION_REQUIRED,
             payload: true
           }
       )
@@ -167,11 +161,11 @@ it(`Action creator correctly enters user`, () => {
     .then(() => {
       expect(dispatch).toHaveBeenCalledTimes(2);
       expect(dispatch).toHaveBeenNthCalledWith(1, {
-        type: `CHANGE_IS_AUTHORIZATION_REQUIRED`,
+        type: CHANGE_IS_AUTHORIZATION_REQUIRED,
         payload: false,
       });
       expect(dispatch).toHaveBeenNthCalledWith(2, {
-        type: `ENTER_USER`,
+        type: ENTER_USER,
         payload: {0: {email: `test@mail.ru`, password: `12345`}},
       });
     });
@@ -184,7 +178,7 @@ it(`Reducer correctly change filmsCount`, () => {
             filmsCount: 8,
           },
           {
-            type: `ADD_COUNT_FILMS`,
+            type: ADD_COUNT_FILMS,
             payload: 20,
           }
       )
@@ -200,7 +194,7 @@ it(`Reducer correctly change activeFilmId`, () => {
             activeFilmId: 1,
           },
           {
-            type: `CHANGE_ACTIVE_FILM`,
+            type: CHANGE_ACTIVE_FILM,
             payload: 2,
           }
       )
@@ -224,7 +218,7 @@ it(`Action creator correctly changeFavorite`, () => {
     .then(() => {
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenNthCalledWith(1, {
-        type: `CHANGE_FAVORITE`,
+        type: CHANGE_FAVORITE,
         payload: 1,
       });
     });
@@ -237,7 +231,7 @@ it(`Reducer correctly change isFilmPlaying`, () => {
             isFilmPlaying: false,
           },
           {
-            type: `CHANGE_ACTIVE_STATUS`,
+            type: CHANGE_ACTIVE_STATUS,
             payload: true,
           }
       )
@@ -261,7 +255,7 @@ it(`Action creator correctly uploadReview`, () => {
   .then(() => {
     expect(dispatch).toHaveBeenCalledTimes(1);
     expect(dispatch).toHaveBeenNthCalledWith(1, {
-      type: `LOAD_COMMENTS`,
+      type: LOAD_COMMENTS,
       payload: {
         0: {rating: 3, comment: `Good`},
         1: {rating: 5, comment: `Very Good`}

@@ -17,6 +17,7 @@ it(`FavoriteList component renders correctly`, () => {
         onOpenCloseFilm={() => {}}
         comments={comments}
         history={{push: () => {}}}
+        onLoadComments={() => {}}
       >
       </Details>
     </BrowserRouter>)

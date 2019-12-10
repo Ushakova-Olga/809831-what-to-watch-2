@@ -1,4 +1,4 @@
-const FILMS_COUNT = 8;
+/* const FILMS_COUNT = 8;
 const FILMS_COUNT_ADD = 20;
 const LOAD_FILMS = `LOAD_FILMS`;
 const LOAD_PROMO_FILM = `LOAD_PROMO_FILM`;
@@ -11,7 +11,11 @@ const ADD_COUNT_FILMS = `ADD_COUNT_FILMS`;
 const CHANGE_ACTIVE_FILM = `CHANGE_ACTIVE_FILM`;
 const CHANGE_FAVORITE = `CHANGE_FAVORITE`;
 const CHANGE_ACTIVE_STATUS = `CHANGE_ACTIVE_STATUS`;
-const UPLOAD_RIVIEW = `UPLOAD_RIVIEW`;
+const UPLOAD_REVIEW = `UPLOAD_REVIEW`;*/
+
+import {FILMS_COUNT, FILMS_COUNT_ADD, LOAD_FILMS, LOAD_PROMO_FILM, LOAD_COMMENTS, LOAD_FAVORITE_FILMS,
+  CHANGE_IS_AUTHORIZATION_REQUIRED, ENTER_USER, SET_GENRE, ADD_COUNT_FILMS, CHANGE_ACTIVE_FILM,
+  CHANGE_FAVORITE, CHANGE_ACTIVE_STATUS, UPLOAD_REVIEW} from "../util/constants";
 
 const initialState = {
   genre: `All genres`,
@@ -119,7 +123,7 @@ const ActionCreator = {
     payload: status,
   }),
   uploadReview: (id, error) => ({
-    type: UPLOAD_RIVIEW,
+    type: UPLOAD_REVIEW,
     payload: error
   }),
 };
@@ -244,7 +248,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         isFilmPlaying: action.payload,
       });
-    case UPLOAD_RIVIEW:
+    case UPLOAD_REVIEW:
       return Object.assign({}, state, {
         errorLoadingReview: action.payload,
       });

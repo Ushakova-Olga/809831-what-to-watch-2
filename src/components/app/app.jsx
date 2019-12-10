@@ -46,6 +46,7 @@ const getPageScreen = (props) => {
     promoFilm,
     history,
   } = props;
+
   return <Switch>
     <Route path="/" exact render={() => {
       return !isFilmPlaying ? <MainScreen
@@ -71,9 +72,6 @@ const getPageScreen = (props) => {
     <Route path="/films/:id" exact render={(routerProps) => {
       const id = parseInt(routerProps.match.params.id, 10);
       onChangeActiveFilm(id);
-      if ((activeFilmId !== id) || (comments.length === 0)) {
-        onLoadComments(id);
-      }
 
       const result = initialFilms.filter((it) => it.id === activeFilmId);
       let information = {};
@@ -93,7 +91,8 @@ const getPageScreen = (props) => {
         onClickFavorite={onChangeFavorite}
         onOpenCloseFilm={onOpenCloseFilm}
         comments={comments}
-        history={history} /> :
+        history={history}
+        onLoadComments={onLoadComments} /> :
         <VideoPlayerLargeWrapped information={information} onOpenCloseFilm={onOpenCloseFilm} />;
     }}
     />
