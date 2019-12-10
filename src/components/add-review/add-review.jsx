@@ -49,20 +49,15 @@ const AddReview = (props) => {
     <div className="add-review">
       <form action="#" className="add-review__form" onSubmit={(evt) => {
         evt.preventDefault();
-        const text = evt.target.querySelector(`#review-text`).value;
-        const rating = evt.target.querySelector(`.rating__input:checked`).value;
+        const text = evt.currentTarget.querySelector(`.add-review__textarea`).value;
+        const rating = evt.currentTarget.querySelector(`.rating__input:checked`).value;
         onSubmit(rating, text);
       }}
       onChange={(evt) => {
         let text = ``;
         let rating = 0;
-        if (evt.target.classList.contains(`add-review__textarea`)) {
-          rating = document.querySelector(`.rating__input:checked`).value;
-          text = evt.target.value;
-        } else {
-          text = document.querySelector(`#review-text`).value;
-          rating = evt.target.value;
-        }
+        text = evt.currentTarget.querySelector(`.add-review__textarea`).value;
+        rating = evt.currentTarget.querySelector(`.rating__input:checked`).value;
         onChange(rating, text);
       }}>
         <div className="rating">
