@@ -1,4 +1,4 @@
-import {FILMS_COUNT, FILMS_COUNT_ADD, SET_ERROR, LOAD_FILMS, LOAD_PROMO_FILM, LOAD_COMMENTS, LOAD_FAVORITE_FILMS,
+import {FILMS_COUNT, FILMS_COUNT_ADD, SET_ERROR, SET_ERROR_LOGIN, LOAD_FILMS, LOAD_PROMO_FILM, LOAD_COMMENTS, LOAD_FAVORITE_FILMS,
   CHANGE_IS_AUTHORIZATION_REQUIRED, ENTER_USER, SET_GENRE, ADD_COUNT_FILMS, CHANGE_ACTIVE_FILM,
   CHANGE_FAVORITE, CHANGE_ACTIVE_STATUS, UPLOAD_REVIEW} from "../util/constants";
 
@@ -16,6 +16,7 @@ const initialState = {
   errorLoadingReview: ``,
   promoFilm: {},
   errorLoading: ``,
+  errorLogin: ``,
 };
 
 const convertKey = (key) => {
@@ -66,6 +67,10 @@ const convertItem = (obj) => {
 const ActionCreator = {
   setError: (error) => ({
     type: SET_ERROR,
+    payload: error,
+  }),
+  setErrorLogin: (error) => ({
+    type: SET_ERROR_LOGIN,
     payload: error,
   }),
   loadFilms: (films) => ({
@@ -172,11 +177,13 @@ const Operation = {
           dispatch(ActionCreator.enterUser(convertItem(response.data)));
         } else {
           const errorObject = JSON.parse(JSON.stringify(response));
-          dispatch(ActionCreator.setError(errorObject.message));
+          // console.log(errorObject.message);
+          dispatch(ActionCreator.setErrorLogin(errorObject.message));
         }
       })
       .catch((error) => {
-        dispatch(ActionCreator.setError(error.message));
+        // console.log(error.message);
+        dispatch(ActionCreator.setErrorLogin(error.message));
       });
   },
   changeFavorite: (id, isFavorite) => (dispatch, _, api) => {
@@ -232,6 +239,10 @@ const reducer = (state = initialState, action) => {
     case SET_ERROR:
       return Object.assign({}, state, {
         errorLoading: action.payload,
+      });
+    case SET_ERROR_LOGIN:
+      return Object.assign({}, state, {
+        errorLogin: action.payload,
       });
     case LOAD_FILMS:
       return Object.assign({}, state, {

@@ -80,7 +80,7 @@ const AddReview = (props) => {
         </div>
 
         <div className="add-review__text">
-          <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" disabled={isBlocking}></textarea>
+          <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text" disabled={isBlocking} minLength="50" maxLength="400"></textarea>
           <div className="add-review__submit">
             <button className="add-review__btn" type="submit" disabled={!isFormValid}>Post</button>
           </div>

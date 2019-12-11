@@ -10,7 +10,12 @@ it(`Sign in form onSubmit worked correctly`, () => {
   const handlerSubmitForm = jest.fn();
   const componentSignIn = shallow(<SignIn
     isAuthorizationRequired={true}
-    onSubmit={handlerSubmitForm} />);
+    onSubmit={handlerSubmitForm}
+    errorLogin={``}
+    errorEmail={``}
+    errorPassword={``}
+    isFormValid={true}
+    onChange={jest.fn()} />);
 
   const evt = {
     preventDefault: () => {},

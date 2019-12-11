@@ -8,6 +8,11 @@ it(`SignIn renders correctly`, () => {
       <BrowserRouter><SignIn
         isAuthorizationRequired={true}
         onSubmit={jest.fn()}
+        errorLogin={``}
+        errorEmail={``}
+        errorPassword={``}
+        isFormValid={true}
+        onChange={jest.fn()}
       /></BrowserRouter>).toJSON();
   expect(tree).toMatchSnapshot();
 });

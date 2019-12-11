@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import SignIn from "../../components/sign-in/sign-in.jsx";
+import withSignIn from '../../hocs/with-sign-in/with-sign-in.jsx';
+
 import MainScreen from "../../components/main-screen/main-screen.jsx";
 import Details from "../../components/details/details.jsx";
 import AddReview from "../../components/add-review/add-review.jsx";
@@ -15,6 +17,7 @@ import withFormSubmit from '../../hocs/with-form-submit/with-form-submit.jsx';
 import PageNotFound from "../../components/page-not-found/page-not-found.jsx";
 import ErrorLoading from "../../components/error-loading/error-loading.jsx";
 
+const WithSignInWrapped = withSignIn(SignIn);
 const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
 
 const getFilms = (genre, filmsList) => {
@@ -48,6 +51,7 @@ const getPageScreen = (props) => {
     promoFilm,
     history,
     errorLoading,
+    errorLogin,
   } = props;
 
   if (errorLoading.length !== 0) {
@@ -73,7 +77,7 @@ const getPageScreen = (props) => {
     }}
     />
     <Route path="/login" exact render={() => {
-      return <SignIn onSubmit={onSubmit} isAuthorizationRequired={isAuthorizationRequired} />;
+      return <WithSignInWrapped onSubmit={onSubmit} isAuthorizationRequired={isAuthorizationRequired} errorLogin={errorLogin} />;
     }}
     />
     <Route path="/films/:id" exact render={(routerProps) => {
@@ -246,6 +250,7 @@ getPageScreen.propTypes = {
     push: PropTypes.func
   }),
   errorLoading: PropTypes.string.isRequired,
+  errorLogin: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -262,6 +267,7 @@ const mapStateToProps = (state) => ({
   isFavoriteActually: state.isFavoriteActually,
   promoFilm: state.promoFilm,
   errorLoading: state.errorLoading,
+  errorLogin: state.errorLogin,
 });
 
 const mapDispatchToProps = (dispatch) => ({
