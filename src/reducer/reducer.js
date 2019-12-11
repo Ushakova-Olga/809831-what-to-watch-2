@@ -1,4 +1,4 @@
-import {FILMS_COUNT, FILMS_COUNT_ADD, LOAD_FILMS, LOAD_PROMO_FILM, LOAD_COMMENTS, LOAD_FAVORITE_FILMS,
+import {FILMS_COUNT, FILMS_COUNT_ADD, SET_ERROR, LOAD_FILMS, LOAD_PROMO_FILM, LOAD_COMMENTS, LOAD_FAVORITE_FILMS,
   CHANGE_IS_AUTHORIZATION_REQUIRED, ENTER_USER, SET_GENRE, ADD_COUNT_FILMS, CHANGE_ACTIVE_FILM,
   CHANGE_FAVORITE, CHANGE_ACTIVE_STATUS, UPLOAD_REVIEW} from "../util/constants";
 
@@ -15,6 +15,7 @@ const initialState = {
   isFavoriteActually: false,
   errorLoadingReview: ``,
   promoFilm: {},
+  errorLoading: ``,
 };
 
 const convertKey = (key) => {
@@ -63,6 +64,10 @@ const convertItem = (obj) => {
 };
 
 const ActionCreator = {
+  setError: (error) => ({
+    type: SET_ERROR,
+    payload: error,
+  }),
   loadFilms: (films) => ({
     type: LOAD_FILMS,
     payload: films,
@@ -117,8 +122,16 @@ const Operation = {
   loadFilms: () => (dispatch, _, api) => {
     return api.get(`films`)
       .then((response) => {
-        const convertedData = response.data.map((item) => convertItem(item));
-        dispatch(ActionCreator.loadFilms(convertedData));
+        if (response.data) {
+          const convertedData = response.data.map((item) => convertItem(item));
+          dispatch(ActionCreator.loadFilms(convertedData));
+        } else {
+          const errorObject = JSON.parse(JSON.stringify(response));
+          dispatch(ActionCreator.setError(errorObject.message));
+        }
+      })
+      .catch((error) => {
+        dispatch(ActionCreator.setError(error.message));
       });
   },
   loadComments: (id) => (dispatch, _, api) => {
@@ -127,14 +140,28 @@ const Operation = {
         if (response.data) {
           const convertedData = response.data.map((item) => convertItem(item));
           dispatch(ActionCreator.loadComments(convertedData));
+        } else {
+          const errorObject = JSON.parse(JSON.stringify(response));
+          dispatch(ActionCreator.setError(errorObject.message));
         }
+      })
+      .catch((error) => {
+        dispatch(ActionCreator.setError(error.message));
       });
   },
   loadFavoriteFilms: () => (dispatch, _, api) => {
     return api.get(`favorite`)
       .then((response) => {
-        const convertedData = response.data.map((item) => convertItem(item));
-        dispatch(ActionCreator.loadFavoriteFilms(convertedData));
+        if (response.data) {
+          const convertedData = response.data.map((item) => convertItem(item));
+          dispatch(ActionCreator.loadFavoriteFilms(convertedData));
+        } else {
+          const errorObject = JSON.parse(JSON.stringify(response));
+          dispatch(ActionCreator.setError(errorObject.message));
+        }
+      })
+      .catch((error) => {
+        dispatch(ActionCreator.setError(error.message));
       });
   },
   logIn: (email, password) => (dispatch, _, api) => {
@@ -143,18 +170,28 @@ const Operation = {
         if (response.data) {
           dispatch(ActionCreator.changeIsAuthorizationRequired(false));
           dispatch(ActionCreator.enterUser(convertItem(response.data)));
+        } else {
+          const errorObject = JSON.parse(JSON.stringify(response));
+          dispatch(ActionCreator.setError(errorObject.message));
         }
       })
-      .catch((_err) => {});
+      .catch((error) => {
+        dispatch(ActionCreator.setError(error.message));
+      });
   },
   changeFavorite: (id, isFavorite) => (dispatch, _, api) => {
     return api.post(`favorite/${id}/${isFavorite ? 1 : 0}`)
       .then((response) => {
         if (response.data) {
           dispatch(ActionCreator.changeFavorite(id, isFavorite));
+        } else {
+          const errorObject = JSON.parse(JSON.stringify(response));
+          dispatch(ActionCreator.setError(errorObject.message));
         }
       })
-      .catch((_err) => {});
+      .catch((error) => {
+        dispatch(ActionCreator.setError(error.message));
+      });
   },
   uploadReview: (id, data) => (dispatch, _, api) => {
     return api.post(`/comments/${id}`, data)
@@ -163,26 +200,39 @@ const Operation = {
           dispatch(ActionCreator.loadComments(response.data));
           return response;
         } else {
+          const errorObject = JSON.parse(JSON.stringify(response));
+          dispatch(ActionCreator.setError(errorObject.message));
           return response;
         }
       })
       .catch((error) => {
-        throw new Error(error);
+        dispatch(ActionCreator.setError(error.message));
       });
   },
 
   loadPromoFilm: () => (dispatch, _, api) => {
     return api.get(`films/promo`)
       .then((response) => {
-        const convertedData = convertItem(response.data);
-        dispatch(ActionCreator.loadPromoFilm(convertedData));
+        if (response.data) {
+          const convertedData = convertItem(response.data);
+          dispatch(ActionCreator.loadPromoFilm(convertedData));
+        } else {
+          const errorObject = JSON.parse(JSON.stringify(response));
+          dispatch(ActionCreator.setError(errorObject.message));
+        }
       })
-      .catch((_err) => {});
+      .catch((error) => {
+        dispatch(ActionCreator.setError(error.message));
+      });
   },
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_ERROR:
+      return Object.assign({}, state, {
+        errorLoading: action.payload,
+      });
     case LOAD_FILMS:
       return Object.assign({}, state, {
         initialFilms: action.payload,

@@ -13,6 +13,7 @@ import VideoPlayerLarge from "../../components/video-player-large/video-player-l
 import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-player-large.jsx';
 import withFormSubmit from '../../hocs/with-form-submit/with-form-submit.jsx';
 import PageNotFound from "../../components/page-not-found/page-not-found.jsx";
+import ErrorLoading from "../../components/error-loading/error-loading.jsx";
 
 const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
 
@@ -46,7 +47,12 @@ const getPageScreen = (props) => {
     isFavoriteActually,
     promoFilm,
     history,
+    errorLoading,
   } = props;
+
+  if (errorLoading.length !== 0) {
+    return <ErrorLoading error={errorLoading} />;
+  }
 
   return <Switch>
     <Route path="/" exact render={() => {
@@ -239,6 +245,7 @@ getPageScreen.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func
   }),
+  errorLoading: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -254,6 +261,7 @@ const mapStateToProps = (state) => ({
   comments: state.comments,
   isFavoriteActually: state.isFavoriteActually,
   promoFilm: state.promoFilm,
+  errorLoading: state.errorLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

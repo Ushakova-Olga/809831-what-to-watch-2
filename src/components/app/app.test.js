@@ -26,6 +26,7 @@ const state = {
   onClickFavorite: () => {},
   onClickMore: () => {},
   onChangeFavorite: () => {},
+  errorLoading: ``,
 };
 
 const store = mockStore(state);
@@ -50,6 +51,7 @@ it(`App component correctly renders`, () => {
           onClickFavorite={() => {}}
           onClickMore={() => {}}
           onChangeFavorite={() => {}}
+          errorLoading={``}
         />
       </Provider>
     </BrowserRouter>)

@@ -1,5 +1,6 @@
 export const FILMS_COUNT = 8;
 export const FILMS_COUNT_ADD = 20;
+export const SET_ERROR = `SET_ERROR`;
 export const LOAD_FILMS = `LOAD_FILMS`;
 export const LOAD_PROMO_FILM = `LOAD_PROMO_FILM`;
 export const LOAD_COMMENTS = `LOAD_COMMENTS`;
