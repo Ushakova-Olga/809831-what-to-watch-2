@@ -86,8 +86,8 @@ const AddReview = (props) => {
           </div>
         </div>
       </form>
-      {error}
-      {errorLoadingReview}
+      <p style={{color: `red`}}>{error}</p>
+      <p style={{color: `red`}}>{errorLoadingReview}</p>
     </div>
   </section> : ``;
 };

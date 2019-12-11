@@ -211,8 +211,24 @@ exports[`AddReview renders correctly 1`] = `
         </div>
       </div>
     </form>
-    
-    
+    <p
+      style={
+        Object {
+          "color": "red",
+        }
+      }
+    >
+      
+    </p>
+    <p
+      style={
+        Object {
+          "color": "red",
+        }
+      }
+    >
+      
+    </p>
   </div>
 </section>
 `;

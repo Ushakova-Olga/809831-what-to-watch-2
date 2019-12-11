@@ -46,12 +46,18 @@ const withFormSubmit = (Component) => {
     _handleFormChange(rating, text) {
       this.setState(() => {
         let valid = false;
+        let error = ``;
 
-        if (text.length >= TEXT_LENGHT_MIN && text.length <= TEXT_LENGHT_MAX) {
+        if (text.length < TEXT_LENGHT_MIN) {
+          error = `Количество символов должно быть более 50-ти`;
+        } else if (text.length > TEXT_LENGHT_MAX) {
+          error = `Количество символов должно быть менее 400`;
+        } else {
           valid = true;
         }
 
         return {
+          error,
           isFormValid: valid
         };
       });
