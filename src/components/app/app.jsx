@@ -12,6 +12,7 @@ import withLogin from "../../hocs/with-login/with-login.jsx";
 import VideoPlayerLarge from "../../components/video-player-large/video-player-large.jsx";
 import withVideoPlayerLarge from '../../hocs/with-video-player-large/with-video-player-large.jsx';
 import withFormSubmit from '../../hocs/with-form-submit/with-form-submit.jsx';
+import PageNotFound from "../../components/page-not-found/page-not-found.jsx";
 
 const VideoPlayerLargeWrapped = withVideoPlayerLarge(VideoPlayerLarge);
 
@@ -33,7 +34,7 @@ const getPageScreen = (props) => {
     isAuthorizationRequired,
     onSubmit,
     userData,
-    activeFilmId,
+    // activeFilmId,
     onChangeFavorite,
     onChangeActiveFilm,
     onLoadFavoriteFilms,
@@ -71,42 +72,55 @@ const getPageScreen = (props) => {
     />
     <Route path="/films/:id" exact render={(routerProps) => {
       const id = parseInt(routerProps.match.params.id, 10);
-      onChangeActiveFilm(id);
 
-      const result = initialFilms.filter((it) => it.id === activeFilmId);
-      let information = {};
-      information = result.length > 0 ? result[0] : {
-        id: 0,
-        name: ``,
-        previewImage: ``,
-        previewVideoLink: ``,
-        videoLink: ``,
-      };
+      const result = initialFilms.filter((it) => it.id === id);
+      const isNotFound = (result.length <= 0) ? true : false;
 
-      return !isFilmPlaying ? <Details
-        activeFilmId={id}
-        films={initialFilms}
-        userData={userData}
-        isAuthorizationRequired={isAuthorizationRequired}
-        onClickFavorite={onChangeFavorite}
-        onOpenCloseFilm={onOpenCloseFilm}
-        comments={comments}
-        history={history}
-        onLoadComments={onLoadComments} /> :
-        <VideoPlayerLargeWrapped information={information} onOpenCloseFilm={onOpenCloseFilm} />;
+      if (!isNotFound) {
+        onChangeActiveFilm(id);
+        let information = {};
+        information = result.length > 0 ? result[0] : {
+          id: 0,
+          name: ``,
+          previewImage: ``,
+          previewVideoLink: ``,
+          videoLink: ``,
+        };
+
+        return !isFilmPlaying ? <Details
+          activeFilmId={id}
+          films={initialFilms}
+          userData={userData}
+          isAuthorizationRequired={isAuthorizationRequired}
+          onClickFavorite={onChangeFavorite}
+          onOpenCloseFilm={onOpenCloseFilm}
+          comments={comments}
+          history={history}
+          onLoadComments={onLoadComments} /> :
+          <VideoPlayerLargeWrapped information={information} onOpenCloseFilm={onOpenCloseFilm} />;
+      } else {
+        return <PageNotFound />;
+      }
     }}
     />
     <Route path="/films/:id/review" exact render={(routerProps) => {
-      const AddReviewWrapped = withLogin(withFormSubmit(AddReview));
       const id = parseInt(routerProps.match.params.id, 10);
-      onChangeActiveFilm(id);
-      const films = getFilms(currentGenre, initialFilms);
-      return <AddReviewWrapped
-        films={films}
-        initialFilms={initialFilms}
-        userData={userData} id={id}
-        history={history}
-      />;
+      const result = initialFilms.filter((it) => it.id === id);
+      const isNotFound = (result.length <= 0) ? true : false;
+
+      if (!isNotFound) {
+        const AddReviewWrapped = withLogin(withFormSubmit(AddReview));
+        onChangeActiveFilm(id);
+        const films = getFilms(currentGenre, initialFilms);
+        return <AddReviewWrapped
+          films={films}
+          initialFilms={initialFilms}
+          userData={userData} id={id}
+          history={history}
+        />;
+      } else {
+        return <PageNotFound />;
+      }
     }}
     />
     <Route path="/mylist" exact render={() => {
@@ -121,6 +135,10 @@ const getPageScreen = (props) => {
         filmsCount={filmsCount}
         onOpenCloseFilm={onOpenCloseFilm}
       />;
+    }}
+    />
+    <Route render={() => {
+      return <PageNotFound />;
     }}
     />
   </Switch>;
