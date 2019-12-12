@@ -17,7 +17,7 @@ const componentSignIn = shallow(<SignIn
 
 it(`Sign in form onSubmit workes correctly`, () => {
 
-  const evt = {
+  const event = {
     preventDefault: () => {},
     target: {querySelector: (selector) => {
       switch (selector) {
@@ -29,7 +29,7 @@ it(`Sign in form onSubmit workes correctly`, () => {
       return null;
     }}};
 
-  componentSignIn.find(`.sign-in__form`).at(0).simulate(`submit`, evt);
+  componentSignIn.find(`.sign-in__form`).at(0).simulate(`submit`, event);
   expect(handlerSubmitForm).toHaveBeenCalledTimes(1);
   expect(handlerSubmitForm).toHaveBeenNthCalledWith(1, `test@test.ru`, `123`);
 });

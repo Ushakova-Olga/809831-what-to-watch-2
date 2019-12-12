@@ -20,7 +20,7 @@ it(`Add review form onChande and onSubmit worked correctly`, () => {
     errorReview={``}
     isBlocking={false} />);
 
-  const evt = {currentTarget: {querySelector: (selector) => {
+  const eventFirst = {currentTarget: {querySelector: (selector) => {
     switch (selector) {
       case `.add-review__textarea`:
         return {value: `test`};
@@ -30,7 +30,7 @@ it(`Add review form onChande and onSubmit worked correctly`, () => {
     return null;
   }}};
 
-  const evt2 = {
+  const eventSecond = {
     preventDefault: () => {},
     currentTarget: {querySelector: (selector) => {
       switch (selector) {
@@ -42,11 +42,11 @@ it(`Add review form onChande and onSubmit worked correctly`, () => {
       return null;
     }}};
 
-  componentAddReview.find(`.add-review__form`).at(0).simulate(`change`, evt);
+  componentAddReview.find(`.add-review__form`).at(0).simulate(`change`, eventFirst);
   expect(handlerChangeForm).toHaveBeenCalledTimes(1);
   expect(handlerChangeForm).toHaveBeenNthCalledWith(1, 3, `test`);
 
-  componentAddReview.find(`.add-review__form`).at(0).simulate(`submit`, evt2);
+  componentAddReview.find(`.add-review__form`).at(0).simulate(`submit`, eventSecond);
   expect(handlerSubmitForm).toHaveBeenCalledTimes(1);
   expect(handlerSubmitForm).toHaveBeenNthCalledWith(1, 5, `test test`);
 });
