@@ -4,15 +4,13 @@ import {createStore} from "redux";
 import {Provider} from "react-redux";
 import {reducer, Operation} from "./reducer/reducer";
 import {Router} from "react-router-dom";
-
 import App from "./components/app/app.jsx";
-
 import thunk from "redux-thunk";
 import configureAPI from "./api";
 import {applyMiddleware} from "redux";
 import {compose} from "recompose";
-
 import {createBrowserHistory} from "history";
+
 const history = createBrowserHistory();
 
 const init = () => {

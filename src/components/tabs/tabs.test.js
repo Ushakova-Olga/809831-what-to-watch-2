@@ -1,6 +1,5 @@
 import React from "react";
 import renderer from "react-test-renderer";
-
 import Tabs from "./tabs";
 import films from "../../mocks/films";
 import comments from "../../mocks/comments";

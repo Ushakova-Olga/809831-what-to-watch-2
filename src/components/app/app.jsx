@@ -38,7 +38,6 @@ const getPageScreen = (props) => {
     isAuthorizationRequired,
     onSubmit,
     userData,
-    // activeFilmId,
     onChangeFavorite,
     onChangeActiveFilm,
     onLoadFavoriteFilms,
@@ -296,7 +295,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(Operation.loadComments(id));
   },
 });
-
 
 export {App};
 export default connect(mapStateToProps, mapDispatchToProps)(App);

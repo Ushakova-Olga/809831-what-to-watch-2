@@ -1,6 +1,5 @@
 const SECONDS_IN_MINUTE = 60;
 const MINUTES_IN_HOUR = 60;
-
 const RATING_BAD = 3;
 const RATING_NORMAL = 5;
 const RATING_GOOD = 8;

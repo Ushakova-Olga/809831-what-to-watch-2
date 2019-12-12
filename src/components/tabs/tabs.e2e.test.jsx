@@ -1,7 +1,6 @@
 import React from "react";
 import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-
 import Tabs from "./tabs";
 import films from "../../mocks/films";
 import comments from "../../mocks/comments";
@@ -9,7 +8,6 @@ import comments from "../../mocks/comments";
 Enzyme.configure({adapter: new Adapter()});
 
 let componentTabs;
-
 const onMouseClickChild = jest.fn();
 
 componentTabs = shallow(
