@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 
 const AddReview = (props) => {
-  const {films, id, userData, error, isFormValid, onChange, onSubmit, errorLoadingReview, isBlocking} = props;
+  const {films, id, userData, error, isFormValid, onChange, onSubmit, errorReview, isBlocking} = props;
   const information = films.find((it) => it.id === id);
 
   return information ? <section className="movie-card movie-card--full">
@@ -87,7 +87,7 @@ const AddReview = (props) => {
         </div>
       </form>
       <p style={{color: `red`}}>{error}</p>
-      <p style={{color: `red`}}>{errorLoadingReview}</p>
+      <p style={{color: `red`}}>{errorReview}</p>
     </div>
   </section> : ``;
 };
@@ -121,7 +121,7 @@ AddReview.propTypes = {
   isFormValid: PropTypes.bool.isRequired,
   onChange: PropTypes.func,
   onSubmit: PropTypes.func,
-  errorLoadingReview: PropTypes.string.isRequired,
+  errorReview: PropTypes.string.isRequired,
   isBlocking: PropTypes.bool.isRequired,
 };
 

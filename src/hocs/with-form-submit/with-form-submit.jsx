@@ -19,7 +19,6 @@ const withFormSubmit = (Component) => {
       this.state = {
         error: ``,
         isFormValid: false,
-        isUnmounted: false,
         isBlocking: false,
       };
     }
@@ -28,19 +27,17 @@ const withFormSubmit = (Component) => {
       this.setState({
         error: ``,
         isFormValid: false,
-        isUnmounted: false,
         isBlocking: false,
       });
     }
     componentWillUnmount() {
       this.setState({
         isFormValid: false,
-        isUnmounted: true,
         idBlocking: false,
         error: ``,
       });
-      this._onChange = null;
-      this._onSubmit = null;
+      this._handleFormChange = null;
+      this._handleFormSubmit = null;
     }
 
     _handleFormChange(rating, text) {
@@ -73,31 +70,19 @@ const withFormSubmit = (Component) => {
         });
         uploadReview(id, {rating, comment})
           .then((response) => {
-            if (response.data) {
-              return history.push(`/films/${id}`);
-            } else {
-              const errorObject = JSON.parse(JSON.stringify(response));
-              this.setState({
-                error: errorObject.message,
-                isBlocking: false,
-              });
+            if (response) {
+              if (response.data) {
+                return history.push(`/films/${id}`);
+              }
             }
             return null;
-          })
-          .catch((error) => {
-            const errorObject = JSON.parse(JSON.stringify(error));
-            this.setState({
-              error: errorObject.message,
-              isBlocking: false,
-            });
-            return;
           });
       }
     }
 
     render() {
       const {isFormValid, error, isBlocking} = this.state;
-      const {errorLoadingReview} = this.props;
+      const {errorReview} = this.props;
 
       return <Component
         {...this.props}
@@ -105,8 +90,8 @@ const withFormSubmit = (Component) => {
         isFormValid={isFormValid}
         onChange={this._handleFormChange}
         onSubmit={this._handleFormSubmit}
-        errorLoadingReview={errorLoadingReview}
         isBlocking={isBlocking}
+        errorReview={errorReview}
       />;
     }
   }
@@ -114,7 +99,7 @@ const withFormSubmit = (Component) => {
   WithFormSubmit.propTypes = {
     id: PropTypes.number.isRequired,
     uploadReview: PropTypes.func.isRequired,
-    errorLoadingReview: PropTypes.string.isRequired,
+    errorReview: PropTypes.string.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func
     }),
@@ -123,7 +108,7 @@ const withFormSubmit = (Component) => {
 };
 
 const mapStateToProps = (state) => ({
-  errorLoadingReview: state.errorLoadingReview,
+  errorReview: state.errorReview,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -3,7 +3,7 @@ import configureAPI from "../api";
 import MockAdapter from "axios-mock-adapter";
 import FILMS from "../mocks/films.js";
 
-import {SET_ERROR, SET_ERROR_LOGIN, LOAD_FILMS, LOAD_PROMO_FILM, LOAD_COMMENTS, LOAD_FAVORITE_FILMS, CHANGE_IS_AUTHORIZATION_REQUIRED,
+import {SET_ERROR, SET_ERROR_LOGIN, SET_ERROR_REVIEW, LOAD_FILMS, LOAD_PROMO_FILM, LOAD_COMMENTS, LOAD_FAVORITE_FILMS, CHANGE_IS_AUTHORIZATION_REQUIRED,
   ENTER_USER, SET_GENRE, ADD_COUNT_FILMS, CHANGE_ACTIVE_FILM, CHANGE_FAVORITE, CHANGE_ACTIVE_STATUS} from "../util/constants";
 
 it(`Reducer correctly set a genre`, () => {
@@ -147,6 +147,22 @@ it(`Reducer correctly change erorLogin`, () => {
       )
   ).toEqual({
     errorLogin: `error login`,
+  });
+});
+
+it(`Reducer correctly change erorReview`, () => {
+  expect(
+      reducer(
+          {
+            errorReview: `error review`,
+          },
+          {
+            type: SET_ERROR_REVIEW,
+            payload: `error review`
+          }
+      )
+  ).toEqual({
+    errorReview: `error review`,
   });
 });
 

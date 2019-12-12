@@ -22,7 +22,6 @@ const uploadReview = jest.fn().mockImplementationOnce(() => Promise.resolve(`dat
 const store = {
   getState: () => {},
   subscribe: () => {},
-  errorLoadingReview: ``,
   dispatch: () => {},
 };
 
@@ -30,8 +29,8 @@ const event = {
   preventDefault: () => {}
 };
 
-const nonValidItem = shallow(<MockComponentWrapped store={store} uploadReview={uploadReview} id={1} loadComments={() => {}} errorLoadingReview={``} />);
-const validItem = shallow(<MockComponentWrapped store={store} uploadReview={uploadReview} id={1} loadComments={() => {}} errorLoadingReview={``} />);
+const nonValidItem = shallow(<MockComponentWrapped store={store} uploadReview={uploadReview} id={1} loadComments={() => {}} errorReview={``} />);
+const validItem = shallow(<MockComponentWrapped store={store} uploadReview={uploadReview} id={1} loadComments={() => {}} errorReview={``} />);
 
 it(`Non valid form should not upload review`, () => {
   nonValidItem.setState({isFormValid: false});

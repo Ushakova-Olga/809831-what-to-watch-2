@@ -21,7 +21,7 @@ const state = {
   isFilmPlaying: false,
   comments: [],
   isFavoriteActually: false,
-  errorLoadingReview: ``,
+  errorReview: ``,
   promoFilm: {},
   onClickFavorite: () => {},
   onClickMore: () => {},
@@ -46,7 +46,7 @@ it(`App component correctly renders`, () => {
           isFilmPlaying={false}
           comments={[]}
           isFavoriteActually={false}
-          errorLoadingReview={``}
+          errorReview={``}
           promoFilm={{}}
           onClickFavorite={() => {}}
           onClickMore={() => {}}

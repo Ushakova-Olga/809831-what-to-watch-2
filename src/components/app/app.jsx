@@ -51,6 +51,7 @@ const getPageScreen = (props) => {
     history,
     errorLoading,
     errorLogin,
+    errorReview,
   } = props;
 
   if (errorLoading.length !== 0) {
@@ -126,6 +127,7 @@ const getPageScreen = (props) => {
           initialFilms={initialFilms}
           userData={userData} id={id}
           history={history}
+          errorReview={errorReview}
         />;
       } else {
         return <PageNotFound />;
@@ -250,6 +252,7 @@ getPageScreen.propTypes = {
   }),
   errorLoading: PropTypes.string.isRequired,
   errorLogin: PropTypes.string.isRequired,
+  errorReview: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -267,6 +270,7 @@ const mapStateToProps = (state) => ({
   promoFilm: state.promoFilm,
   errorLoading: state.errorLoading,
   errorLogin: state.errorLogin,
+  errorReview: state.errorReview,
 });
 
 const mapDispatchToProps = (dispatch) => ({

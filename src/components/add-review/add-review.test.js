@@ -18,7 +18,7 @@ it(`AddReview renders correctly`, () => {
       id={0}
       onSubmit={jest.fn()}
       isFormValid={true}
-      errorLoadingReview={``}
+      errorReview={``}
       isBlocking={false}
       error={``}
     /></BrowserRouter>).toJSON();

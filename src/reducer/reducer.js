@@ -1,4 +1,4 @@
-import {FILMS_COUNT, FILMS_COUNT_ADD, SET_ERROR, SET_ERROR_LOGIN, LOAD_FILMS, LOAD_PROMO_FILM, LOAD_COMMENTS, LOAD_FAVORITE_FILMS,
+import {FILMS_COUNT, FILMS_COUNT_ADD, SET_ERROR, SET_ERROR_LOGIN, SET_ERROR_REVIEW, LOAD_FILMS, LOAD_PROMO_FILM, LOAD_COMMENTS, LOAD_FAVORITE_FILMS,
   CHANGE_IS_AUTHORIZATION_REQUIRED, ENTER_USER, SET_GENRE, ADD_COUNT_FILMS, CHANGE_ACTIVE_FILM,
   CHANGE_FAVORITE, CHANGE_ACTIVE_STATUS, UPLOAD_REVIEW} from "../util/constants";
 
@@ -13,10 +13,10 @@ const initialState = {
   isFilmPlaying: false,
   comments: [],
   isFavoriteActually: false,
-  errorLoadingReview: ``,
   promoFilm: {},
   errorLoading: ``,
   errorLogin: ``,
+  errorReview: ``,
 };
 
 const convertKey = (key) => {
@@ -71,6 +71,10 @@ const ActionCreator = {
   }),
   setErrorLogin: (error) => ({
     type: SET_ERROR_LOGIN,
+    payload: error,
+  }),
+  setErrorReview: (error) => ({
+    type: SET_ERROR_REVIEW,
     payload: error,
   }),
   loadFilms: (films) => ({
@@ -177,12 +181,10 @@ const Operation = {
           dispatch(ActionCreator.enterUser(convertItem(response.data)));
         } else {
           const errorObject = JSON.parse(JSON.stringify(response));
-          // console.log(errorObject.message);
           dispatch(ActionCreator.setErrorLogin(errorObject.message));
         }
       })
       .catch((error) => {
-        // console.log(error.message);
         dispatch(ActionCreator.setErrorLogin(error.message));
       });
   },
@@ -208,12 +210,12 @@ const Operation = {
           return response;
         } else {
           const errorObject = JSON.parse(JSON.stringify(response));
-          dispatch(ActionCreator.setError(errorObject.message));
-          return response;
+          dispatch(ActionCreator.setErrorReview(errorObject.message));
+          return null;
         }
       })
       .catch((error) => {
-        dispatch(ActionCreator.setError(error.message));
+        dispatch(ActionCreator.setErrorReview(error.message));
       });
   },
 
@@ -243,6 +245,10 @@ const reducer = (state = initialState, action) => {
     case SET_ERROR_LOGIN:
       return Object.assign({}, state, {
         errorLogin: action.payload,
+      });
+    case SET_ERROR_REVIEW:
+      return Object.assign({}, state, {
+        errorReview: action.payload,
       });
     case LOAD_FILMS:
       return Object.assign({}, state, {
@@ -296,7 +302,7 @@ const reducer = (state = initialState, action) => {
       });
     case UPLOAD_REVIEW:
       return Object.assign({}, state, {
-        errorLoadingReview: action.payload,
+        errorReview: action.payload,
       });
   }
   return state;

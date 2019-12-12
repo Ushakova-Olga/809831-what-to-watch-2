@@ -17,7 +17,7 @@ it(`Add review form onChande and onSubmit worked correctly`, () => {
     isFormValid={true}
     onChange={handlerChangeForm}
     onSubmit={handlerSubmitForm}
-    errorLoadingReview={``}
+    errorReview={``}
     isBlocking={false} />);
 
   const evt = {currentTarget: {querySelector: (selector) => {
