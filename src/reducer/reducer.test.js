@@ -3,7 +3,7 @@ import configureAPI from "../api";
 import MockAdapter from "axios-mock-adapter";
 import FILMS from "../mocks/films.js";
 
-import {LOAD_FILMS, LOAD_PROMO_FILM, LOAD_COMMENTS, LOAD_FAVORITE_FILMS, CHANGE_IS_AUTHORIZATION_REQUIRED,
+import {SET_ERROR, SET_ERROR_LOGIN, LOAD_FILMS, LOAD_PROMO_FILM, LOAD_COMMENTS, LOAD_FAVORITE_FILMS, CHANGE_IS_AUTHORIZATION_REQUIRED,
   ENTER_USER, SET_GENRE, ADD_COUNT_FILMS, CHANGE_ACTIVE_FILM, CHANGE_FAVORITE, CHANGE_ACTIVE_STATUS} from "../util/constants";
 
 it(`Reducer correctly set a genre`, () => {
@@ -116,6 +116,38 @@ it(`Action creator correctly load promo film`, () => {
         payload: {0: {fake: true}},
       });
     });
+});
+
+it(`Reducer correctly change errorLoading`, () => {
+  expect(
+      reducer(
+          {
+            errorLoading: `error loading`,
+          },
+          {
+            type: SET_ERROR,
+            payload: `error loading`
+          }
+      )
+  ).toEqual({
+    errorLoading: `error loading`,
+  });
+});
+
+it(`Reducer correctly change erorLogin`, () => {
+  expect(
+      reducer(
+          {
+            errorLogin: `error login`,
+          },
+          {
+            type: SET_ERROR_LOGIN,
+            payload: `error login`
+          }
+      )
+  ).toEqual({
+    errorLogin: `error login`,
+  });
 });
 
 it(`Reducer correctly change isAuthorizationRequired`, () => {
