@@ -54,11 +54,11 @@ const SignIn = (props) => {
             </div> : ``
           }
           <div className={emailClass}>
-            <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" />
+            <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" required />
             <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
           </div>
           <div className={passwordClass}>
-            <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" />
+            <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" required />
             <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
           </div>
         </div>

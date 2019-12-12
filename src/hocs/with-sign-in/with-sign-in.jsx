@@ -1,5 +1,7 @@
 import React from "react";
 
+const reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
 const withSignIn = (Component) => {
   class WithSignIn extends React.PureComponent {
     constructor(props) {
@@ -10,6 +12,8 @@ const withSignIn = (Component) => {
       this.state = {
         errorEmail: ``,
         errorPassword: ``,
+        email: ``,
+        password: ``,
         isFormValid: false,
       };
     }
@@ -18,6 +22,8 @@ const withSignIn = (Component) => {
       this.setState({
         errorEmail: ``,
         errorPassword: ``,
+        email: ``,
+        password: ``,
         isFormValid: false,
       });
     }
@@ -26,6 +32,8 @@ const withSignIn = (Component) => {
         isFormValid: false,
         errorEmail: ``,
         errorPassword: ``,
+        email: ``,
+        password: ``,
       });
       this._onChange = null;
     }
@@ -35,8 +43,12 @@ const withSignIn = (Component) => {
         let valid = prevState.isFormValid;
         let errorEmail = prevState.errorEmail;
         let errorPassword = prevState.errorPassword;
+        let emailCurrent = prevState.email;
+        let passwordCurrent = prevState.password;
+
         if (email !== ``) {
-          if ((email.indexOf(`@`) <= 0) || (email.length < 4)) {
+          emailCurrent = email;
+          if (reg.test(email) === false) {
             errorEmail = `Введите корректный адрес e-mail`;
           } else {
             errorEmail = ``;
@@ -44,6 +56,7 @@ const withSignIn = (Component) => {
         }
 
         if (password !== ``) {
+          passwordCurrent = password;
           if (password.length < 3) {
             errorPassword = `Количество символов в пароле должно быть более 3-x`;
           } else {
@@ -51,7 +64,7 @@ const withSignIn = (Component) => {
           }
         }
 
-        if ((errorPassword !== ``) || (errorEmail !== ``)) {
+        if ((passwordCurrent.length < 3) || (reg.test(emailCurrent) === false)) {
           valid = false;
         } else {
           valid = true;
@@ -60,6 +73,8 @@ const withSignIn = (Component) => {
         return {
           errorEmail,
           errorPassword,
+          email: emailCurrent,
+          password: passwordCurrent,
           isFormValid: valid
         };
       });
